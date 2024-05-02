@@ -4,6 +4,7 @@
         android:id="@+id/home"
         android:icon="@drawable/ic_home"
         android:title="@string/bottom_nav_home"
+
         />
     <item
         android:id="@+id/catalog"
