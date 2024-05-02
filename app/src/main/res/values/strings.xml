@@ -3,6 +3,9 @@
     <string name="bottom_nav_home">Главная</string>
     <string name="bottom_nav_catalog">Каталог</string>
     <string name="bottom_nav_bookmark">Закладки</string>
+
+    <string name="query_hint">Поиск</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="change_theme_icon_description">Смена темы</string>
 </resources>

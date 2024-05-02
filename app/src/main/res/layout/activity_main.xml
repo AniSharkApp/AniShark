@@ -5,24 +5,41 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/top_app_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary"
+        android:background="@color/background"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        >
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_search_bar_light"
+            app:closeIcon="@drawable/ic_close_search_bar"
+            app:iconifiedByDefault="false"
+            app:queryHint="@string/query_hint"
+            app:searchIcon="@drawable/ic_search"
+            app:submitBackground="@drawable/bg_search_bar_light" />
+    </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_above="@+id/bottom_nav_bar"
+        android:background="@color/background"
+        android:backgroundTint="@color/background"
         app:layout_constraintTop_toBottomOf="@+id/top_app_bar" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -31,7 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background"
-        android:backgroundTint="@color/background"
+        android:backgroundTintMode="add"
+        app:backgroundTint="@color/background"
         app:itemIconTint="@drawable/bottom_nav_selector"
         app:itemTextColor="@drawable/bottom_nav_selector"
         app:layout_constraintBottom_toBottomOf="parent"
