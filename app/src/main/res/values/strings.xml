@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AniShark</string>
+    <string name="bottom_nav_home">Главная</string>
+    <string name="bottom_nav_catalog">Каталог</string>
+    <string name="bottom_nav_bookmark">Закладки</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
