@@ -8,4 +8,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="change_theme_icon_description">Смена темы</string>
+    <string name="home_actual_of_season">Актуальное сезона</string>
+    <string name="home_tops">Топы</string>
 </resources>

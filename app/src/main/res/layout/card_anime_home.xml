@@ -3,10 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="160dp"
-    android:layout_height="240dp"
+    android:layout_height="222dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="26dp"
-    android:layout_margin="8dp">
+    android:layout_margin="6dp"
+    app:cardElevation="6dp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,7 +15,7 @@
             android:id="@+id/card_iv"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:contentDescription="TODO"
+            android:importantForAccessibility="no"
             app:layout_constraintBottom_toTopOf="@id/card_guideline"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +26,7 @@
             android:id="@+id/anime_name_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="14sp"
             tools:text="Необъятный океан"
             android:ellipsize="end"
             android:maxLines="1"
@@ -34,27 +35,31 @@
             android:id="@+id/episodes_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="11sp"
             tools:text="24 эп" />
         <TextView
             android:id="@+id/rating_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textAlignment="viewStart"
             app:layout_constraintTop_toTopOf="@id/flow_only_rating"
             app:layout_constraintBottom_toBottomOf="@id/flow_only_rating"
-            android:textSize="14sp"
+            android:textSize="11sp"
             tools:text="4.5" />
+
         <ImageView
             android:id="@+id/star_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:importantForAccessibility="no"
             android:src="@drawable/ic_star"
-            app:tint="#FFD600"
-            />
+            app:tint="#FFF500" />
         <androidx.constraintlayout.helper.widget.Flow
             android:id="@+id/flow_episodes_rating"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            app:flow_verticalBias="0.5"
+            app:flow_verticalAlign="center"
             android:orientation="horizontal"
             app:constraint_referenced_ids="episodes_tv,flow_only_rating"
             />
@@ -62,8 +67,10 @@
             android:id="@+id/flow_only_rating"
             android:layout_width="0dp"
             android:orientation="horizontal"
-            app:flow_horizontalGap="4dp"
-            android:layout_height="wrap_content"
+            app:flow_horizontalGap="2dp"
+            app:flow_verticalBias="0.5"
+            app:flow_verticalAlign="center"
+            android:layout_height="0dp"
             app:constraint_referenced_ids="star_iv,rating_tv"
             />
         <androidx.constraintlayout.helper.widget.Flow
@@ -74,7 +81,7 @@
             android:layout_marginVertical="6dp"
             android:orientation="vertical"
             app:flow_verticalStyle="packed"
-            app:flow_verticalGap="6dp"
+            app:flow_verticalGap="4dp"
             app:constraint_referenced_ids="anime_name_tv,flow_episodes_rating"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/card_guideline"
@@ -85,7 +92,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.75"
-            />
+            app:layout_constraintGuide_percent="0.75" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
