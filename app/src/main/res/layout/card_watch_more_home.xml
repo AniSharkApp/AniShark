@@ -14,17 +14,19 @@
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/show_more_iv"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
             android:importantForAccessibility="no"
             android:src="@drawable/ic_show_more"/>
+
         <TextView
             android:id="@+id/show_more_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/home_show_more"
-            android:textSize="24sp"
-            android:textColor="@color/primary"/>
+            android:textColor="@color/primary"
+            android:textSize="20sp" />
         <androidx.constraintlayout.helper.widget.Flow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
