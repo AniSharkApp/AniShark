@@ -14,7 +14,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/home_actual_of_season"
-            android:textSize="18sp"
+            android:textSize="@dimen/home_section_heading_text_size"
             android:fontFamily="sans-serif-medium"
             android:paddingHorizontal="28dp"/>
 
@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/home_tops"
-            android:textSize="18sp"
+            android:textSize="@dimen/home_section_heading_text_size"
             android:fontFamily="sans-serif-medium"
             android:paddingHorizontal="28dp"/>
 
@@ -49,7 +49,7 @@
             android:orientation="vertical"
             app:flow_verticalAlign="top"
             app:flow_verticalBias="0.0"
-            app:flow_verticalGap="9dp"
+            app:flow_verticalGap="@dimen/home_gap_tv_rv"
             app:flow_verticalStyle="packed"
             app:constraint_referenced_ids="actual_tv,actual_rv"/>
         <androidx.constraintlayout.helper.widget.Flow
@@ -59,7 +59,7 @@
             android:orientation="vertical"
             app:flow_verticalAlign="top"
             app:flow_verticalBias="0.0"
-            app:flow_verticalGap="9dp"
+            app:flow_verticalGap="@dimen/home_gap_tv_rv"
             app:flow_verticalStyle="packed"
             app:constraint_referenced_ids="tops_tv,tops_rv"/>
         <androidx.constraintlayout.helper.widget.Flow
@@ -69,7 +69,7 @@
             app:constraint_referenced_ids="actual_flow,tops_flow"
             app:flow_verticalAlign="top"
             app:flow_verticalBias="0.0"
-            app:flow_verticalGap="11dp"
+            app:flow_verticalGap="@dimen/home_gap_sections"
             app:flow_verticalStyle="packed"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

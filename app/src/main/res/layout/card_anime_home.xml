@@ -49,8 +49,8 @@
 
         <ImageView
             android:id="@+id/star_iv"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
+            android:layout_width="@dimen/home_star_icon_size"
+            android:layout_height="@dimen/home_star_icon_size"
             android:importantForAccessibility="no"
             android:src="@drawable/ic_star"
             app:tint="#FFF500" />
