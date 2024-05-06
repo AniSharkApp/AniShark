@@ -10,4 +10,5 @@
     <string name="change_theme_icon_description">Смена темы</string>
     <string name="home_actual_of_season">Актуальное сезона</string>
     <string name="home_tops">Топы</string>
+    <string name="home_show_more">Больше</string>
 </resources>
