@@ -1,26 +1,24 @@
 package ru.anishark.app
 
-import androidx.fragment.app.Fragment
 import android.os.Bundle
-import android.transition.TransitionManager
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.search.SearchBar
+import ru.anishark.app.databinding.ActivityMainBinding
 import ru.anishark.app.fragments.BookmarkFragment
 import ru.anishark.app.fragments.CatalogFragment
 import ru.anishark.app.fragments.HomeFragment
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.top_app_bar))
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.topAppBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -30,9 +28,8 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         loadFragment(HomeFragment())
-        // TODO: сделать реализацию navigation по человечески 
-        val bottomNav: BottomNavigationView = findViewById(R.id.bottom_nav_bar)
-        bottomNav.setOnItemSelectedListener { fragment ->
+        // TODO: сделать реализацию navigation по человечески
+        binding.bottomNavBar.setOnItemSelectedListener { fragment ->
             when(fragment.itemId) {
                 R.id.home -> {
                     loadFragment(HomeFragment())
