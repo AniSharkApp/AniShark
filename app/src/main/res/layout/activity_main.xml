@@ -40,7 +40,8 @@
         android:layout_above="@+id/bottom_nav_bar"
         android:background="@color/background"
         android:backgroundTint="@color/background"
-        app:layout_constraintTop_toBottomOf="@+id/top_app_bar" />
+        app:layout_constraintTop_toBottomOf="@+id/top_app_bar"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav_bar"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_bar"
