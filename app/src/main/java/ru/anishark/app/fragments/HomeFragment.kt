@@ -12,7 +12,7 @@ import ru.anishark.app.databinding.FragmentHomeBinding
 import ru.anishark.app.feature.home.recycler.HomeAnimeListAdapter
 
 class HomeFragment : Fragment() {
-
+    private lateinit var binding: FragmentHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -21,17 +21,17 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         with(binding) {
             topsRv.adapter = HomeAnimeListAdapter()
             topsRv.layoutManager = LinearLayoutManager(
-                this@HomeFragment.context,
+                topsRv.context,
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
             actualRv.adapter = HomeAnimeListAdapter()
             actualRv.layoutManager = LinearLayoutManager(
-                this@HomeFragment.context,
+                actualRv.context,
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
