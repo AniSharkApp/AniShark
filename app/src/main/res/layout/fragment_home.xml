@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".fragments.HomeFragment">
+        <TextView
+            android:id="@+id/actual_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/home_actual_of_season"
+            android:textSize="@dimen/home_section_heading_text_size"
+            android:fontFamily="sans-serif-medium"
+            android:paddingHorizontal="28dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/actual_rv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="18dp"
+            android:paddingBottom="12dp"
+            android:clipToPadding="false" />
+
+        <TextView
+            android:id="@+id/tops_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/home_tops"
+            android:textSize="@dimen/home_section_heading_text_size"
+            android:fontFamily="sans-serif-medium"
+            android:paddingHorizontal="28dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tops_rv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="18dp"
+            android:paddingBottom="12dp"
+            android:clipToPadding="false"/>
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/actual_flow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:flow_verticalAlign="top"
+            app:flow_verticalBias="0.0"
+            app:flow_verticalGap="@dimen/home_gap_tv_rv"
+            app:flow_verticalStyle="packed"
+            app:constraint_referenced_ids="actual_tv,actual_rv"/>
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/tops_flow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:flow_verticalAlign="top"
+            app:flow_verticalBias="0.0"
+            app:flow_verticalGap="@dimen/home_gap_tv_rv"
+            app:flow_verticalStyle="packed"
+            app:constraint_referenced_ids="tops_tv,tops_rv"/>
+        <androidx.constraintlayout.helper.widget.Flow
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_marginTop="12dp"
+            app:constraint_referenced_ids="actual_flow,tops_flow"
+            app:flow_verticalAlign="top"
+            app:flow_verticalBias="0.0"
+            app:flow_verticalGap="@dimen/home_gap_sections"
+            app:flow_verticalStyle="packed"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
