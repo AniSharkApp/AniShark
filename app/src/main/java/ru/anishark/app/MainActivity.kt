@@ -1,20 +1,31 @@
 package ru.anishark.app
 
+
+import ru.anishark.app.R
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.anishark.app.databinding.ActivityMainBinding
+import androidx.fragment.app.Fragment
+
+
 import ru.anishark.app.fragments.BookmarkFragment
 import ru.anishark.app.fragments.CatalogFragment
 import ru.anishark.app.fragments.HomeFragment
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
