@@ -1,7 +1,6 @@
-package ru.anishark.app.feature.home.recycler
+package ru.anishark.app.presentation.home.recycler
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
@@ -10,26 +9,33 @@ import ru.anishark.app.R
 import ru.anishark.app.databinding.CardAnimeHomeBinding
 import ru.anishark.app.databinding.CardWatchMoreHomeBinding
 
-class AnimeModel(
-    val name: String,
-    val episodesCount: Int
-)
 
 class HomeAnimeListAdapter(
-    val data: List<AnimeModel> = MutableList(10) { it -> AnimeModel(name = "Anime ${it + 1}", episodesCount = it) }
+    val data: List<AnimeModelForHome> = MutableList(10) { it ->
+        AnimeModelForHome(
+            name = "Anime ${it + 1}",
+            episodesCount = it
+        )
+    }
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class MoreViewHolder(
         val binding: CardWatchMoreHomeBinding
     ) : RecyclerView.ViewHolder(binding.root)
+
     class AnimeViewHolder(
         val binding: CardAnimeHomeBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(model: AnimeModel) {
+        fun bind(model: AnimeModelForHome) {
             binding.animeNameTv.text = model.name
             binding.episodesTv.text = "${model.episodesCount + 1} эп"
             binding.ratingTv.text = "4.5"
-            binding.cardIv.setImageDrawable(AppCompatResources.getDrawable(this.itemView.context, R.drawable.default_anime_image))
+            binding.cardIv.setImageDrawable(
+                AppCompatResources.getDrawable(
+                    this.itemView.context,
+                    R.drawable.default_anime_image
+                )
+            )
         }
     }
 
@@ -42,7 +48,8 @@ class HomeAnimeListAdapter(
         viewType: Int
     ): RecyclerView.ViewHolder {
         if (viewType == WATCH_MORE_CARD_TYPE) {
-            val watchMoreBinding = CardWatchMoreHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            val watchMoreBinding =
+                CardWatchMoreHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return MoreViewHolder(watchMoreBinding)
         }
         val animeCardViewBinding =

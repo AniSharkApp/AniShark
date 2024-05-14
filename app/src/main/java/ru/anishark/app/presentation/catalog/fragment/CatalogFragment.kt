@@ -1,4 +1,4 @@
-package ru.anishark.app.fragments
+package ru.anishark.app.presentation.catalog.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,11 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import ru.anishark.app.R
 import ru.anishark.app.databinding.FragmentCatalogBinding
-import ru.anishark.app.databinding.FragmentHomeBinding
-import ru.anishark.app.feature.catalog.recycler.CatalogAnimeListAdapter
-import ru.anishark.app.feature.home.recycler.HomeAnimeListAdapter
+import ru.anishark.app.presentation.catalog.recycler.CatalogAnimeListAdapter
+import ru.anishark.app.presentation.home.fragment.HomeFragment
 
 class CatalogFragment : Fragment() {
     private lateinit var binding: FragmentCatalogBinding
