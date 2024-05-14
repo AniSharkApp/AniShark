@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import ru.anishark.app.databinding.FragmentHomeBinding
 import ru.anishark.app.presentation.home.recycler.HomeAnimeListAdapter
+import javax.inject.Inject
 
-class HomeFragment : Fragment() {
+@AndroidEntryPoint
+class HomeFragment @Inject constructor(): Fragment() {
     private lateinit var binding: FragmentHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +38,5 @@ class HomeFragment : Fragment() {
             )
         }
         return binding.root
-    }
-
-    companion object {
-        // TODO: Закинуть в Dagger
-        @JvmStatic
-        fun newInstance() = HomeFragment()
     }
 }

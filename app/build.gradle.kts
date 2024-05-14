@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.dagger.hilt)
 }
 
 android {
@@ -39,8 +41,14 @@ android {
 }
 
 dependencies {
+    // MultiDex - for Dagger
+    implementation(libs.androidx.multidex)
+
     // Core Splashscreen API
     implementation(libs.androidx.core.splashscreen)
+
+    implementation(libs.dagger.hiltAndroid)
+    kapt(libs.dagger.hiltAndroidCompiler)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
