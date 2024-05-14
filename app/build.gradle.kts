@@ -39,8 +39,8 @@ android {
 }
 
 dependencies {
-
-    implementation("androidx.core:core-splashscreen:1.0.1")
+    // Core Splashscreen API
+    implementation(libs.androidx.core.splashscreen)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
