@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.serialization)
 }
 
 android {
@@ -41,6 +42,14 @@ android {
 }
 
 dependencies {
+    // OkHttp
+    implementation(libs.okhttp)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.kotlinxConverter)
+    implementation(libs.kotlinx.serialization.json)
+
     // MultiDex - for Dagger
     implementation(libs.androidx.multidex)
 
