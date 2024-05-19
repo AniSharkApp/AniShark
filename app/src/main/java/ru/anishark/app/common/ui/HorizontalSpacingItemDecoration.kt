@@ -41,15 +41,17 @@ class HorizontalSpacingItemDecoration(
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
+        val adapter = parent.adapter ?: return
         outRect.top = getPixelsFromDimensityIndependentPixels(topPadding)
         outRect.bottom = getPixelsFromDimensityIndependentPixels(bottomPadding)
-        when (parent.getChildAdapterPosition(view)) {
+        val position = parent.getChildAdapterPosition(view)
+        when (position) {
             // Первый
             0 -> {
                 outRect.left = getPixelsFromDimensityIndependentPixels(startPadding)
             }
             // Последний
-            parent.adapter!!.getItemCount() - 1 -> {
+            adapter.getItemCount() - 1 -> {
                 outRect.right = getPixelsFromDimensityIndependentPixels(endPadding)
 
             }

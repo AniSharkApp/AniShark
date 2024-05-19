@@ -40,15 +40,17 @@ class VerticalSpacingItemDecoration(
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
+        val adapter = parent.adapter ?: return
         outRect.left = getPixelsFromDimensityIndependentPixels(startPadding)
         outRect.right = getPixelsFromDimensityIndependentPixels(endPadding)
-        when (parent.getChildAdapterPosition(view)) {
+        val position = parent.getChildAdapterPosition(view)
+        when (position) {
             // Первый
             0 -> {
                 outRect.top = getPixelsFromDimensityIndependentPixels(topPadding)
             }
             // Последний
-            parent.adapter!!.getItemCount() - 1 -> {
+            adapter.getItemCount() - 1 -> {
                 outRect.bottom = getPixelsFromDimensityIndependentPixels(bottomPadding)
 
             }
