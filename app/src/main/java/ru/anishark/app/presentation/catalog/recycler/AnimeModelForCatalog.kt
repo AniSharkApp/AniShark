@@ -1,4 +1,4 @@
-package ru.anishark.app.feature.catalog.recycler
+package ru.anishark.app.presentation.catalog.recycler
 
 class AnimeModelForCatalog(
     val name: String,

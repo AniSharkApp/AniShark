@@ -1,19 +1,24 @@
-package ru.anishark.app.fragments
+package ru.anishark.app.presentation.catalog.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import ru.anishark.app.R
+import dagger.hilt.android.AndroidEntryPoint
 import ru.anishark.app.databinding.FragmentCatalogBinding
-import ru.anishark.app.databinding.FragmentHomeBinding
-import ru.anishark.app.feature.catalog.recycler.CatalogAnimeListAdapter
-import ru.anishark.app.feature.home.recycler.HomeAnimeListAdapter
+import ru.anishark.app.presentation.catalog.recycler.CatalogAnimeListAdapter
+import ru.anishark.app.presentation.catalog.viewmodel.CatalogViewModel
+import javax.inject.Inject
 
-class CatalogFragment : Fragment() {
+@AndroidEntryPoint
+class CatalogFragment @Inject constructor(): Fragment() {
+    private val vm: CatalogViewModel by viewModels()
+
     private lateinit var binding: FragmentCatalogBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -28,11 +33,5 @@ class CatalogFragment : Fragment() {
             catalogRv.layoutManager = LinearLayoutManager(catalogRv.context)
         }
         return binding.root
-    }
-
-    companion object {
-        // TODO: Закинуть в Dagger
-        @JvmStatic
-        fun newInstance() = HomeFragment()
     }
 }

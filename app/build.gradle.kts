@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.serialization)
 }
 
 android {
@@ -39,8 +42,24 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.fragment.ktx)
+
+    // OkHttp
+    implementation(libs.okhttp)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.kotlinxConverter)
+    implementation(libs.kotlinx.serialization.json)
+
+    // MultiDex - for Dagger
+    implementation(libs.androidx.multidex)
+
     // Core Splashscreen API
     implementation(libs.androidx.core.splashscreen)
+
+    implementation(libs.dagger.hiltAndroid)
+    kapt(libs.dagger.hiltAndroidCompiler)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
