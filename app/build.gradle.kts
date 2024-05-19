@@ -42,6 +42,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.fragment.ktx)
+
     // OkHttp
     implementation(libs.okhttp)
 
