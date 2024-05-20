@@ -47,9 +47,9 @@ data class AnimeDTO(
     @SerialName("synopsis")
     val synopsis: String,
     @SerialName("background")
-    val background: String,
+    val background: String?,
     @SerialName("season")
-    val season: String,
+    val season: String?,
     @SerialName("year")
-    val year: Int
+    val year: Int?
 )

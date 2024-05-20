@@ -1,5 +1,6 @@
 package ru.anishark.app.data.di
 
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,12 +11,20 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import ru.anishark.app.data.datasource.AnimeDataSource
+import ru.anishark.app.data.datasource.RecommendationsDataSource
+import ru.anishark.app.data.datasource.SeasonsDataSource
+import ru.anishark.app.data.datasource.TopDataSource
+import ru.anishark.app.data.di.annotation.Remote
 import ru.anishark.app.data.remote.RemoteConstants.BASE_URL
-import ru.anishark.app.data.remote.RemoteDataSource
 import ru.anishark.app.data.remote.api.AnimeService
 import ru.anishark.app.data.remote.api.RecommendationsService
 import ru.anishark.app.data.remote.api.SeasonsService
 import ru.anishark.app.data.remote.api.TopService
+import ru.anishark.app.data.remote.datasource.RemoteAnimeDataSourceImpl
+import ru.anishark.app.data.remote.datasource.RemoteRecommendationsDataSourceImpl
+import ru.anishark.app.data.remote.datasource.RemoteSeasonsDataSourceImpl
+import ru.anishark.app.data.remote.datasource.RemoteTopDataSourceImpl
 import javax.inject.Singleton
 
 @Module
@@ -74,14 +83,36 @@ class RemoteDataSourceModule {
         retrofit: Retrofit
     ): TopService = retrofit.create(TopService::class.java)
 
-    @Provides
-    @Singleton
-    fun provideRemoteDataSource(
-        animeService: AnimeService,
-        recommendationsService: RecommendationsService,
-        seasonsService: SeasonsService,
-        topService: TopService
-    ): RemoteDataSource {
-        return RemoteDataSource(animeService, seasonsService, recommendationsService, topService)
+
+    @Module
+    @InstallIn(SingletonComponent::class)
+    abstract class BindsModule {
+        @Binds
+        @Singleton
+        @Remote
+        abstract fun bindRemoteAnimeDataSource(
+            impl: RemoteAnimeDataSourceImpl
+        ): AnimeDataSource
+
+        @Binds
+        @Singleton
+        @Remote
+        abstract fun bindRemoteRecommendationsDataSource(
+            impl: RemoteRecommendationsDataSourceImpl
+        ): RecommendationsDataSource
+
+        @Binds
+        @Singleton
+        @Remote
+        abstract fun bindRemoteSeasonsDataSource(
+            impl: RemoteSeasonsDataSourceImpl
+        ): SeasonsDataSource
+
+        @Binds
+        @Singleton
+        @Remote
+        abstract fun bindRemoteTopDataSource(
+            impl: RemoteTopDataSourceImpl
+        ): TopDataSource
     }
 }
