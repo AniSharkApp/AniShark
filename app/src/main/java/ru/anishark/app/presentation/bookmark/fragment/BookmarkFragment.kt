@@ -12,7 +12,7 @@ import ru.anishark.app.presentation.bookmark.viewmodel.BookmarkViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BookmarkFragment @Inject constructor() : Fragment() {
+class BookmarkFragment : Fragment() {
     private val vm: BookmarkViewModel by viewModels()
 
     // TODO: Rename and change types of parameters

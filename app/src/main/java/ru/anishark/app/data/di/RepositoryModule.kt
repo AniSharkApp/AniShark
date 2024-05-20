@@ -17,33 +17,28 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class RepositoryModule {
+abstract class RepositoryModule {
+    @Binds
+    @Singleton
+    abstract fun bindAnimeRepository(
+        impl: AnimeRepositoryImpl
+    ): AnimeRepository
 
-    @Module
-    @InstallIn(SingletonComponent::class)
-    abstract class Bindings {
-        @Binds
-        @Singleton
-        abstract fun bindAnimeRepository(
-            impl: AnimeRepositoryImpl
-        ): AnimeRepository
+    @Binds
+    @Singleton
+    abstract fun bindRecommendationsRepository(
+        impl: RecommendationsRepositoryImpl
+    ): RecommendationsRepository
 
-        @Binds
-        @Singleton
-        abstract fun bindRecommendationsRepository(
-            impl: RecommendationsRepositoryImpl
-        ): RecommendationsRepository
+    @Binds
+    @Singleton
+    abstract fun bindSeasonsRepository(
+        impl: SeasonsRepositoryImpl
+    ): SeasonsRepository
 
-        @Binds
-        @Singleton
-        abstract fun bindSeasonsRepository(
-            impl: SeasonsRepositoryImpl
-        ): SeasonsRepository
-
-        @Binds
-        @Singleton
-        abstract fun bindTopRepository(
-            impl: TopRepositoryImpl
-        ): TopRepository
-    }
+    @Binds
+    @Singleton
+    abstract fun bindTopRepository(
+        impl: TopRepositoryImpl
+    ): TopRepository
 }

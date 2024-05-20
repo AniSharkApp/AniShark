@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BookmarkViewModel @Inject constructor(
-    private val state: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
 }

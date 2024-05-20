@@ -14,7 +14,7 @@ import ru.anishark.app.presentation.catalog.viewmodel.CatalogViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CatalogFragment @Inject constructor(): Fragment() {
+class CatalogFragment: Fragment() {
     private val vm: CatalogViewModel by viewModels()
 
     private lateinit var binding: FragmentCatalogBinding
