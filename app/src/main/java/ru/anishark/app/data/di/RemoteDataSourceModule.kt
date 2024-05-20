@@ -6,7 +6,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
+import retrofit2.Converter
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import ru.anishark.app.data.remote.RemoteConstants.BASE_URL
 import ru.anishark.app.data.remote.RemoteDataSource
@@ -27,11 +29,25 @@ class RemoteDataSourceModule {
 
     @Provides
     @Singleton
+    fun createRxJavaCallAdapterFactory(): RxJava3CallAdapterFactory {
+        return RxJava3CallAdapterFactory.create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideJsonConverterFactory(json: Json): Converter.Factory {
+        return json.asConverterFactory("application/json".toMediaType())
+    }
+
+    @Provides
+    @Singleton
     fun provideRetrofit(
-        json: Json
+        rxJava3CallAdapterFactory: RxJava3CallAdapterFactory,
+        jsonConverterFactory: Converter.Factory
     ): Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
-        .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+        .addConverterFactory(jsonConverterFactory)
+        .addCallAdapterFactory(rxJava3CallAdapterFactory)
         .build()
 
     @Provides
