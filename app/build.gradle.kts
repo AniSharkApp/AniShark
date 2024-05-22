@@ -42,6 +42,10 @@ android {
 }
 
 dependencies {
+    //RxJava
+    implementation(libs.rxkotlin)
+    implementation(libs.rxandroid)
+
     implementation(libs.androidx.fragment.ktx)
 
     // OkHttp
@@ -51,6 +55,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.kotlinxConverter)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.adapter.rxjava3)
 
     // MultiDex - for Dagger
     implementation(libs.androidx.multidex)
