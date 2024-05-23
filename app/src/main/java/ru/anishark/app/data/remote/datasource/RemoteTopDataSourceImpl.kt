@@ -18,9 +18,10 @@ class RemoteTopDataSourceImpl @Inject constructor(
                         title = it.titles.first().title,
                         synopsis = it.synopsis,
                         year = it.year ?: 0,
-                        episodes = it.episodes ?: TODO(),
+                        episodes = it.episodes,
                         imageUrl = it.images.jpeg.imageUrl ?: TODO(),
-                        score = it.score
+                        score = it.score,
+                        malId = it.malId
                     )
                 }
             }

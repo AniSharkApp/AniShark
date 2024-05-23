@@ -1,14 +1,16 @@
 <resources>
     <string name="app_name">AniShark</string>
-    <string name="bottom_nav_home">Главная</string>
-    <string name="bottom_nav_catalog">Каталог</string>
-    <string name="bottom_nav_bookmark">Закладки</string>
+    <string name="bottom_nav_home">Home</string>
+    <string name="bottom_nav_catalog">Catalog</string>
+    <string name="bottom_nav_bookmark">Bookmarks</string>
 
-    <string name="query_hint">Поиск</string>
+    <string name="query_hint">Search</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="change_theme_icon_description">Смена темы</string>
-    <string name="home_actual_of_season">Актуальное сезона</string>
-    <string name="home_tops">Топы</string>
-    <string name="home_show_more">Больше</string>
+    <string name="home_actual_of_season">Actual of the season</string>
+    <string name="home_tops">Tops</string>
+    <string name="home_show_more">More</string>
+    <string name="episodes">%1$d EP</string>
+    <string name="ongoing">ON</string>
 </resources>

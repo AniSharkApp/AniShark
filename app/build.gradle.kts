@@ -42,6 +42,9 @@ android {
 }
 
 dependencies {
+    // Coil
+    implementation(libs.coil)
+
     //RxJava
     implementation(libs.rxkotlin)
     implementation(libs.rxandroid)

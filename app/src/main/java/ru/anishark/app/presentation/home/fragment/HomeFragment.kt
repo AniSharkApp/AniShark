@@ -13,6 +13,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.schedulers.Schedulers
+import ru.anishark.app.common.ui.HorizontalSpacingItemDecoration
 import ru.anishark.app.common.ui.disposeOnDestroy
 import ru.anishark.app.databinding.FragmentHomeBinding
 import ru.anishark.app.presentation.home.recycler.HomeAnimeListAdapter
@@ -24,6 +25,8 @@ class HomeFragment : Fragment() {
 
     private val topsAdapter = HomeAnimeListAdapter()
     private val actualAdapter = HomeAnimeListAdapter()
+    // TODO использовать dimens ресурс
+    private val itemDecoration = HorizontalSpacingItemDecoration(0f, 12f)
 
     private val disposable = CompositeDisposable()
 
@@ -49,16 +52,20 @@ class HomeFragment : Fragment() {
             topsRv.layoutManager = LinearLayoutManager(
                 topsRv.context, LinearLayoutManager.HORIZONTAL, false
             )
+            topsRv.addItemDecoration(itemDecoration)
             actualRv.adapter = actualAdapter
             actualRv.layoutManager = LinearLayoutManager(
                 actualRv.context, LinearLayoutManager.HORIZONTAL, false
             )
+            actualRv.addItemDecoration(itemDecoration)
             disposable += vm.topsState
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
+                        val topsRVState = topsRv.layoutManager?.onSaveInstanceState()
                         topsAdapter.dataLoaded(it)
+                        topsRv.layoutManager?.onRestoreInstanceState(topsRVState)
                     },
                     {
                         Log.e("APP", "${it.message}\n\n${Log.getStackTraceString(it)}")
@@ -70,7 +77,9 @@ class HomeFragment : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
+                        val actualRVState = actualRv.layoutManager?.onSaveInstanceState()
                         actualAdapter.dataLoaded(it)
+                        actualRv.layoutManager?.onRestoreInstanceState(actualRVState)
                     },
                     {
                         Log.e("APP", "${it.message}\n\n${Log.getStackTraceString(it)}")
