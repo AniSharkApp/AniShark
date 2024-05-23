@@ -5,12 +5,4 @@ import kotlin.annotation.AnnotationRetention.RUNTIME
 
 @Qualifier
 @Retention(RUNTIME)
-annotation class Remote
-
-@Qualifier
-@Retention(RUNTIME)
-annotation class Local
-
-@Qualifier
-@Retention(RUNTIME)
 annotation class Mock

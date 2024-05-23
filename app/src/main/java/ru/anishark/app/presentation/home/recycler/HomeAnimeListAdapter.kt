@@ -1,16 +1,17 @@
 package ru.anishark.app.presentation.home.recycler
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import ru.anishark.app.R
 import ru.anishark.app.databinding.CardAnimeHomeBinding
 import ru.anishark.app.databinding.CardWatchMoreHomeBinding
 import ru.anishark.app.databinding.LayoutErrorBinding
 import ru.anishark.app.databinding.LayoutLoadingBinding
 import ru.anishark.app.domain.model.AnimeModel
+import java.util.Locale
 
 
 class HomeAnimeListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -24,17 +25,18 @@ class HomeAnimeListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class AnimeViewHolder(
         val binding: CardAnimeHomeBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SetTextI18n")
         fun bind(model: AnimeModel) {
+            val episodesNumber = with(binding.root.context) {
+                if (model.episodes != null) {
+                    getString(R.string.episodes, model.episodes)
+                } else {
+                    getString(R.string.ongoing)
+                }
+            }
             binding.animeNameTv.text = model.title
-            binding.episodesTv.text = "${model.episodes} эп"
-            binding.ratingTv.text = "${model.score / 2.0}"
-            binding.cardIv.setImageDrawable(
-                AppCompatResources.getDrawable(
-                    this.itemView.context,
-                    R.drawable.default_anime_image
-                )
-            )
+            binding.episodesTv.text = episodesNumber
+            binding.ratingTv.text = String.format(Locale.ROOT, "%.2f",model.score / 2.0).toString()
+            binding.cardIv.load(model.imageUrl)
         }
     }
 
@@ -71,6 +73,7 @@ class HomeAnimeListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 )
                 LoadingViewHolder(loadingBinding)
             }
+
             ERROR_TYPE -> {
                 val errorBinding = LayoutErrorBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -79,6 +82,7 @@ class HomeAnimeListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 )
                 ErrorViewHolder(errorBinding)
             }
+
             WATCH_MORE_CARD_TYPE -> {
                 val watchMoreBinding = CardWatchMoreHomeBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -87,6 +91,7 @@ class HomeAnimeListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 )
                 MoreViewHolder(watchMoreBinding)
             }
+
             else -> {
                 val animeCardViewBinding = CardAnimeHomeBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -98,10 +103,12 @@ class HomeAnimeListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun dataLoaded(data: List<AnimeModel>) {
+        val diffCallback = HomeAnimeListDiffUtilCallback(this.data, data)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        this.data.clear()
         this.data.addAll(data)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun getItemCount(): Int {
@@ -118,10 +125,12 @@ class HomeAnimeListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun loadError(message: String?) {
         errorMessage = message ?: "No error message provided."
-        notifyDataSetChanged()
+        val diffCallback = HomeAnimeListDiffUtilCallback(this.data, data)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        this.data.clear()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     companion object {

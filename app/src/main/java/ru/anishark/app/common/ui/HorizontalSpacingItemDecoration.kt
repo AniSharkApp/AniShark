@@ -49,11 +49,12 @@ class HorizontalSpacingItemDecoration(
             // Первый
             0 -> {
                 outRect.left = getPixelsFromDimensityIndependentPixels(startPadding)
+                outRect.right = getPixelsFromDimensityIndependentPixels(spacing) / 2
             }
             // Последний
             adapter.getItemCount() - 1 -> {
                 outRect.right = getPixelsFromDimensityIndependentPixels(endPadding)
-
+                outRect.left = getPixelsFromDimensityIndependentPixels(spacing) / 2
             }
             // Иной
             else -> {

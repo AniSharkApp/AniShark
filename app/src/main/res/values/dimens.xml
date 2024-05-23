@@ -4,7 +4,7 @@
     <dimen name="home_show_more_text_size">20sp</dimen>
     <dimen name="home_card_margin">6dp</dimen>
     <dimen name="home_star_icon_size">12dp</dimen>
-    <dimen name="home_gap_tv_rv">9dp</dimen>
+    <dimen name="home_gap_tv_rv">14dp</dimen>
     <dimen name="home_gap_sections">11dp</dimen>
     <dimen name="home_section_heading_text_size">18sp</dimen>
 </resources>

@@ -16,7 +16,7 @@
             android:text="@string/home_actual_of_season"
             android:textSize="@dimen/home_section_heading_text_size"
             android:fontFamily="sans-serif-medium"
-            android:paddingHorizontal="28dp"/>
+            android:paddingHorizontal="24dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/actual_rv"
@@ -33,7 +33,7 @@
             android:text="@string/home_tops"
             android:textSize="@dimen/home_section_heading_text_size"
             android:fontFamily="sans-serif-medium"
-            android:paddingHorizontal="28dp"/>
+            android:paddingHorizontal="24dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tops_rv"
