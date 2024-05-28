@@ -17,6 +17,7 @@ multidex = "2.0.1"
 okhttp = "4.12.0"
 retrofit = "2.11.0"
 kotlinx-serialization = "1.6.3"
+roomRuntime = "2.6.1"
 rxandroid = "3.0.2"
 rxkotlin = "3.0.1"
 
@@ -25,6 +26,7 @@ adapter-rxjava3 = { module = "com.squareup.retrofit2:adapter-rxjava3", version.r
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
