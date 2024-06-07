@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import dagger.Provides
 import ru.anishark.app.data.db.items.BookmarkAnime
 
 @Dao
