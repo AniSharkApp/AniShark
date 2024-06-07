@@ -10,6 +10,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import ru.anishark.app.R
+import ru.anishark.app.databinding.ActivityAnimeBinding
 import ru.anishark.app.databinding.ActivityMainBinding
 import ru.anishark.app.presentation.bookmark.fragment.BookmarkFragment
 import ru.anishark.app.presentation.catalog.fragment.CatalogFragment
