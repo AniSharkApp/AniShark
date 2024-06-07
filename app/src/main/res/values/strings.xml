@@ -13,4 +13,9 @@
     <string name="home_show_more">More</string>
     <string name="episodes">%1$d EP</string>
     <string name="ongoing">ON</string>
+    <string name="anime_screen_episodes_text">%1$d episodes</string>
+    <string name="anime_screen_season_text">Season: %1$s</string>
+    <string name="anime_screen_studio_text">Studio: %1$s</string>
+    <string name="anime_screen_description_title">Description</string>
+    <string name="anime_screen_trailer_title">Trailer</string>
 </resources>
