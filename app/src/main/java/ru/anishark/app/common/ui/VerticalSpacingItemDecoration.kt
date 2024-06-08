@@ -48,10 +48,12 @@ class VerticalSpacingItemDecoration(
             // Первый
             0 -> {
                 outRect.top = getPixelsFromDimensityIndependentPixels(topPadding)
+                outRect.bottom = getPixelsFromDimensityIndependentPixels(spacing) / 2
             }
             // Последний
-            adapter.getItemCount() - 1 -> {
+            adapter.itemCount - 1 -> {
                 outRect.bottom = getPixelsFromDimensityIndependentPixels(bottomPadding)
+                outRect.top = getPixelsFromDimensityIndependentPixels(spacing) / 2
 
             }
             // Иной

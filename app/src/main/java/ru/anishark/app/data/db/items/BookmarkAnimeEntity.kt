@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "bookmarks")
-data class BookmarkAnime(
+data class BookmarkAnimeEntity(
     @PrimaryKey
     val animeId: Int,
     val image: String, // TODO: переделать для картинок

@@ -35,7 +35,7 @@ class HomeAnimeListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
             binding.animeNameTv.text = model.title
             binding.episodesTv.text = episodesNumber
-            binding.ratingTv.text = String.format(Locale.ROOT, "%.2f",model.score / 2.0).toString()
+            binding.ratingTv.text = String.format(Locale.ROOT, "%.2f",model.score).toString()
             binding.cardIv.load(model.imageUrl)
         }
     }

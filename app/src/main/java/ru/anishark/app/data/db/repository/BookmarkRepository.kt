@@ -1,7 +1,7 @@
 package ru.anishark.app.data.db.repository
 
 import ru.anishark.app.data.db.dao.BookmarkDAO
-import ru.anishark.app.data.db.items.BookmarkAnime
+import ru.anishark.app.data.db.items.BookmarkAnimeEntity
 import javax.inject.Inject
 
 class BookmarkRepository @Inject constructor(
@@ -11,8 +11,8 @@ class BookmarkRepository @Inject constructor(
 
     suspend fun getBookmark(animeId: Int) = dao.getBookmark(animeId)
 
-    suspend fun insertBookmark(anime: BookmarkAnime) = dao.insertBookmark(anime)
+    suspend fun insertBookmark(anime: BookmarkAnimeEntity) = dao.insertBookmark(anime)
 
-    suspend fun deleteBookmark(anime: BookmarkAnime) = dao.deleteBookmark(anime)
+    suspend fun deleteBookmark(anime: BookmarkAnimeEntity) = dao.deleteBookmark(anime)
 
 }
