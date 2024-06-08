@@ -63,7 +63,8 @@ dependencies {
     implementation(libs.retrofit.kotlinxConverter)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.adapter.rxjava3)
-
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
     // MultiDex - for Dagger
     implementation(libs.androidx.multidex)
 
