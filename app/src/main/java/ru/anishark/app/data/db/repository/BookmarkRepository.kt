@@ -7,12 +7,12 @@ import javax.inject.Inject
 class BookmarkRepository @Inject constructor(
     private val dao: BookmarkDAO
 ) {
-    suspend fun getAll() = dao.getAll()
+    fun getAll() = dao.getAll()
 
-    suspend fun getBookmark(animeId: Int) = dao.getBookmark(animeId)
+    fun getBookmark(animeId: Int) = dao.getBookmark(animeId)
 
-    suspend fun insertBookmark(anime: BookmarkAnimeEntity) = dao.insertBookmark(anime)
+    fun insertBookmark(anime: BookmarkAnimeEntity) = dao.insertBookmark(anime)
 
-    suspend fun deleteBookmark(anime: BookmarkAnimeEntity) = dao.deleteBookmark(anime)
+    fun deleteBookmark(anime: BookmarkAnimeEntity) = dao.deleteBookmark(anime)
 
 }

@@ -5,19 +5,21 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Flowable
 import ru.anishark.app.data.db.items.BookmarkAnimeEntity
 
 @Dao
 interface BookmarkDAO {
     @Query("SELECT * FROM bookmarks")
-    fun getAll() : List<BookmarkAnimeEntity>
+    fun getAll() : Flowable<List<BookmarkAnimeEntity>>
 
     @Query("SELECT * FROM bookmarks WHERE animeId = :animeId")
-    fun getBookmark(animeId: Int): BookmarkAnimeEntity
+    fun getBookmark(animeId: Int): Flowable<BookmarkAnimeEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertBookmark(anime: BookmarkAnimeEntity)
+    fun insertBookmark(anime: BookmarkAnimeEntity): Completable
 
     @Delete
-    fun deleteBookmark(anime: BookmarkAnimeEntity)
+    fun deleteBookmark(anime: BookmarkAnimeEntity): Completable
 }
