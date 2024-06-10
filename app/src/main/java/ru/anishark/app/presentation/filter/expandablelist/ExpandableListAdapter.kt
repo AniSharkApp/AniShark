@@ -6,15 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import android.widget.CheckBox
+import android.widget.ExpandableListView
 import android.widget.TextView
 import android.widget.Toast
 import ru.anishark.app.R
+import ru.anishark.app.presentation.filter.activity.FilterActivity
 
 class ExpandableListAdapter(
     private val context: Context,
-    private val expandableListTitle: List<String>,
-    private val expandableListDetail: HashMap<String, List<String>>
+    private var expandableListTitle: List<String>,
+    private var expandableListDetail: HashMap<String, List<String>>
 ) : BaseExpandableListAdapter() {
+
+    private val checkBoxStates = mutableMapOf<String, MutableMap<Int, Boolean>>()
+
+    init {
+        expandableListTitle.forEach { header ->
+            checkBoxStates[header] = mutableMapOf()
+        }
+    }
 
     override fun getChild(listPosition: Int, expandedListPosition: Int): Any {
         return this.expandableListDetail[this.expandableListTitle[listPosition]]!![expandedListPosition]
@@ -34,15 +44,22 @@ class ExpandableListAdapter(
         var convertView = convertView
         val expandedListText = getChild(listPosition, expandedListPosition) as String
         if (convertView == null) {
-            val layoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val layoutInflater =
+                this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = layoutInflater.inflate(R.layout.filter_child_item, null)
         }
+
         val textView = convertView!!.findViewById<TextView>(R.id.childTextView)
         val checkBox = convertView.findViewById<CheckBox>(R.id.checkBox)
         textView.text = expandedListText
 
-        // Установка слушателя для CheckBox
+        val groupName = expandableListTitle[listPosition]
+        checkBox.setOnCheckedChangeListener(null)
+        checkBox.isChecked = checkBoxStates[groupName]?.get(expandedListPosition) ?: false
+        checkBox.isEnabled = (parent as ExpandableListView).isGroupExpanded(listPosition)
+
         checkBox.setOnCheckedChangeListener { _, isChecked ->
+            checkBoxStates[groupName]?.set(expandedListPosition, isChecked)
             if (isChecked) {
                 Toast.makeText(context, "Checked: $expandedListText", Toast.LENGTH_SHORT).show()
             } else {
@@ -78,7 +95,8 @@ class ExpandableListAdapter(
         var convertView = convertView
         val listTitle = getGroup(listPosition) as String
         if (convertView == null) {
-            val layoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val layoutInflater =
+                this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = layoutInflater.inflate(R.layout.filter_group_item, null)
         }
         val listTitleTextView = convertView!!.findViewById<TextView>(R.id.listTitle)
@@ -92,5 +110,28 @@ class ExpandableListAdapter(
 
     override fun isChildSelectable(listPosition: Int, expandedListPosition: Int): Boolean {
         return true
+    }
+
+    fun enableCheckboxes(groupPosition: Int) {
+        val groupName = expandableListTitle[groupPosition]
+        expandableListDetail[groupName]?.forEachIndexed { index, _ ->
+            checkBoxStates[groupName]?.set(index, checkBoxStates[groupName]?.get(index) ?: false)
+        }
+        notifyDataSetChanged()
+    }
+
+    fun disableCheckboxes(groupPosition: Int) {
+        val groupName = expandableListTitle[groupPosition]
+        expandableListDetail[groupName]?.forEachIndexed { index, _ ->
+            val checkBox =
+                (context as FilterActivity).expandableListView.findViewWithTag<CheckBox>("$groupName:$index")
+            checkBox?.isEnabled = false
+        }
+    }
+
+    fun updateData(newData: HashMap<String, List<String>>) {
+        expandableListDetail = newData
+        expandableListTitle = ArrayList(newData.keys)
+        notifyDataSetChanged()
     }
 }

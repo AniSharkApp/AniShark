@@ -18,11 +18,13 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class FilterActivity : AppCompatActivity() {
 
-    private lateinit var expandableListView: ExpandableListView
+    lateinit var expandableListView: ExpandableListView
     private lateinit var expandableListTitle: List<String>
     private lateinit var expandableListDetail: HashMap<String, List<String>>
     private lateinit var filterBackButton: Button
     var listGenres: ArrayList<String> = ArrayList()
+    private val disposables = CompositeDisposable()
+
     private fun fetchGenres() {
         disposables.add(
             RetrofitInstance.api.getAnimeGenres()
@@ -34,18 +36,20 @@ class FilterActivity : AppCompatActivity() {
                         listGenres.add(genre.name)
                         Log.d("MainActivity", "Genre: ${genre.name}, ID: ${genre.mal_id}")
                     }
+                    // Обновите адаптер после загрузки данных
+                    expandableListDetail = getData()
+                    (expandableListView.expandableListAdapter as ExpandableListAdapter).updateData(expandableListDetail)
                 }, { error ->
                     Log.e("MainActivity", "Error fetching genres", error)
                 })
         )
     }
-    private val disposables = CompositeDisposable()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_filter)
-        lifecycleScope.launch {
-            fetchGenres()
-        }
+        fetchGenres()
+
         expandableListView = findViewById(R.id.expandableListView)
         expandableListDetail = getData()
         expandableListTitle = ArrayList(expandableListDetail.keys)
@@ -53,17 +57,17 @@ class FilterActivity : AppCompatActivity() {
         expandableListView.setAdapter(expandableListAdapter)
 
         filterBackButton = findViewById(R.id.filterBackButton)
-        filterBackButton.setOnClickListener({
+        filterBackButton.setOnClickListener {
             finish()
-        })
+        }
     }
 
     private fun getData(): HashMap<String, List<String>> {
         val expandableListDetail = HashMap<String, List<String>>()
 
         val group1 = listGenres
-        val group2 = RatingItems.values().map{it.ratingName}
-        val group3 = TypeItems.values().map{it.typeName}
+        val group2 = RatingItems.values().map { it.ratingName }
+        val group3 = TypeItems.values().map { it.typeName }
 
         expandableListDetail["Genres:"] = group1
         expandableListDetail["Types:"] = group2
@@ -71,6 +75,7 @@ class FilterActivity : AppCompatActivity() {
 
         return expandableListDetail
     }
+
     override fun onDestroy() {
         super.onDestroy()
         disposables.clear()
