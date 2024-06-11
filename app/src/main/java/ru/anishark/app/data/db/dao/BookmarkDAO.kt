@@ -8,6 +8,7 @@ import androidx.room.Query
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import ru.anishark.app.data.db.items.BookmarkAnimeEntity
+import ru.anishark.app.domain.model.BookmarkModel
 
 @Dao
 interface BookmarkDAO {
@@ -18,8 +19,8 @@ interface BookmarkDAO {
     fun getBookmark(animeId: Int): Flowable<BookmarkAnimeEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertBookmark(anime: BookmarkAnimeEntity): Completable
+    fun insertBookmark(anime: BookmarkModel): Completable
 
     @Delete
-    fun deleteBookmark(anime: BookmarkAnimeEntity): Completable
+    fun deleteBookmark(anime: BookmarkModel): Completable
 }

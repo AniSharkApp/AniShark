@@ -4,7 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ru.anishark.app.data.db.repository.BookmarkRepository
+import ru.anishark.app.data.db.datasource.DatabaseBookmarksDataSource
+import ru.anishark.app.data.repository.BookmarkRepositoryImpl
 import ru.anishark.app.domain.repository.SeasonsRepository
 import ru.anishark.app.domain.repository.TopRepository
 import ru.anishark.app.domain.usecase.DeleteBookmarkCatalogUseCase
@@ -33,24 +34,24 @@ class UseCaseModule {
     @Provides
     @Singleton
     fun provideGetAllBookmarksCatalogUseCase(
-        bookmarksRepository: BookmarkRepository
-    ): GetAllBookmarksCatalogUseCase = GetAllBookmarksCatalogUseCase(bookmarksRepository)
+       bookmarksDataSource: DatabaseBookmarksDataSource
+    ): GetAllBookmarksCatalogUseCase = GetAllBookmarksCatalogUseCase(bookmarksDataSource)
 
     @Provides
     @Singleton
     fun provideGetOneBookmarkCatalogUseCase(
-        bookmarksRepository: BookmarkRepository
-    ): GetOneBookmarkCatalogUseCase = GetOneBookmarkCatalogUseCase(bookmarksRepository)
+        bookmarksDataSource: DatabaseBookmarksDataSource
+    ): GetOneBookmarkCatalogUseCase = GetOneBookmarkCatalogUseCase(bookmarksDataSource)
 
     @Provides
     @Singleton
     fun provideInsertBookmarkCatalogUseCase(
-        bookmarksRepository: BookmarkRepository
-    ): InsertBookmarkCatalogUseCase = InsertBookmarkCatalogUseCase(bookmarksRepository)
+        bookmarksDataSource: DatabaseBookmarksDataSource
+    ): InsertBookmarkCatalogUseCase = InsertBookmarkCatalogUseCase(bookmarksDataSource)
 
     @Provides
     @Singleton
     fun provideDeleteBookmarkCatalogUseCase(
-        bookmarksRepository: BookmarkRepository
-    ): DeleteBookmarkCatalogUseCase = DeleteBookmarkCatalogUseCase(bookmarksRepository)
+        bookmarksDataSource: DatabaseBookmarksDataSource
+    ): DeleteBookmarkCatalogUseCase = DeleteBookmarkCatalogUseCase(bookmarksDataSource)
 }
