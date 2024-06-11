@@ -6,10 +6,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.anishark.app.data.repository.AnimeRepositoryImpl
+import ru.anishark.app.data.repository.BookmarkRepositoryImpl
 import ru.anishark.app.data.repository.RecommendationsRepositoryImpl
 import ru.anishark.app.data.repository.SeasonsRepositoryImpl
 import ru.anishark.app.data.repository.TopRepositoryImpl
 import ru.anishark.app.domain.repository.AnimeRepository
+import ru.anishark.app.domain.repository.BookmarkRepository
 import ru.anishark.app.domain.repository.RecommendationsRepository
 import ru.anishark.app.domain.repository.SeasonsRepository
 import ru.anishark.app.domain.repository.TopRepository
@@ -41,4 +43,10 @@ abstract class RepositoryModule {
     abstract fun bindTopRepository(
         impl: TopRepositoryImpl
     ): TopRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindBookmarksRepository(
+        impl: BookmarkRepositoryImpl
+    ): BookmarkRepository
 }
