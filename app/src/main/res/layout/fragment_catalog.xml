@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:background="#00475D92"
-            android:text="Фильтр"
+            android:text="Filter"
             android:textColor="#475D92"
             android:textSize="18sp"
             android:textStyle="bold"

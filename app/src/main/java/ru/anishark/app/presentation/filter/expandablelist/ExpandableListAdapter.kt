@@ -19,6 +19,9 @@ class ExpandableListAdapter(
 ) : BaseExpandableListAdapter() {
 
     private val checkBoxStates = mutableMapOf<String, MutableMap<Int, Boolean>>()
+    val selectedRatings = mutableSetOf<String>()
+    val selectedTypes = mutableSetOf<String>()
+    val selectedGenres = mutableSetOf<String>()
 
     init {
         expandableListTitle.forEach { header ->
@@ -44,8 +47,7 @@ class ExpandableListAdapter(
         var convertView = convertView
         val expandedListText = getChild(listPosition, expandedListPosition) as String
         if (convertView == null) {
-            val layoutInflater =
-                this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val layoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = layoutInflater.inflate(R.layout.filter_child_item, null)
         }
 
@@ -62,8 +64,22 @@ class ExpandableListAdapter(
             checkBoxStates[groupName]?.set(expandedListPosition, isChecked)
             if (isChecked) {
                 Toast.makeText(context, "Checked: $expandedListText", Toast.LENGTH_SHORT).show()
+                if (groupName == "Rating:") {
+                    selectedRatings.add(expandedListText)
+                } else if (groupName == "Types:") {
+                    selectedTypes.add(expandedListText)
+                }else if(groupName=="Genres:"){
+                    selectedGenres.add(expandedListText)
+                }
             } else {
                 Toast.makeText(context, "Unchecked: $expandedListText", Toast.LENGTH_SHORT).show()
+                if (groupName == "Rating:") {
+                    selectedRatings.remove(expandedListText)
+                } else if (groupName == "Types:") {
+                    selectedTypes.remove(expandedListText)
+                } else if (groupName=="Genres:"){
+                    selectedGenres.remove(expandedListText)
+                }
             }
         }
 
@@ -95,8 +111,7 @@ class ExpandableListAdapter(
         var convertView = convertView
         val listTitle = getGroup(listPosition) as String
         if (convertView == null) {
-            val layoutInflater =
-                this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val layoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = layoutInflater.inflate(R.layout.filter_group_item, null)
         }
         val listTitleTextView = convertView!!.findViewById<TextView>(R.id.listTitle)
@@ -107,26 +122,8 @@ class ExpandableListAdapter(
     override fun hasStableIds(): Boolean {
         return false
     }
-
     override fun isChildSelectable(listPosition: Int, expandedListPosition: Int): Boolean {
         return true
-    }
-
-    fun enableCheckboxes(groupPosition: Int) {
-        val groupName = expandableListTitle[groupPosition]
-        expandableListDetail[groupName]?.forEachIndexed { index, _ ->
-            checkBoxStates[groupName]?.set(index, checkBoxStates[groupName]?.get(index) ?: false)
-        }
-        notifyDataSetChanged()
-    }
-
-    fun disableCheckboxes(groupPosition: Int) {
-        val groupName = expandableListTitle[groupPosition]
-        expandableListDetail[groupName]?.forEachIndexed { index, _ ->
-            val checkBox =
-                (context as FilterActivity).expandableListView.findViewWithTag<CheckBox>("$groupName:$index")
-            checkBox?.isEnabled = false
-        }
     }
 
     fun updateData(newData: HashMap<String, List<String>>) {
