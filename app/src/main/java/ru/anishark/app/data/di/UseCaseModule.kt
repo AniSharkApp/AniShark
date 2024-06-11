@@ -5,7 +5,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.anishark.app.data.db.datasource.DatabaseBookmarksDataSource
-import ru.anishark.app.data.repository.BookmarkRepositoryImpl
 import ru.anishark.app.domain.repository.SeasonsRepository
 import ru.anishark.app.domain.repository.TopRepository
 import ru.anishark.app.domain.usecase.DeleteBookmarkCatalogUseCase

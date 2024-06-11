@@ -1,5 +1,6 @@
 package ru.anishark.app.presentation.bookmark.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

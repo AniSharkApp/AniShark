@@ -44,7 +44,9 @@ android {
 dependencies {
     // Room
     implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.runtime)
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-rxjava3:2.6.1")
+//    kapt(libs.androidx.room.compiler)
 
     // Coil
     implementation(libs.coil)
