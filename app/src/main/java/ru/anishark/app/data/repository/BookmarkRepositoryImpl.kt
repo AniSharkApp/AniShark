@@ -1,21 +1,21 @@
 package ru.anishark.app.data.repository
 
-import ru.anishark.app.data.db.dao.BookmarkDAO
-import ru.anishark.app.data.db.items.BookmarkAnimeEntity
+import io.reactivex.rxjava3.core.Flowable
+import ru.anishark.app.data.db.datasource.DatabaseBookmarksDataSource
+import ru.anishark.app.domain.model.AnimeModel
 import ru.anishark.app.domain.model.BookmarkModel
 import ru.anishark.app.domain.repository.BookmarkRepository
-import ru.anishark.app.domain.toEntity
 import javax.inject.Inject
 
 class BookmarkRepositoryImpl @Inject constructor(
-    private val dao: BookmarkDAO
+    private val dataSorce: DatabaseBookmarksDataSource
 ) : BookmarkRepository {
-    fun getAll() = dao.getAll()
+    override fun getAllBookmarks(): Flowable<List<BookmarkModel>> = dataSorce.getAllBookmarks()
 
-    fun getBookmark(animeId: Int) = dao.getBookmark(animeId)
+    override fun getBookmark(animeId: Int): Flowable<BookmarkModel> = dataSorce.getBookmark(animeId)
 
-    fun insertBookmark(anime: BookmarkModel) = dao.insertBookmark(anime.toEntity())
+    override fun insertBookmark(anime: AnimeModel) = dataSorce.createBookmark(anime)
 
-    fun deleteBookmark(anime: BookmarkModel) = dao.deleteBookmark(anime.toEntity())
+    override fun deleteBookmark(animeId: Int) = dataSorce.removeBookmark(animeId)
 
 }

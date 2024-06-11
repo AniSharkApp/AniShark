@@ -1,7 +1,7 @@
 package ru.anishark.app.domain.model
 
 data class BookmarkModel(
-    val animeId: Int,
-    val image: String, // TODO: переделать для картинок
+    val malId: Int,
+    val imageUrl: String,
     val title: String
 )
