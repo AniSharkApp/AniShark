@@ -32,4 +32,8 @@ class BookmarkAnimeListAdapter(private val bookmarksList: List<BookmarkModel>)
             holder.bind(bookmarksList[position])
         }
     }
-}
+
+    fun notifyData(list: List<BookmarkModel>) {
+//        notifyDataSetChanged()
+        notifyItemRangeChanged(0, list.size)
+    }}
