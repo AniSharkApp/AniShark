@@ -9,7 +9,7 @@ import ru.anishark.app.data.db.items.BookmarkAnimeEntity
 import ru.anishark.app.databinding.CardAnimeBookmarkBinding
 import ru.anishark.app.domain.model.BookmarkModel
 
-class BookmarkAnimeListAdapter(private val bookmarksList: List<BookmarkModel>)
+class BookmarkAnimeListAdapter(private var bookmarksList: List<BookmarkModel>)
     :  RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         class BookmarkViewHolder(private val binding: CardAnimeBookmarkBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -34,6 +34,6 @@ class BookmarkAnimeListAdapter(private val bookmarksList: List<BookmarkModel>)
     }
 
     fun notifyData(list: List<BookmarkModel>) {
-//        notifyDataSetChanged()
+        bookmarksList = list
         notifyItemRangeChanged(0, list.size)
     }}
