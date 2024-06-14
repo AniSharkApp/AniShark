@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -26,15 +25,12 @@ import ru.anishark.app.presentation.bookmark.viewmodel.BookmarkViewModel
 class BookmarkFragment : Fragment() {
     private val vm: BookmarkViewModel by viewModels()
 
-    //    private var bookmarks: List<BookmarkModel> = listOf(BookmarkModel(1,"",""))
     private var bookmarks: List<BookmarkModel> = emptyList()
 
     private var _binding: FragmentBookmarkBinding? = null
-
     private val binding get() = _binding!!
 
     private val bookmarkAdapter = BookmarkAnimeListAdapter(bookmarks)
-    private val itemDecoration = VerticalSpacingItemDecoration(0f, 12f)
 
     private val disposable = CompositeDisposable()
 
@@ -56,43 +52,23 @@ class BookmarkFragment : Fragment() {
                 { data ->
                     bookmarks = data
 
-                    if(data.isEmpty()) {
+                    if (data.isEmpty()) {
                         binding.emptyBookmarkFlow.visibility = View.VISIBLE
                     }
 
                     bookmarkAdapter.notifyData(bookmarks)
-
-                    Toast.makeText(context, bookmarks.indices.toString(), Toast.LENGTH_SHORT).show()
                 },
                 // TODO: Сделать красивый обработчик ошибок
                 { error ->
                     Log.e("MyLog", error.message ?: "empty error")
                 }
             )
-        Toast.makeText(context, bookmarks.indices.toString(), Toast.LENGTH_SHORT).show()
+
         with(binding) {
 
-            binding.bookmarkRv.adapter = bookmarkAdapter
-            binding.bookmarkRv.layoutManager = GridLayoutManager(binding.bookmarkRv.context, 2)
-            binding.bookmarkRv.addItemDecoration(itemDecoration)
-
-            addBookmark.setOnClickListener {
-//                vm.insertBookmark(
-//                    AnimeModel(
-//                        malId = (0..200).random(),
-//                        "", "", 0, 0, "", 0.1
-//                    )
-//                ).subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe()
-
-                vm.deleteBookmark(bookmarks[bookmarks.lastIndex].malId)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe()
-
-                Toast.makeText(context, bookmarks.size.toString(), Toast.LENGTH_SHORT).show()
-            }
+            bookmarkRv.adapter = bookmarkAdapter
+            bookmarkRv.layoutManager = GridLayoutManager(binding.bookmarkRv.context, 2)
+            bookmarkRv.addItemDecoration(VerticalSpacingItemDecoration(0f, 12f))
 
         }
 
