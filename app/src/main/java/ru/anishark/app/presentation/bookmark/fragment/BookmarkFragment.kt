@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -78,19 +77,19 @@ class BookmarkFragment : Fragment() {
             binding.bookmarkRv.addItemDecoration(itemDecoration)
 
             addBookmark.setOnClickListener {
-                vm.insertBookmark(
-                    AnimeModel(
-                        malId = (0..200).random(),
-                        "", "", 0, 0, "", 0.1
-                    )
-                ).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe()
-
-//                vm.deleteBookmark(bookmarks[bookmarks.lastIndex].malId)
-//                    .subscribeOn(Schedulers.io())
+//                vm.insertBookmark(
+//                    AnimeModel(
+//                        malId = (0..200).random(),
+//                        "", "", 0, 0, "", 0.1
+//                    )
+//                ).subscribeOn(Schedulers.io())
 //                    .observeOn(AndroidSchedulers.mainThread())
 //                    .subscribe()
+
+                vm.deleteBookmark(bookmarks[bookmarks.lastIndex].malId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe()
 
                 Toast.makeText(context, bookmarks.size.toString(), Toast.LENGTH_SHORT).show()
             }

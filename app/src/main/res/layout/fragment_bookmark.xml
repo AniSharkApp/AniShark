@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:layout_marginHorizontal="18dp"
         android:gravity="center"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <ImageView
