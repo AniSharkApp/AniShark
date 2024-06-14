@@ -78,19 +78,19 @@ class BookmarkFragment : Fragment() {
             binding.bookmarkRv.addItemDecoration(itemDecoration)
 
             addBookmark.setOnClickListener {
-//                vm.insertBookmark(
-//                    AnimeModel(
-//                        malId = (0..200).random(),
-//                        "", "", 0, 0, "", 0.1
-//                    )
-//                ).subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe()
-
-                vm.deleteBookmark(bookmarks[bookmarks.lastIndex].malId)
-                    .subscribeOn(Schedulers.io())
+                vm.insertBookmark(
+                    AnimeModel(
+                        malId = (0..200).random(),
+                        "", "", 0, 0, "", 0.1
+                    )
+                ).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe()
+
+//                vm.deleteBookmark(bookmarks[bookmarks.lastIndex].malId)
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe()
 
                 Toast.makeText(context, bookmarks.size.toString(), Toast.LENGTH_SHORT).show()
             }

@@ -1,7 +1,7 @@
 package ru.anishark.app.data.db.datasource
 
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Single
 import ru.anishark.app.data.datasource.BookmarksDataSource
 import ru.anishark.app.data.db.dao.BookmarkDAO
 import ru.anishark.app.data.db.items.BookmarkAnimeEntity
@@ -13,10 +13,10 @@ import javax.inject.Inject
 class DatabaseBookmarksDataSource @Inject constructor(
     private val dao: BookmarkDAO
 ) : BookmarksDataSource {
-    override fun getAllBookmarks(): Flowable<List<BookmarkModel>> =
+    override fun getAllBookmarks(): Single<List<BookmarkModel>> =
         dao.getAll().map { it.map { entity -> entity.toModel() } }
 
-    override fun getBookmark(animeId: Int): Flowable<BookmarkModel> =
+    override fun getBookmark(animeId: Int): Single<BookmarkModel> =
         dao.getBookmark(animeId).map { it.toModel() }
 
     override fun createBookmark(anime: AnimeModel): Completable {
