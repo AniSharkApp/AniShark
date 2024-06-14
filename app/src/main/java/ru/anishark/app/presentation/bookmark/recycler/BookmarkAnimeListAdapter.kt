@@ -14,6 +14,7 @@ class BookmarkAnimeListAdapter(private val bookmarksList: List<BookmarkModel>)
 
         class BookmarkViewHolder(private val binding: CardAnimeBookmarkBinding) : RecyclerView.ViewHolder(binding.root) {
             fun bind(model: BookmarkModel) {
+
                 binding.bookmarkTitle.text = model.title
                 // TODO: переделать на человеческий
                 binding.bookmarkImage.setImageDrawable(AppCompatResources.getDrawable(this.itemView.context, R.drawable.default_anime_image))
@@ -37,3 +38,4 @@ class BookmarkAnimeListAdapter(private val bookmarksList: List<BookmarkModel>)
 //        notifyDataSetChanged()
         notifyItemRangeChanged(0, list.size)
     }}
+

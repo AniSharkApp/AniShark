@@ -34,6 +34,7 @@ class BookmarkViewModel @Inject constructor(
 //        insertBookmarkUseCase(anime)
 //    }
 
+
     fun insertBookmark(anime: AnimeModel) = insertBookmarkUseCase(anime)
 
     fun deleteBookmark(animeId: Int) = deleteBookmarkUseCase(animeId)

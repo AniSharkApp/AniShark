@@ -46,6 +46,7 @@ class BookmarkFragment : Fragment() {
         disposable.disposeOnDestroy(this.lifecycle)
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
