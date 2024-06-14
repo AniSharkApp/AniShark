@@ -25,13 +25,8 @@ class BookmarkViewModel @Inject constructor(
     private val insertBookmarkUseCase: InsertBookmarkCatalogUseCase,
     private val deleteBookmarkUseCase: DeleteBookmarkCatalogUseCase
 ) : ViewModel() {
-//    private val _bookmarksState = BehaviorSubject.fromSingle(allBookmarksUseCase())
     private val _bookmarksState = allBookmarksUseCase()
     val bookmarks get() = _bookmarksState.hide()
-
-//    fun insertBookmark(anime: AnimeModel) = Completable.fromRunnable {
-//        insertBookmarkUseCase(anime)
-//    }
 
     fun insertBookmark(anime: AnimeModel) = insertBookmarkUseCase(anime)
 

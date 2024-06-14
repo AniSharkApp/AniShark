@@ -1,5 +1,6 @@
 package ru.anishark.app.domain.usecase
 
+
 import io.reactivex.rxjava3.core.Completable
 import ru.anishark.app.data.db.datasource.DatabaseBookmarksDataSource
 import ru.anishark.app.domain.model.AnimeModel

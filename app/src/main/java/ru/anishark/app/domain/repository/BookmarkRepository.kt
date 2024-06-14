@@ -1,5 +1,6 @@
 package ru.anishark.app.domain.repository
 
+
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import ru.anishark.app.domain.model.AnimeModel
