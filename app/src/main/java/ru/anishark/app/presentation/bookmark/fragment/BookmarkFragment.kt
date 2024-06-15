@@ -30,7 +30,9 @@ class BookmarkFragment : Fragment() {
     private var _binding: FragmentBookmarkBinding? = null
     private val binding get() = _binding!!
 
-    private val bookmarkAdapter = BookmarkAnimeListAdapter(bookmarks)
+    private val bookmarkAdapter =
+        BookmarkAnimeListAdapter(bookmarks) {
+        }
 
     private val disposable = CompositeDisposable()
 
