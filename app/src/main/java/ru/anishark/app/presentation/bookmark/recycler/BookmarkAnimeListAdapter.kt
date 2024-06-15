@@ -3,6 +3,7 @@ package ru.anishark.app.presentation.bookmark.recycler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.anishark.app.R
 import ru.anishark.app.databinding.CardAnimeBookmarkBinding
@@ -47,7 +48,9 @@ class BookmarkAnimeListAdapter(
     }
 
     fun notifyData(list: List<BookmarkModel>) {
+        val diffCallback = BookmarkAnimeListDiffUtilCallback(bookmarksList, list)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         bookmarksList = list
-        notifyItemRangeChanged(0, list.size)
+        diffResult.dispatchUpdatesTo(this)
     }
 }
