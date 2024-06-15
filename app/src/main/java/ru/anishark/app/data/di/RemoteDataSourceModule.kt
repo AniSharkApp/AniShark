@@ -32,57 +32,47 @@ import javax.inject.Singleton
 class RemoteDataSourceModule {
     @Provides
     @Singleton
-    fun provideJson(): Json = Json {
-        ignoreUnknownKeys = true
-    }
+    fun provideJson(): Json =
+        Json {
+            ignoreUnknownKeys = true
+        }
 
     @Provides
     @Singleton
-    fun createRxJavaCallAdapterFactory(): RxJava3CallAdapterFactory {
-        return RxJava3CallAdapterFactory.create()
-    }
+    fun createRxJavaCallAdapterFactory(): RxJava3CallAdapterFactory = RxJava3CallAdapterFactory.create()
 
     @Provides
     @Singleton
-    fun provideJsonConverterFactory(json: Json): Converter.Factory {
-        return json.asConverterFactory("application/json".toMediaType())
-    }
+    fun provideJsonConverterFactory(json: Json): Converter.Factory = json.asConverterFactory("application/json".toMediaType())
 
     @Provides
     @Singleton
     fun provideRetrofit(
         rxJava3CallAdapterFactory: RxJava3CallAdapterFactory,
-        jsonConverterFactory: Converter.Factory
-    ): Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(jsonConverterFactory)
-        .addCallAdapterFactory(rxJava3CallAdapterFactory)
-        .build()
+        jsonConverterFactory: Converter.Factory,
+    ): Retrofit =
+        Retrofit
+            .Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(jsonConverterFactory)
+            .addCallAdapterFactory(rxJava3CallAdapterFactory)
+            .build()
 
     @Provides
     @Singleton
-    fun provideAnimeService(
-        retrofit: Retrofit
-    ): AnimeService = retrofit.create(AnimeService::class.java)
+    fun provideAnimeService(retrofit: Retrofit): AnimeService = retrofit.create(AnimeService::class.java)
 
     @Provides
     @Singleton
-    fun provideRecommendationService(
-        retrofit: Retrofit
-    ): RecommendationsService = retrofit.create(RecommendationsService::class.java)
+    fun provideRecommendationService(retrofit: Retrofit): RecommendationsService = retrofit.create(RecommendationsService::class.java)
 
     @Provides
     @Singleton
-    fun provideSeasonsService(
-        retrofit: Retrofit
-    ): SeasonsService = retrofit.create(SeasonsService::class.java)
+    fun provideSeasonsService(retrofit: Retrofit): SeasonsService = retrofit.create(SeasonsService::class.java)
 
     @Provides
     @Singleton
-    fun provideTopService(
-        retrofit: Retrofit
-    ): TopService = retrofit.create(TopService::class.java)
-
+    fun provideTopService(retrofit: Retrofit): TopService = retrofit.create(TopService::class.java)
 
     @Module
     @InstallIn(SingletonComponent::class)
@@ -90,29 +80,21 @@ class RemoteDataSourceModule {
         @Binds
         @Singleton
         @Remote
-        abstract fun bindRemoteAnimeDataSource(
-            impl: RemoteAnimeDataSourceImpl
-        ): AnimeDataSource
+        abstract fun bindRemoteAnimeDataSource(impl: RemoteAnimeDataSourceImpl): AnimeDataSource
 
         @Binds
         @Singleton
         @Remote
-        abstract fun bindRemoteRecommendationsDataSource(
-            impl: RemoteRecommendationsDataSourceImpl
-        ): RecommendationsDataSource
+        abstract fun bindRemoteRecommendationsDataSource(impl: RemoteRecommendationsDataSourceImpl): RecommendationsDataSource
 
         @Binds
         @Singleton
         @Remote
-        abstract fun bindRemoteSeasonsDataSource(
-            impl: RemoteSeasonsDataSourceImpl
-        ): SeasonsDataSource
+        abstract fun bindRemoteSeasonsDataSource(impl: RemoteSeasonsDataSourceImpl): SeasonsDataSource
 
         @Binds
         @Singleton
         @Remote
-        abstract fun bindRemoteTopDataSource(
-            impl: RemoteTopDataSourceImpl
-        ): TopDataSource
+        abstract fun bindRemoteTopDataSource(impl: RemoteTopDataSourceImpl): TopDataSource
     }
 }

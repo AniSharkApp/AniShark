@@ -8,5 +8,5 @@ data class ImagesDTO(
     @SerialName("jpg")
     val jpeg: ImageDTO,
     @SerialName("webp")
-    val webp: ImageDTO
+    val webp: ImageDTO,
 )

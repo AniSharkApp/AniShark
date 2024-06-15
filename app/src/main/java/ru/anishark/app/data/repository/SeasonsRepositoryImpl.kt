@@ -8,9 +8,7 @@ import ru.anishark.app.domain.repository.SeasonsRepository
 import javax.inject.Inject
 
 class SeasonsRepositoryImpl @Inject constructor(
-    @Remote private val remoteSeasonsDataSource: SeasonsDataSource
-): SeasonsRepository {
-    override fun getCurrentSeasonAnime(): Single<List<AnimeModel>> {
-        return remoteSeasonsDataSource.getSeasonsNowAnime()
-    }
+    @Remote private val remoteSeasonsDataSource: SeasonsDataSource,
+) : SeasonsRepository {
+    override fun getCurrentSeasonAnime(): Single<List<AnimeModel>> = remoteSeasonsDataSource.getSeasonsNowAnime()
 }

@@ -10,7 +10,6 @@ interface BookmarksDataSource {
 
     fun getBookmark(animeId: Int): Single<BookmarkModel>
 
-
     fun createBookmark(anime: AnimeModel): Completable
 
     fun removeBookmark(animeId: Int): Completable

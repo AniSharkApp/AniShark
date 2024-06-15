@@ -51,5 +51,5 @@ data class AnimeDTO(
     @SerialName("season")
     val season: String?,
     @SerialName("year")
-    val year: Int?
+    val year: Int?,
 )
