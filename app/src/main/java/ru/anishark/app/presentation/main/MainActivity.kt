@@ -1,6 +1,5 @@
 package ru.anishark.app.presentation.main
 
-
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,7 +9,6 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import ru.anishark.app.R
-import ru.anishark.app.databinding.ActivityAnimeBinding
 import ru.anishark.app.databinding.ActivityMainBinding
 import ru.anishark.app.presentation.bookmark.fragment.BookmarkFragment
 import ru.anishark.app.presentation.catalog.fragment.CatalogFragment
@@ -74,10 +72,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun <T: Fragment> loadFragment(fragment: Class<out T>) {
+    private fun <T : Fragment> loadFragment(fragment: Class<out T>) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(binding.container.id, fragment, null)
         transaction.commit()
     }
 }
-

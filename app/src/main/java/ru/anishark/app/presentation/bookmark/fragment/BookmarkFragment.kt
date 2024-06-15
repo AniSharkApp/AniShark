@@ -1,5 +1,6 @@
 package ru.anishark.app.presentation.bookmark.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,7 +17,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import ru.anishark.app.common.ui.VerticalSpacingItemDecoration
 import ru.anishark.app.common.ui.disposeOnDestroy
 import ru.anishark.app.databinding.FragmentBookmarkBinding
+import ru.anishark.app.domain.model.AnimeModel
 import ru.anishark.app.domain.model.BookmarkModel
+import ru.anishark.app.presentation.anime.AnimeScreenActivity
 import ru.anishark.app.presentation.bookmark.recycler.BookmarkAnimeListAdapter
 import ru.anishark.app.presentation.bookmark.viewmodel.BookmarkViewModel
 
@@ -32,6 +35,11 @@ class BookmarkFragment : Fragment() {
 
     private val bookmarkAdapter =
         BookmarkAnimeListAdapter(bookmarks) {
+            val intent =
+                Intent(context, AnimeScreenActivity::class.java).apply {
+                    putExtra("malId", it)
+                }
+            startActivity(intent)
         }
 
     private val disposable = CompositeDisposable()
@@ -72,6 +80,13 @@ class BookmarkFragment : Fragment() {
             bookmarkRv.adapter = bookmarkAdapter
             bookmarkRv.layoutManager = GridLayoutManager(binding.bookmarkRv.context, 2)
             bookmarkRv.addItemDecoration(VerticalSpacingItemDecoration(0f, 12f))
+            emptyBookmarkFlow.setOnClickListener {
+                vm
+                    .insertBookmark(AnimeModel(13, "Mnoto olegosdfasfasfsaf", "", 0, 0, "", 0.0))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe()
+            }
         }
 
         return binding.root
