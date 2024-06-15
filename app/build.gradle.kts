@@ -25,7 +25,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -51,7 +51,7 @@ dependencies {
     // Coil
     implementation(libs.coil)
 
-    //RxJava
+    // RxJava
     implementation(libs.rxkotlin)
     implementation(libs.rxandroid)
 
