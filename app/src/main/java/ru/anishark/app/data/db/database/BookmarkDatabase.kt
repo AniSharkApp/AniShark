@@ -9,24 +9,25 @@ import ru.anishark.app.data.db.items.BookmarkAnimeEntity
 
 @Database(
     entities = [BookmarkAnimeEntity::class],
-    version = 1
+    version = 1,
 )
 abstract class BookmarkDatabase : RoomDatabase() {
     companion object {
-
         @Volatile
         private var INSTANCE: BookmarkDatabase? = null
 
-        fun getInstance(app: Context): BookmarkDatabase = INSTANCE ?: synchronized(this) {
-            INSTANCE ?: buildDatabase(app).also { INSTANCE = it }
-        }
+        fun getInstance(app: Context): BookmarkDatabase =
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: buildDatabase(app).also { INSTANCE = it }
+            }
 
         private fun buildDatabase(app: Context) =
-            Room.databaseBuilder(
-                app,
-                BookmarkDatabase::class.java,
-                "bookmarks")
-                .build()
+            Room
+                .databaseBuilder(
+                    app,
+                    BookmarkDatabase::class.java,
+                    "bookmarks",
+                ).build()
     }
 
     abstract fun getDao(): BookmarkDAO

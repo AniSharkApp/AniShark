@@ -8,9 +8,7 @@ import ru.anishark.app.domain.repository.TopRepository
 import javax.inject.Inject
 
 class TopRepositoryImpl @Inject constructor(
-    @Remote private val remoteTopDataSource: TopDataSource
-): TopRepository {
-    override fun getTopAnime(): Single<List<AnimeModel>> {
-        return remoteTopDataSource.getTopAnime()
-    }
+    @Remote private val remoteTopDataSource: TopDataSource,
+) : TopRepository {
+    override fun getTopAnime(): Single<List<AnimeModel>> = remoteTopDataSource.getTopAnime()
 }

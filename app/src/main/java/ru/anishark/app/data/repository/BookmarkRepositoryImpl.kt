@@ -8,7 +8,7 @@ import ru.anishark.app.domain.repository.BookmarkRepository
 import javax.inject.Inject
 
 class BookmarkRepositoryImpl @Inject constructor(
-    private val dataSorce: DatabaseBookmarksDataSource
+    private val dataSorce: DatabaseBookmarksDataSource,
 ) : BookmarkRepository {
     override fun getAllBookmarks(): Single<List<BookmarkModel>> = dataSorce.getAllBookmarks()
 
@@ -17,5 +17,4 @@ class BookmarkRepositoryImpl @Inject constructor(
     override fun insertBookmark(anime: AnimeModel) = dataSorce.createBookmark(anime)
 
     override fun deleteBookmark(animeId: Int) = dataSorce.removeBookmark(animeId)
-
 }

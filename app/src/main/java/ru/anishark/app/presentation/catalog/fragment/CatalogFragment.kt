@@ -11,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.anishark.app.databinding.FragmentCatalogBinding
 import ru.anishark.app.presentation.catalog.recycler.CatalogAnimeListAdapter
 import ru.anishark.app.presentation.catalog.viewmodel.CatalogViewModel
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class CatalogFragment : Fragment() {
@@ -25,8 +24,9 @@ class CatalogFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentCatalogBinding.inflate(inflater, container, false)
         with(binding) {
