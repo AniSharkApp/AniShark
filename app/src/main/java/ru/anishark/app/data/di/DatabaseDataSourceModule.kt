@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DatabaseDataSourceModule {
+object DatabaseDataSourceModule {
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext app: Context) = BookmarkDatabase.getInstance(app)

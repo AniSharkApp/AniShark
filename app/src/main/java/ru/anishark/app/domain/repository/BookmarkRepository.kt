@@ -1,12 +1,14 @@
 package ru.anishark.app.domain.repository
 
-import io.reactivex.rxjava3.core.Flowable
+
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 import ru.anishark.app.domain.model.AnimeModel
 import ru.anishark.app.domain.model.BookmarkModel
 
 interface BookmarkRepository {
-    fun getAllBookmarks(): Flowable<List<BookmarkModel>>
-    fun getBookmark(animeId: Int): Flowable<BookmarkModel>
-    fun insertBookmark(anime: AnimeModel)
-    fun deleteBookmark(animeId: Int)
+    fun getAllBookmarks(): Single<List<BookmarkModel>>
+    fun getBookmark(animeId: Int): Single<BookmarkModel>
+    fun insertBookmark(anime: AnimeModel): Completable
+    fun deleteBookmark(animeId: Int): Completable
 }

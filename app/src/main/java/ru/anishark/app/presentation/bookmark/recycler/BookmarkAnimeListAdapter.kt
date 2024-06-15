@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.anishark.app.R
 import ru.anishark.app.data.db.items.BookmarkAnimeEntity
 import ru.anishark.app.databinding.CardAnimeBookmarkBinding
+import ru.anishark.app.domain.model.BookmarkModel
 
-class BookmarkAnimeListAdapter(private val bookmarksList: List<BookmarkAnimeEntity>)
+class BookmarkAnimeListAdapter(private var bookmarksList: List<BookmarkModel>)
     :  RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         class BookmarkViewHolder(private val binding: CardAnimeBookmarkBinding) : RecyclerView.ViewHolder(binding.root) {
-            fun bind(model: BookmarkAnimeEntity) {
+            fun bind(model: BookmarkModel) {
+
                 binding.bookmarkTitle.text = model.title
                 // TODO: переделать на человеческий
                 binding.bookmarkImage.setImageDrawable(AppCompatResources.getDrawable(this.itemView.context, R.drawable.default_anime_image))
@@ -31,4 +33,9 @@ class BookmarkAnimeListAdapter(private val bookmarksList: List<BookmarkAnimeEnti
             holder.bind(bookmarksList[position])
         }
     }
-}
+
+    fun notifyData(list: List<BookmarkModel>) {
+        bookmarksList = list
+        notifyItemRangeChanged(0, list.size)
+    }}
+

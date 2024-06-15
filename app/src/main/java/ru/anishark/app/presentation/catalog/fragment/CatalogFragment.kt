@@ -14,10 +14,11 @@ import ru.anishark.app.presentation.catalog.viewmodel.CatalogViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CatalogFragment: Fragment() {
+class CatalogFragment : Fragment() {
     private val vm: CatalogViewModel by viewModels()
 
-    private lateinit var binding: FragmentCatalogBinding
+    private var _binding: FragmentCatalogBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,11 +28,16 @@ class CatalogFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCatalogBinding.inflate(inflater, container, false)
+        _binding = FragmentCatalogBinding.inflate(inflater, container, false)
         with(binding) {
             catalogRv.adapter = CatalogAnimeListAdapter()
             catalogRv.layoutManager = LinearLayoutManager(catalogRv.context)
         }
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

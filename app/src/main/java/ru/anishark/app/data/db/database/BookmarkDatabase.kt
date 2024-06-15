@@ -22,9 +22,10 @@ abstract class BookmarkDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(app: Context) =
-            Room.databaseBuilder(app,
+            Room.databaseBuilder(
+                app,
                 BookmarkDatabase::class.java,
-                "your database name")
+                "bookmarks")
                 .build()
     }
 
