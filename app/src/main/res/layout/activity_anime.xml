@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:text="Pomogite"
-                android:textColor="@color/black"
+                android:textColor="@color/onSurface"
                 android:textSize="26sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -88,7 +88,7 @@
                 android:alpha="0.5"
                 android:fontFamily="@font/roboto"
                 android:text="Pomogite na angliskom"
-                android:textColor="@color/black"
+                android:textColor="@color/onSurface"
                 android:textSize="18sp"
                 app:layout_constrainedWidth="true" />
 
@@ -111,7 +111,7 @@
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="2dp"
                     android:text="PG-13"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/onAge" />
             </androidx.cardview.widget.CardView>
 
             <androidx.constraintlayout.helper.widget.Flow
@@ -219,7 +219,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/white"
+                android:background="#00475D92"
                 android:src="@drawable/ic_anime_screen_bookmark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/anime_screen_header_bottom_barrier" />

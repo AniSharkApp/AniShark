@@ -9,6 +9,7 @@
         android:layout_width="377dp"
         android:layout_height="214dp"
         android:layout_marginBottom="15dp"
+        android:background="@color/background"
         app:cardCornerRadius="26dp"
         app:cardElevation="6dp"
         app:cardMaxElevation="6dp"
@@ -19,7 +20,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/background">
 
             <ImageView
                 android:id="@+id/cardIv"
@@ -50,6 +52,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:textColor="@color/onSurface"
                 android:textSize="11sp"
                 app:layout_constraintStart_toStartOf="@+id/descriptionTv"
                 app:layout_constraintTop_toTopOf="parent"
@@ -61,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textAlignment="viewStart"
+                android:textColor="@color/onSurface"
                 android:textSize="11sp"
                 app:layout_constraintStart_toEndOf="@+id/star_iv"
                 app:layout_constraintTop_toTopOf="parent"
@@ -75,6 +79,7 @@
                 android:ellipsize="end"
                 android:maxLines="9"
                 android:text="Боль, кровь и слёзы. На престол восходит новый правитель. Его слуги, подручные демоны безнаказанно творят бесчинства в городе. Все меняется когда в город, скрытый темнотой ночи, попадает тяжёлый воин. С разнообразным вооружением для самых непредвиденных моментов, в броне, тело его все покрыто шрамами – черный мечник. Его меч настолько огромен, что может сравниться с его лютой злобой к королю и демонам."
+                android:textColor="@color/onSurfaceVariant"
                 android:textSize="11sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/nameTv" />
@@ -85,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Берсерк"
+                android:textColor="@color/onSurface"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/descriptionTv"
                 app:layout_constraintTop_toBottomOf="@+id/episodes_tv" />

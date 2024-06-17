@@ -8,4 +8,5 @@ class InsertBookmarkCatalogUseCase(
     private val bookmarksDataSource: DatabaseBookmarksDataSource,
 ) {
     operator fun invoke(anime: AnimeModel): Completable = bookmarksDataSource.createBookmark(anime)
+
 }

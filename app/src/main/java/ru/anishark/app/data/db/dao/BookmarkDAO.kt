@@ -21,4 +21,5 @@ interface BookmarkDAO {
 
     @Query("DELETE FROM bookmarks WHERE animeId = :animeId")
     fun deleteBookmark(animeId: Int): Completable
+
 }

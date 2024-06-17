@@ -1,7 +1,6 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.AniShark" parent="Theme.Material3.Light.NoActionBar">
-        <!-- Customize your light theme here. -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Dark.Base.Theme.AniShark" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/onPrimary</item>
         <item name="colorPrimaryContainer">@color/primaryContainer</item>
@@ -27,13 +26,5 @@
         <item name="colorOutline">@color/outline</item>
     </style>
 
-    <style name="Theme.AniShark" parent="Base.Theme.AniShark" />
-
-    <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">#001</item>
-        <item name="windowSplashScreenIconBackgroundColor">#001</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_dark</item>
-        <item name="postSplashScreenTheme">@style/Base.Theme.AniShark</item>
-        <item name="android:windowSplashScreenBehavior">icon_preferred</item>
-    </style>
+    <style name="Dark.Theme.AniShark" parent="Dark.Base.Theme.AniShark"/>
 </resources>

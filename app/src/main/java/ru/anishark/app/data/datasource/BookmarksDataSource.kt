@@ -14,3 +14,4 @@ interface BookmarksDataSource {
 
     fun removeBookmark(animeId: Int): Completable
 }
+

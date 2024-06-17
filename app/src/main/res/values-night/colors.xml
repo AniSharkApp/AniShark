@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="search_bar_background">#26D9D9D9</color>
+    <color name="full_transparent">#00000000</color>
+    <color name="black">#FFF</color>
+    <color name="white">#000</color>
+    <color name="onAge">@color/onSurface</color>
+
+    <color name="primary">#794F81</color>
+    <color name="onPrimary">#FFFFFF</color>
+    <color name="primaryContainer">#FCD6FF</color>
+    <color name="onPrimaryContainer">#300A3A</color>
+    <color name="secondary">#D6C0D6</color>
+    <color name="onSecondary">#241727</color>
+    <color name="secondaryContainer">#645466</color>
+    <color name="onSecondaryContainer">#E4D8E6</color>
+    <color name="tertiary">#E6C0BA</color>
+    <color name="onTertiary">#4C302C</color>
+    <color name="tertiaryContainer">#66403B</color>
+    <color name="onTertiaryContainer">#E6CBC7</color>
+    <color name="error">#E68D8D</color>
+    <color name="onError">#4C0B0B</color>
+    <color name="errorContainer">#660E0E</color>
+    <color name="onErrorContainer">#E6A7A7</color>
+    <color name="background">#333233</color>
+    <color name="onBackground">#e5e4e6</color>
+    <color name="surface">#333233</color>
+    <color name="onSurface">#e5e4e6</color>
+    <color name="surfaceVariant">#655e66</color>
+    <color name="onSurfaceVariant">#e4dde6</color>
+    <color name="outline">#b1aab3</color>
+</resources>

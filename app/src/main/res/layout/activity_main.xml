@@ -17,7 +17,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
         >
 
         <androidx.appcompat.widget.SearchView
@@ -29,6 +28,7 @@
             app:closeIcon="@drawable/ic_close_search_bar"
             app:iconifiedByDefault="false"
             app:queryHint="@string/query_hint"
+            app:theme="@style/SearchViewStyle"
             app:searchIcon="@drawable/ic_search"
             app:submitBackground="@drawable/bg_search_bar_light" />
     </androidx.appcompat.widget.Toolbar>
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:background="@color/background"
         android:backgroundTintMode="add"
-        app:backgroundTint="@color/background"
+        app:itemBackground="@color/background"
         app:itemIconTint="@drawable/bottom_nav_selector"
         app:itemTextColor="@drawable/bottom_nav_selector"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,10 +1,10 @@
 package ru.anishark.app.presentation.bookmark.viewmodel
 
-
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.anishark.app.domain.model.AnimeModel
+import ru.anishark.app.domain.model.BookmarkModel
 import ru.anishark.app.domain.usecase.DeleteBookmarkCatalogUseCase
 import ru.anishark.app.domain.usecase.GetAllBookmarksCatalogUseCase
 import ru.anishark.app.domain.usecase.GetOneBookmarkCatalogUseCase

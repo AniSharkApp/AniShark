@@ -10,6 +10,7 @@ import ru.anishark.app.domain.model.AnimeModel
 import ru.anishark.app.domain.model.BookmarkModel
 import javax.inject.Inject
 
+
 class DatabaseBookmarksDataSource
     @Inject
     constructor(

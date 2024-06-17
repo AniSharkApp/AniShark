@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.change_theme -> {
                 // TODO: сделать реализацию смену темы
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 Toast.makeText(this, "Помогите, я китайский мальчик", Toast.LENGTH_SHORT).show()
                 return true
             }
