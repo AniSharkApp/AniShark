@@ -4,6 +4,7 @@
     <color name="full_transparent">#00000000</color>
     <color name="black">#FFF</color>
     <color name="white">#000</color>
+    <color name="onAge">@color/onSurface</color>
 
     <color name="primary">#794F81</color>
     <color name="onPrimary">#FFFFFF</color>
