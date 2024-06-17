@@ -9,5 +9,5 @@ data class SeasonsNowDTO(
     @SerialName("pagination")
     val pagination: PaginationData,
     @SerialName("data")
-    val data: List<AnimeDTO>
+    val data: List<AnimeDTO>,
 )

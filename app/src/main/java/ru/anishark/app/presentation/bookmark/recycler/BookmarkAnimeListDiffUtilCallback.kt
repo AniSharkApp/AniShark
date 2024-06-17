@@ -1,11 +1,11 @@
-package ru.anishark.app.presentation.home.recycler
+package ru.anishark.app.presentation.bookmark.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.anishark.app.domain.model.AnimeModel
+import ru.anishark.app.domain.model.BookmarkModel
 
-class HomeAnimeListDiffUtilCallback(
-    private val oldList: List<AnimeModel>,
-    private val newList: List<AnimeModel>,
+class BookmarkAnimeListDiffUtilCallback(
+    private val oldList: List<BookmarkModel>,
+    private val newList: List<BookmarkModel>,
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldList.size
 

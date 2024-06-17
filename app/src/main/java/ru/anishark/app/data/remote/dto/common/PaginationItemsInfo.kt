@@ -10,5 +10,5 @@ data class PaginationItemsInfo(
     @SerialName("total")
     val total: Int,
     @SerialName("per_page")
-    val perPage: Int
+    val perPage: Int,
 )

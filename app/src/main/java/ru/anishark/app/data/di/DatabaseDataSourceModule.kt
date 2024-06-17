@@ -14,7 +14,9 @@ import javax.inject.Singleton
 object DatabaseDataSourceModule {
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext app: Context) = BookmarkDatabase.getInstance(app)
+    fun provideDatabase(
+        @ApplicationContext app: Context,
+    ) = BookmarkDatabase.getInstance(app)
 
     @Provides
     @Singleton
