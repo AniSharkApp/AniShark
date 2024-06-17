@@ -25,6 +25,7 @@ class HomeFragment : Fragment() {
 
     private val topsAdapter = HomeAnimeListAdapter()
     private val actualAdapter = HomeAnimeListAdapter()
+
     // TODO использовать dimens ресурс
     private val itemDecoration = HorizontalSpacingItemDecoration(0f, 12f)
 
@@ -39,54 +40,67 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             // TODO объединить несколько RV с заголовками в один RV.
             topsRv.adapter = topsAdapter
-            topsRv.layoutManager = LinearLayoutManager(
-                topsRv.context, LinearLayoutManager.HORIZONTAL, false
-            )
+            topsRv.layoutManager =
+                LinearLayoutManager(
+                    topsRv.context,
+                    LinearLayoutManager.HORIZONTAL,
+                    false,
+                )
             topsRv.addItemDecoration(itemDecoration)
             actualRv.adapter = actualAdapter
-            actualRv.layoutManager = LinearLayoutManager(
-                actualRv.context, LinearLayoutManager.HORIZONTAL, false
-            )
+            actualRv.layoutManager =
+                LinearLayoutManager(
+                    actualRv.context,
+                    LinearLayoutManager.HORIZONTAL,
+                    false,
+                )
             actualRv.addItemDecoration(itemDecoration)
-            disposable += vm.topsState
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    {
-                        val topsRVState = topsRv.layoutManager?.onSaveInstanceState()
-                        topsAdapter.dataLoaded(it)
-                        topsRv.layoutManager?.onRestoreInstanceState(topsRVState)
-                    },
-                    {
-                        Log.e("APP", "${it.message}\n\n${Log.getStackTraceString(it)}")
-                        topsAdapter.loadError(it.message)
-                    }
-                )
-            disposable += vm.actualState
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    {
-                        val actualRVState = actualRv.layoutManager?.onSaveInstanceState()
-                        actualAdapter.dataLoaded(it)
-                        actualRv.layoutManager?.onRestoreInstanceState(actualRVState)
-                    },
-                    {
-                        Log.e("APP", "${it.message}\n\n${Log.getStackTraceString(it)}")
-                        actualAdapter.loadError(it.message)
-                    }
-                )
+            disposable +=
+                vm.topsState
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        {
+                            val topsRVState = topsRv.layoutManager?.onSaveInstanceState()
+                            topsAdapter.dataLoaded(it)
+                            topsRv.layoutManager?.onRestoreInstanceState(topsRVState)
+                        },
+                        {
+                            Log.e("APP", "${it.message}\n\n${Log.getStackTraceString(it)}")
+                            topsAdapter.loadError(it.message)
+                        },
+                    )
+            disposable +=
+                vm.actualState
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        {
+                            val actualRVState = actualRv.layoutManager?.onSaveInstanceState()
+                            actualAdapter.dataLoaded(it)
+                            actualRv.layoutManager?.onRestoreInstanceState(actualRVState)
+                        },
+                        {
+                            Log.e("APP", "${it.message}\n\n${Log.getStackTraceString(it)}")
+                            actualAdapter.loadError(it.message)
+                        },
+                    )
         }
     }
 

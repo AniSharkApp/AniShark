@@ -17,7 +17,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import ru.anishark.app.common.ui.VerticalSpacingItemDecoration
 import ru.anishark.app.common.ui.disposeOnDestroy
 import ru.anishark.app.databinding.FragmentBookmarkBinding
-import ru.anishark.app.domain.model.AnimeModel
 import ru.anishark.app.domain.model.BookmarkModel
 import ru.anishark.app.presentation.anime.AnimeScreenActivity
 import ru.anishark.app.presentation.bookmark.recycler.BookmarkAnimeListAdapter

@@ -11,13 +11,13 @@ import ru.anishark.app.domain.model.BookmarkModel
 class BookmarkAnimeListAdapter(
     private var bookmarksList: List<BookmarkModel>,
     private val onClickListener: (Int) -> Unit,
+
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class BookmarkViewHolder(
         private val binding: CardAnimeBookmarkBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(model: BookmarkModel) {
             binding.bookmarkTitle.text = model.title
-            // TODO: переделать на человеческий
             binding.bookmarkImage.load(model.imageUrl)
         }
     }

@@ -13,6 +13,6 @@ fun Disposable.disposeOnDestroy(lifecycle: Lifecycle) {
                 this@disposeOnDestroy.dispose()
                 lifecycle.removeObserver(this)
             }
-        }
+        },
     )
 }
