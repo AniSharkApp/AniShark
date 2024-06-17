@@ -2,27 +2,23 @@ package ru.anishark.app.presentation.bookmark.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import ru.anishark.app.R
+import coil.load
 import ru.anishark.app.databinding.CardAnimeBookmarkBinding
 import ru.anishark.app.domain.model.BookmarkModel
 
 class BookmarkAnimeListAdapter(
     private var bookmarksList: List<BookmarkModel>,
+    private val onClickListener: (Int) -> Unit,
+
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class BookmarkViewHolder(
         private val binding: CardAnimeBookmarkBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(model: BookmarkModel) {
             binding.bookmarkTitle.text = model.title
-            // TODO: переделать на человеческий
-            binding.bookmarkImage.setImageDrawable(
-                AppCompatResources.getDrawable(
-                    this.itemView.context,
-                    R.drawable.default_anime_image,
-                ),
-            )
+            binding.bookmarkImage.load(model.imageUrl)
         }
     }
 
@@ -43,11 +39,16 @@ class BookmarkAnimeListAdapter(
     ) {
         if (holder is BookmarkViewHolder) {
             holder.bind(bookmarksList[position])
+            holder.itemView.setOnClickListener {
+                onClickListener(bookmarksList[position].malId)
+            }
         }
     }
 
     fun notifyData(list: List<BookmarkModel>) {
+        val diffCallback = BookmarkAnimeListDiffUtilCallback(bookmarksList, list)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         bookmarksList = list
-        notifyItemRangeChanged(0, list.size)
+        diffResult.dispatchUpdatesTo(this)
     }
 }

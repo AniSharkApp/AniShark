@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bookmarks_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -29,15 +30,14 @@
                 android:layout_height="300dp"
                 android:alpha="0.8"
                 android:background="@color/white" />
-            
+
             <ImageButton
                 android:id="@+id/ic_anime_screen_back"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_back"
                 android:layout_margin="14dp"
                 android:background="@null"
-                />
+                android:src="@drawable/ic_back" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -45,8 +45,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:elevation="0dp"
-                app:cardCornerRadius="18dp"
-                >
+                app:cardCornerRadius="18dp">
 
                 <ImageView
                     android:id="@+id/main_image"
@@ -90,19 +89,18 @@
                 android:fontFamily="@font/roboto"
                 android:text="Pomogite na angliskom"
                 android:textColor="@color/black"
-                app:layout_constrainedWidth="true"
                 android:textSize="18sp"
-                />
+                app:layout_constrainedWidth="true" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/anime_rating_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="10dp"
-                app:layout_constraintVertical_bias="1"
+                app:layout_constraintBottom_toBottomOf="@id/anime_title_english"
                 app:layout_constraintStart_toEndOf="@id/anime_title_english"
                 app:layout_constraintTop_toTopOf="@id/anime_title_english"
-                app:layout_constraintBottom_toBottomOf="@id/anime_title_english">
+                app:layout_constraintVertical_bias="1">
 
                 <TextView
                     android:id="@+id/anime_rating_text"
@@ -121,15 +119,14 @@
                 android:layout_height="wrap_content"
                 app:constraint_referenced_ids="anime_title_english, anime_rating_card"
                 app:flow_horizontalBias="0"
-                app:flow_wrapMode="chain"
-                app:flow_horizontalStyle="packed"
-                app:flow_verticalStyle="packed"
                 app:flow_horizontalGap="10dp"
+                app:flow_horizontalStyle="packed"
                 app:flow_verticalGap="5dp"
-                app:layout_constraintTop_toBottomOf="@id/anime_title"
+                app:flow_verticalStyle="packed"
+                app:flow_wrapMode="chain"
                 app:layout_constraintStart_toStartOf="parent"
-                />
-            
+                app:layout_constraintTop_toBottomOf="@id/anime_title" />
+
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/anime_screen_header_bottom_barrier"
                 android:layout_width="0dp"
@@ -222,11 +219,10 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="10dp"
+                android:background="@color/white"
                 android:src="@drawable/ic_anime_screen_bookmark"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/anime_screen_header_bottom_barrier"
-                android:background="@color/white"
-                />
+                app:layout_constraintTop_toTopOf="@id/anime_screen_header_bottom_barrier" />
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/short_info_bottom_barrier"
@@ -243,92 +239,83 @@
                 android:id="@+id/ic_anime_screen_description"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_anime_screen_description"
                 android:layout_marginTop="22dp"
-                app:layout_constraintTop_toTopOf="@id/short_info_bottom_barrier"
+                android:src="@drawable/ic_anime_screen_description"
                 app:layout_constraintStart_toStartOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="@id/short_info_bottom_barrier" />
 
             <TextView
                 android:id="@+id/anime_screen_description_title"
+                style="@style/anime_screen_medium_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/anime_screen_medium_text"
-                android:text="@string/anime_screen_description_title"
                 android:layout_marginStart="9dp"
-                app:layout_constraintStart_toEndOf="@id/ic_anime_screen_description"
+                android:text="@string/anime_screen_description_title"
                 app:layout_constraintBottom_toBottomOf="@id/ic_anime_screen_description"
-                app:layout_constraintTop_toTopOf="@id/ic_anime_screen_description"
-                />
+                app:layout_constraintStart_toEndOf="@id/ic_anime_screen_description"
+                app:layout_constraintTop_toTopOf="@id/ic_anime_screen_description" />
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/short_description_bottom_barrier"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:constraint_referenced_ids="ic_anime_screen_description, anime_screen_description_title"
                 app:barrierDirection="bottom"
-                />
+                app:constraint_referenced_ids="ic_anime_screen_description, anime_screen_description_title" />
 
             <TextView
                 android:id="@+id/anime_screen_description_text"
+                style="@style/anime_screen_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/anime_screen_description"
                 android:layout_marginTop="15dp"
-                android:text="Eikichi Onizuka, a former member of the terrifying Onibaku gang, sets his sights on becoming the coolest school teacher in the world. Why a teacher? Because schools are full of sexy high school girls!"
-                app:layout_constraintTop_toBottomOf="@id/short_description_bottom_barrier"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:lineHeight="20sp"
-                />
+                android:text="Eikichi Onizuka, a former member of the terrifying Onibaku gang, sets his sights on becoming the coolest school teacher in the world. Why a teacher? Because schools are full of sexy high school girls!"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/short_description_bottom_barrier" />
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/full_description_bottom_barrier"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:constraint_referenced_ids="ic_anime_screen_description, anime_screen_description_title, anime_screen_description_text"
                 app:barrierDirection="bottom"
-                />
+                app:constraint_referenced_ids="ic_anime_screen_description, anime_screen_description_title, anime_screen_description_text" />
 
             <ImageView
                 android:id="@+id/ic_anime_screen_trailer"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_anime_screen_trailer"
                 android:layout_marginTop="32dp"
-                app:layout_constraintTop_toBottomOf="@id/full_description_bottom_barrier"
+                android:src="@drawable/ic_anime_screen_trailer"
                 app:layout_constraintStart_toStartOf="parent"
-                />
+                app:layout_constraintTop_toBottomOf="@id/full_description_bottom_barrier" />
 
             <TextView
                 android:id="@+id/anime_screen_trailer_title"
+                style="@style/anime_screen_medium_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/anime_screen_medium_text"
                 android:layout_marginStart="9dp"
                 android:text="@string/anime_screen_trailer_title"
                 app:layout_constraintBottom_toBottomOf="@id/ic_anime_screen_trailer"
-                app:layout_constraintTop_toTopOf="@id/ic_anime_screen_trailer"
                 app:layout_constraintStart_toEndOf="@id/ic_anime_screen_trailer"
-                />
-            
+                app:layout_constraintTop_toTopOf="@id/ic_anime_screen_trailer" />
+
             <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/trailer_title_bottom_barrier"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:id="@+id/trailer_title_bottom_barrier"
-                app:constraint_referenced_ids="anime_screen_trailer_title, ic_anime_screen_trailer"
                 app:barrierDirection="bottom"
-                />
+                app:constraint_referenced_ids="anime_screen_trailer_title, ic_anime_screen_trailer" />
 
             <VideoView
                 android:id="@+id/anime_screen_trailer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                app:layout_constraintTop_toBottomOf="@id/trailer_title_bottom_barrier"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/trailer_title_bottom_barrier" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
