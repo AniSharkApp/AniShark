@@ -8,7 +8,6 @@ import android.widget.BaseExpandableListAdapter
 import android.widget.CheckBox
 import android.widget.ExpandableListView
 import android.widget.TextView
-import android.widget.Toast
 import ru.anishark.app.R
 import ru.anishark.app.presentation.filter.activity.FilterActivity
 
@@ -83,7 +82,6 @@ class ExpandableListAdapter(
                         selectedGenres.add(expandedListText)
                     }
                 }
-                Toast.makeText(context, "Checked: $expandedListText", Toast.LENGTH_SHORT).show()
             } else {
                 checkBoxStates[groupName]?.set(expandedListPosition, false)
                 when (groupName) {
@@ -99,7 +97,6 @@ class ExpandableListAdapter(
                         selectedGenres.remove(expandedListText)
                     }
                 }
-                Toast.makeText(context, "Unchecked: $expandedListText", Toast.LENGTH_SHORT).show()
             }
             notifyDataSetChanged()
         }

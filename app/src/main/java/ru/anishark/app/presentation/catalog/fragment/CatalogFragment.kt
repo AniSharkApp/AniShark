@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -49,11 +48,6 @@ class CatalogFragment : Fragment() {
                     type = intent.getStringArrayListExtra(SECOND_NAME_KEY) as ArrayList<String>
                     rating = intent.getStringArrayListExtra(THIRD_NAME_KEY) as ArrayList<String>
 
-                    Toast.makeText(
-                        context,
-                        "Received data: ${genresList} $type $rating",
-                        Toast.LENGTH_LONG
-                    ).show()
                     // Fetch the anime list with the received parameters
                     fetchAnimeList()
                 }
@@ -132,7 +126,7 @@ class CatalogFragment : Fragment() {
             )
         } else if (genresList.size > 0 && rating.size > 0) {
             disposables.add(
-                RetrofitInstance.api.getAnimeListUsingTypeRating(
+                RetrofitInstance.api.getAnimeListUsingGenresRating(
                     returnGenresForApiRequest(genresList),
                     rating.get(0)
                 )
