@@ -79,13 +79,6 @@ class BookmarkFragment : Fragment() {
             bookmarkRv.adapter = bookmarkAdapter
             bookmarkRv.layoutManager = GridLayoutManager(binding.bookmarkRv.context, 2)
             bookmarkRv.addItemDecoration(VerticalSpacingItemDecoration(0f, 12f))
-            emptyBookmarkFlow.setOnClickListener {
-                vm
-                    .insertBookmark(AnimeModel(13, "Mnoto olegosdfasfasfsaf", "", 0, 0, "", 0.0))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe()
-            }
         }
 
         return binding.root
