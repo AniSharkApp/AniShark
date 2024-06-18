@@ -87,7 +87,8 @@ class CatalogFragment : Fragment() {
                                     anime.title,
                                     anime.synopsis ?: "",
                                     anime.episodes ?: 0,
-                                    anime.score ?: 0.0
+                                    anime.score ?: 0.0,
+                                    anime.images.jpg.image_url
                                 )
                             )
                         }
@@ -116,7 +117,8 @@ class CatalogFragment : Fragment() {
                                     anime.title,
                                     anime.synopsis ?: "",
                                     anime.episodes ?: 0,
-                                    anime.score ?: 0.0
+                                    anime.score ?: 0.0,
+                                    anime.images.jpg.image_url
                                 )
                             )
                         }
@@ -145,7 +147,8 @@ class CatalogFragment : Fragment() {
                                     anime.title,
                                     anime.synopsis ?: "",
                                     anime.episodes ?: 0,
-                                    anime.score ?: 0.0
+                                    anime.score ?: 0.0,
+                                    anime.images.jpg.image_url
                                 )
                             )
                         }
@@ -174,7 +177,8 @@ class CatalogFragment : Fragment() {
                                     anime.title,
                                     anime.synopsis ?: "",
                                     anime.episodes ?: 0,
-                                    anime.score ?: 0.0
+                                    anime.score ?: 0.0,
+                                    anime.images.jpg.image_url
                                 )
                             )
                         }
@@ -202,7 +206,8 @@ class CatalogFragment : Fragment() {
                                     anime.title,
                                     anime.synopsis ?: "",
                                     anime.episodes ?: 0,
-                                    anime.score ?: 0.0
+                                    anime.score ?: 0.0,
+                                    anime.images.jpg.image_url
                                 )
                             )
                         }
@@ -230,7 +235,8 @@ class CatalogFragment : Fragment() {
                                     anime.title,
                                     anime.synopsis ?: "",
                                     anime.episodes ?: 0,
-                                    anime.score ?: 0.0
+                                    anime.score ?: 0.0,
+                                    anime.images.jpg.image_url
                                 )
                             )
                         }
@@ -258,7 +264,8 @@ class CatalogFragment : Fragment() {
                                     anime.title,
                                     anime.synopsis ?: "",
                                     anime.episodes ?: 0,
-                                    anime.score ?: 0.0
+                                    anime.score ?: 0.0,
+                                    anime.images.jpg.image_url
                                 )
                             )
                         }

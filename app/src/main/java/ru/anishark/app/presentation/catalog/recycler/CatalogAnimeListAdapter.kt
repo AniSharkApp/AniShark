@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.anishark.app.R
 import ru.anishark.app.databinding.CardAnimeCatalogBinding
 
+import coil.load
+
 class CatalogAnimeListAdapter(val data: List<AnimeModelForCatalog>)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class AnimeViewHolder(
@@ -19,7 +21,11 @@ class CatalogAnimeListAdapter(val data: List<AnimeModelForCatalog>)
             binding.episodesTv.text = "${model.episodesCount + 1} ep"
             binding.ratingTv.text = "${model.rating}"
             binding.descriptionTv.text = model.description
-            binding.cardIv.setImageDrawable(AppCompatResources.getDrawable(this.itemView.context, R.drawable.default_anime_catalog_image))
+
+            binding.cardIv.load(model.imageUrl) {
+                placeholder(R.drawable.default_anime_catalog_image)
+                error(R.drawable.default_anime_catalog_image)
+            }
         }
     }
 
