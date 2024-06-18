@@ -47,7 +47,8 @@ class ExpandableListAdapter(
         var convertView = convertView
         val expandedListText = getChild(listPosition, expandedListPosition) as String
         if (convertView == null) {
-            val layoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val layoutInflater =
+                this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = layoutInflater.inflate(R.layout.filter_child_item, null)
         }
 
@@ -61,26 +62,46 @@ class ExpandableListAdapter(
         checkBox.isEnabled = (parent as ExpandableListView).isGroupExpanded(listPosition)
 
         checkBox.setOnCheckedChangeListener { _, isChecked ->
-            checkBoxStates[groupName]?.set(expandedListPosition, isChecked)
             if (isChecked) {
+                checkBoxStates[groupName]?.keys?.forEach {
+                    checkBoxStates[groupName]?.set(it, false)
+                }
+                checkBoxStates[groupName]?.set(expandedListPosition, true)
+
+                when (groupName) {
+                    "Rating:" -> {
+                        selectedRatings.clear()
+                        selectedRatings.add(expandedListText)
+                    }
+
+                    "Types:" -> {
+                        selectedTypes.clear()
+                        selectedTypes.add(expandedListText)
+                    }
+
+                    "Genres:" -> {
+                        selectedGenres.add(expandedListText)
+                    }
+                }
                 Toast.makeText(context, "Checked: $expandedListText", Toast.LENGTH_SHORT).show()
-                if (groupName == "Rating:") {
-                    selectedRatings.add(expandedListText)
-                } else if (groupName == "Types:") {
-                    selectedTypes.add(expandedListText)
-                }else if(groupName=="Genres:"){
-                    selectedGenres.add(expandedListText)
-                }
             } else {
-                Toast.makeText(context, "Unchecked: $expandedListText", Toast.LENGTH_SHORT).show()
-                if (groupName == "Rating:") {
-                    selectedRatings.remove(expandedListText)
-                } else if (groupName == "Types:") {
-                    selectedTypes.remove(expandedListText)
-                } else if (groupName=="Genres:"){
-                    selectedGenres.remove(expandedListText)
+                checkBoxStates[groupName]?.set(expandedListPosition, false)
+                when (groupName) {
+                    "Rating:" -> {
+                        selectedRatings.remove(expandedListText)
+                    }
+
+                    "Types:" -> {
+                        selectedTypes.remove(expandedListText)
+                    }
+
+                    "Genres:" -> {
+                        selectedGenres.remove(expandedListText)
+                    }
                 }
+                Toast.makeText(context, "Unchecked: $expandedListText", Toast.LENGTH_SHORT).show()
             }
+            notifyDataSetChanged()
         }
 
         return convertView
@@ -111,7 +132,8 @@ class ExpandableListAdapter(
         var convertView = convertView
         val listTitle = getGroup(listPosition) as String
         if (convertView == null) {
-            val layoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val layoutInflater =
+                this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = layoutInflater.inflate(R.layout.filter_group_item, null)
         }
         val listTitleTextView = convertView!!.findViewById<TextView>(R.id.listTitle)
@@ -122,6 +144,7 @@ class ExpandableListAdapter(
     override fun hasStableIds(): Boolean {
         return false
     }
+
     override fun isChildSelectable(listPosition: Int, expandedListPosition: Int): Boolean {
         return true
     }

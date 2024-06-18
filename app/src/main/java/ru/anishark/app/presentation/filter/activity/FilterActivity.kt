@@ -25,6 +25,7 @@ class FilterActivity : AppCompatActivity() {
     private lateinit var expandableListView: ExpandableListView
     private lateinit var expandableListTitle: List<String>
     private lateinit var expandableListDetail: HashMap<String, List<String>>
+    var genresNameAndId:HashMap<String,String> = HashMap()
     private lateinit var filterBackButton: Button
     private lateinit var filterApplyButton: Button
     var listGenres: ArrayList<String> = ArrayList()
@@ -39,7 +40,8 @@ class FilterActivity : AppCompatActivity() {
                 .subscribe({ response ->
                     val genres = response.data
                     genres.forEach { genre ->
-                        listGenres.add(genre.name + " " + genre.mal_id)
+                        listGenres.add("${genre.name}")
+                        genresNameAndId.put("${genre.name}","${genre.mal_id}")
                         Log.d("MainActivity", "Genre: ${genre.name}, ID: ${genre.mal_id}")
                     }
                     expandableListDetail = getData()
@@ -68,13 +70,21 @@ class FilterActivity : AppCompatActivity() {
         filterApplyButton = findViewById(R.id.filterApplyButton)
         filterApplyButton.setOnClickListener {
             val resultIntent = Intent().apply {
-                putStringArrayListExtra(FIRST_NAME_KEY, ArrayList(expandableListAdapter.selectedGenres))
+                putStringArrayListExtra(FIRST_NAME_KEY, getIdSelectedGenres(ArrayList(expandableListAdapter.selectedGenres)as ArrayList<String>))
                 putStringArrayListExtra(SECOND_NAME_KEY, ArrayList(expandableListAdapter.selectedTypes))
                 putStringArrayListExtra(THIRD_NAME_KEY, ArrayList(expandableListAdapter.selectedRatings))
             }
             setResult(RESULT_OK, resultIntent)
             finish()
         }
+    }
+
+    private fun getIdSelectedGenres(list:ArrayList<String>):ArrayList<String>{
+        var listId:ArrayList<String> = ArrayList()
+        list.forEach{animeName->
+            listId.add(genresNameAndId.get(animeName).toString())
+        }
+        return listId
     }
 
     private fun getData(): HashMap<String, List<String>> {
