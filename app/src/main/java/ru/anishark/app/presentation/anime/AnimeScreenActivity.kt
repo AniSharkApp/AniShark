@@ -1,18 +1,35 @@
 package ru.anishark.app.presentation.anime
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toDrawable
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.plusAssign
+import io.reactivex.rxjava3.schedulers.Schedulers
+import ru.anishark.app.R
+import ru.anishark.app.common.ui.disposeOnDestroy
+import ru.anishark.app.data.db.mapper.toAnimeModel
 import ru.anishark.app.databinding.ActivityAnimeBinding
+import ru.anishark.app.domain.model.AnimeModel
+import ru.anishark.app.domain.model.BookmarkModel
 import ru.anishark.app.presentation.anime.viewmodel.AnimeViewModel
+import kotlin.math.log
 
 @AndroidEntryPoint
 class AnimeScreenActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAnimeBinding
 
     private val vm: AnimeViewModel by viewModels()
+
+    private var bookmarkState = false
+    private var currentAnime: BookmarkModel? = null
+
+    private val disposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,14 +38,54 @@ class AnimeScreenActivity : AppCompatActivity() {
 
         intent.extras?.let { screenData ->
             val malId = screenData.getInt("malId") ?: -1
-            // TODO: убрать тост
-            Toast.makeText(this, malId.toString(), Toast.LENGTH_SHORT).show()
+            disposable += vm.getBookmark(malId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { data ->
+                        currentAnime = data
+                        bookmarkState = true
+                        changeBookmarkState(bookmarkState)
+                    },
+                    { error ->
+                        Log.d("MyLog", error.toString())
+                    }
+                )
         }
         with(binding) {
             bookmarksScrollView.smoothScrollTo(0, 0)
             icAnimeScreenBack.setOnClickListener {
                 finish()
             }
+
+            icAnimeScreenBookmark.setOnClickListener {
+                if (bookmarkState) {
+                    vm.deleteBookmark(currentAnime?.malId ?: -1)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe()
+                } else {
+                    vm.insertBookmark(currentAnime!!.toAnimeModel())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe()
+                }
+                bookmarkState = !bookmarkState
+                changeBookmarkState(bookmarkState)
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.disposeOnDestroy(this.lifecycle)
+    }
+
+    private fun changeBookmarkState(state: Boolean) {
+        if (state) {
+            binding.icAnimeScreenBookmark.setImageResource(R.drawable.ic_anime_screen_bookmark_filled)
+        } else {
+            binding.icAnimeScreenBookmark.setImageResource(R.drawable.ic_anime_screen_bookmark)
         }
     }
 }

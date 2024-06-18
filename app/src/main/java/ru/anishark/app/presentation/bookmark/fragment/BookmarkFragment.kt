@@ -17,6 +17,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import ru.anishark.app.common.ui.VerticalSpacingItemDecoration
 import ru.anishark.app.common.ui.disposeOnDestroy
 import ru.anishark.app.databinding.FragmentBookmarkBinding
+import ru.anishark.app.domain.model.AnimeModel
 import ru.anishark.app.domain.model.BookmarkModel
 import ru.anishark.app.presentation.anime.AnimeScreenActivity
 import ru.anishark.app.presentation.bookmark.recycler.BookmarkAnimeListAdapter
@@ -79,6 +80,14 @@ class BookmarkFragment : Fragment() {
             bookmarkRv.adapter = bookmarkAdapter
             bookmarkRv.layoutManager = GridLayoutManager(binding.bookmarkRv.context, 2)
             bookmarkRv.addItemDecoration(VerticalSpacingItemDecoration(0f, 12f))
+            // TODO: убрать, это рыбка 
+            emptyBookmarkFlow.setOnClickListener {
+                vm.insertBookmark(
+                    AnimeModel(10,"", "", 0, 0, "", 0.1)
+                ).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe()
+            }
         }
 
         return binding.root

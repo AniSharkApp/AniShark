@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="search_bar_background">#20D9D9D9</color>
+    <color name="search_bar_background">#15D9D9D9</color>
     <color name="full_transparent">#00000000</color>
     <color name="black">#FFF</color>
     <color name="white">#000</color>
