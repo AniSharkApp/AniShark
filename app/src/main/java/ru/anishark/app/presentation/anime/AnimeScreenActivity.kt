@@ -27,7 +27,9 @@ class AnimeScreenActivity : AppCompatActivity() {
     private val vm: AnimeViewModel by viewModels()
 
     private var bookmarkState = false
-    private var currentAnime: BookmarkModel? = null
+
+    // TODO: переделать на человеческий, но я не хочу null 
+    private var currentAnime: BookmarkModel = BookmarkModel(0,"","")
 
     private val disposable = CompositeDisposable()
 
@@ -60,12 +62,12 @@ class AnimeScreenActivity : AppCompatActivity() {
 
             icAnimeScreenBookmark.setOnClickListener {
                 if (bookmarkState) {
-                    vm.deleteBookmark(currentAnime?.malId ?: -1)
+                    vm.deleteBookmark(currentAnime.malId )
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe()
                 } else {
-                    vm.insertBookmark(currentAnime!!.toAnimeModel())
+                    vm.insertBookmark(currentAnime.toAnimeModel())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe()

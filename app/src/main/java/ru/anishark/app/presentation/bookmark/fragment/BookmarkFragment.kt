@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -34,7 +35,7 @@ class BookmarkFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val bookmarkAdapter =
-        BookmarkAnimeListAdapter(bookmarks) {
+        BookmarkAnimeListAdapter {
             val intent =
                 Intent(context, AnimeScreenActivity::class.java).apply {
                     putExtra("malId", it)
@@ -64,15 +65,13 @@ class BookmarkFragment : Fragment() {
                     { data ->
                         bookmarks = data
 
-                        if (data.isEmpty()) {
-                            binding.emptyBookmarkFlow.visibility = View.VISIBLE
-                        }
-
-                        bookmarkAdapter.notifyData(bookmarks)
+                        bookmarkAdapter.loadContent(bookmarks)
+                        Toast.makeText(context, "Удача", Toast.LENGTH_SHORT).show()
                     },
-                    // TODO: Сделать красивый обработчик ошибок
                     { error ->
                         Log.e("MyLog", error.message ?: "empty error")
+                        bookmarkAdapter.loadError(error.message ?: "empty error")
+                        Toast.makeText(context, "Ошибка", Toast.LENGTH_SHORT).show()
                     },
                 )
 
@@ -81,7 +80,7 @@ class BookmarkFragment : Fragment() {
             bookmarkRv.layoutManager = GridLayoutManager(binding.bookmarkRv.context, 2)
             bookmarkRv.addItemDecoration(VerticalSpacingItemDecoration(0f, 12f))
             // TODO: убрать, это рыбка 
-            emptyBookmarkFlow.setOnClickListener {
+            bookmarkRv.setOnClickListener {
                 vm.insertBookmark(
                     AnimeModel(10,"", "", 0, 0, "", 0.1)
                 ).subscribeOn(Schedulers.io())
