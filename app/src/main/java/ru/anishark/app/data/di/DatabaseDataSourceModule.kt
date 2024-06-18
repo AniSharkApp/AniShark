@@ -8,7 +8,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ru.anishark.app.data.db.database.BookmarkDatabase
 import javax.inject.Singleton
-
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseDataSourceModule {
