@@ -13,39 +13,39 @@ import ru.anishark.app.databinding.LayoutLoadingBinding
 import ru.anishark.app.domain.model.AnimeModel
 import java.util.Locale
 
-
-class HomeAnimeListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeAnimeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val data: MutableList<AnimeModel> = mutableListOf()
     private var errorMessage: String? = null
 
     class MoreViewHolder(
-        val binding: CardWatchMoreHomeBinding
+        val binding: CardWatchMoreHomeBinding,
     ) : RecyclerView.ViewHolder(binding.root)
 
     class AnimeViewHolder(
-        val binding: CardAnimeHomeBinding
+        val binding: CardAnimeHomeBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(model: AnimeModel) {
-            val episodesNumber = with(binding.root.context) {
-                if (model.episodes != null) {
-                    getString(R.string.episodes, model.episodes)
-                } else {
-                    getString(R.string.ongoing)
+            val episodesNumber =
+                with(binding.root.context) {
+                    if (model.episodes != null) {
+                        getString(R.string.episodes, model.episodes)
+                    } else {
+                        getString(R.string.ongoing)
+                    }
                 }
-            }
             binding.animeNameTv.text = model.title
             binding.episodesTv.text = episodesNumber
-            binding.ratingTv.text = String.format(Locale.ROOT, "%.2f",model.score / 2.0).toString()
+            binding.ratingTv.text = String.format(Locale.ROOT, "%.2f", model.score).toString()
             binding.cardIv.load(model.imageUrl)
         }
     }
 
     class LoadingViewHolder(
-        val binding: LayoutLoadingBinding
+        val binding: LayoutLoadingBinding,
     ) : RecyclerView.ViewHolder(binding.root)
 
     class ErrorViewHolder(
-        val binding: LayoutErrorBinding
+        val binding: LayoutErrorBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(message: String) {
             with(binding) {
@@ -62,46 +62,49 @@ class HomeAnimeListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
-    ): RecyclerView.ViewHolder {
-        return when (viewType) {
+        viewType: Int,
+    ): RecyclerView.ViewHolder =
+        when (viewType) {
             LOADING_TYPE -> {
-                val loadingBinding = LayoutLoadingBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
+                val loadingBinding =
+                    LayoutLoadingBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false,
+                    )
                 LoadingViewHolder(loadingBinding)
             }
 
             ERROR_TYPE -> {
-                val errorBinding = LayoutErrorBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
+                val errorBinding =
+                    LayoutErrorBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false,
+                    )
                 ErrorViewHolder(errorBinding)
             }
 
             WATCH_MORE_CARD_TYPE -> {
-                val watchMoreBinding = CardWatchMoreHomeBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
+                val watchMoreBinding =
+                    CardWatchMoreHomeBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false,
+                    )
                 MoreViewHolder(watchMoreBinding)
             }
 
             else -> {
-                val animeCardViewBinding = CardAnimeHomeBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
+                val animeCardViewBinding =
+                    CardAnimeHomeBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false,
+                    )
                 AnimeViewHolder(animeCardViewBinding)
             }
         }
-    }
 
     fun dataLoaded(data: List<AnimeModel>) {
         val diffCallback = HomeAnimeListDiffUtilCallback(this.data, data)
@@ -116,7 +119,10 @@ class HomeAnimeListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return data.size + 1
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+    ) {
         if (holder is AnimeViewHolder) {
             holder.bind(data[position])
         }

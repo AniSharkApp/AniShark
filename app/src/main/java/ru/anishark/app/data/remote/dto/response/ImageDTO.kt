@@ -10,5 +10,5 @@ data class ImageDTO(
     @SerialName("small_image_url")
     val smallImageUrl: String?,
     @SerialName("large_image_url")
-    val largeImageUrl: String?
+    val largeImageUrl: String?,
 )

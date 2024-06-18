@@ -1,42 +1,98 @@
 package ru.anishark.app.presentation.bookmark.fragment
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import ru.anishark.app.R
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.plusAssign
+import io.reactivex.rxjava3.schedulers.Schedulers
+import ru.anishark.app.common.ui.VerticalSpacingItemDecoration
+import ru.anishark.app.common.ui.disposeOnDestroy
+import ru.anishark.app.databinding.FragmentBookmarkBinding
+import ru.anishark.app.domain.model.BookmarkModel
+import ru.anishark.app.presentation.anime.AnimeScreenActivity
+import ru.anishark.app.presentation.bookmark.recycler.BookmarkAnimeListAdapter
 import ru.anishark.app.presentation.bookmark.viewmodel.BookmarkViewModel
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class BookmarkFragment : Fragment() {
     private val vm: BookmarkViewModel by viewModels()
 
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var bookmarks: List<BookmarkModel> = emptyList()
+
+    @Suppress("ktlint:standard:backing-property-naming")
+    private var _binding: FragmentBookmarkBinding? = null
+    private val binding get() = _binding!!
+
+    private val bookmarkAdapter =
+        BookmarkAnimeListAdapter(bookmarks) {
+            val intent =
+                Intent(context, AnimeScreenActivity::class.java).apply {
+                    putExtra("malId", it)
+                }
+            startActivity(intent)
+        }
+
+    private val disposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        disposable.disposeOnDestroy(this.lifecycle)
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bookmark, container, false)
+        _binding = FragmentBookmarkBinding.inflate(inflater, container, false)
+
+        disposable +=
+            vm.bookmarks
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { data ->
+                        bookmarks = data
+
+                        if (data.isEmpty()) {
+                            binding.emptyBookmarkFlow.visibility = View.VISIBLE
+                        }
+
+                        bookmarkAdapter.notifyData(bookmarks)
+                    },
+                    // TODO: Сделать красивый обработчик ошибок
+                    { error ->
+                        Log.e("MyLog", error.message ?: "empty error")
+                    },
+                )
+
+        with(binding) {
+            bookmarkRv.adapter = bookmarkAdapter
+            bookmarkRv.layoutManager = GridLayoutManager(binding.bookmarkRv.context, 2)
+            bookmarkRv.addItemDecoration(VerticalSpacingItemDecoration(0f, 12f))
+            emptyBookmarkFlow.setOnClickListener {
+                vm
+                    .insertBookmark(AnimeModel(13, "Mnoto olegosdfasfasfsaf", "", 0, 0, "", 0.0))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe()
+            }
+        }
+
+        return binding.root
     }
 
-    companion object {
-        const val ARG_PARAM1 = "param1"
-        const val ARG_PARAM2 = "param2"
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

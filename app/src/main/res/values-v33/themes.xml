@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#001</item>
+        <item name="windowSplashScreenIconBackgroundColor">#001</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_dark</item>
+        <item name="postSplashScreenTheme">@style/Base.Theme.AniShark</item>
+        <item name="android:windowSplashScreenBehavior">icon_preferred</item>
+    </style>
+</resources>

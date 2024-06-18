@@ -8,5 +8,5 @@ data class TitleDTO(
     @SerialName("type")
     val type: String,
     @SerialName("title")
-    val title: String
+    val title: String,
 )

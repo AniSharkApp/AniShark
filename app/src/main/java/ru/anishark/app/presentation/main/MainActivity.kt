@@ -1,16 +1,15 @@
 package ru.anishark.app.presentation.main
 
-
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import ru.anishark.app.R
-import ru.anishark.app.databinding.ActivityAnimeBinding
 import ru.anishark.app.databinding.ActivityMainBinding
 import ru.anishark.app.presentation.bookmark.fragment.BookmarkFragment
 import ru.anishark.app.presentation.catalog.fragment.CatalogFragment
@@ -66,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.change_theme -> {
                 // TODO: сделать реализацию смену темы
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 Toast.makeText(this, "Помогите, я китайский мальчик", Toast.LENGTH_SHORT).show()
                 return true
             }
@@ -74,10 +74,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun <T: Fragment> loadFragment(fragment: Class<out T>) {
+    private fun <T : Fragment> loadFragment(fragment: Class<out T>) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(binding.container.id, fragment, null)
         transaction.commit()
     }
 }
-

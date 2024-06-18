@@ -9,36 +9,36 @@ class VerticalSpacingItemDecoration(
     private val endPadding: Float,
     private val topPadding: Float,
     private val bottomPadding: Float,
-    private val spacing: Float
-): SpacingItemDecoration(startPadding, endPadding, topPadding, bottomPadding) {
+    private val spacing: Float,
+) : SpacingItemDecoration(startPadding, endPadding, topPadding, bottomPadding) {
     constructor(
         allSidesPadding: Float,
-        spacing: Float
+        spacing: Float,
     ) : this(
         startPadding = allSidesPadding,
         endPadding = allSidesPadding,
         topPadding = allSidesPadding,
         bottomPadding = allSidesPadding,
-        spacing = spacing
+        spacing = spacing,
     )
 
     constructor(
         verticalPadding: Float,
         horizontalPadding: Float,
-        spacing: Float
+        spacing: Float,
     ) : this(
         startPadding = horizontalPadding,
         endPadding = horizontalPadding,
         topPadding = verticalPadding,
         bottomPadding = verticalPadding,
-        spacing = spacing
+        spacing = spacing,
     )
 
     override fun getItemOffsets(
         outRect: Rect,
         view: View,
         parent: RecyclerView,
-        state: RecyclerView.State
+        state: RecyclerView.State,
     ) {
         val adapter = parent.adapter ?: return
         outRect.left = getPixelsFromDimensityIndependentPixels(startPadding)
@@ -48,11 +48,12 @@ class VerticalSpacingItemDecoration(
             // Первый
             0 -> {
                 outRect.top = getPixelsFromDimensityIndependentPixels(topPadding)
+                outRect.bottom = getPixelsFromDimensityIndependentPixels(spacing) / 2
             }
             // Последний
-            adapter.getItemCount() - 1 -> {
+            adapter.itemCount - 1 -> {
                 outRect.bottom = getPixelsFromDimensityIndependentPixels(bottomPadding)
-
+                outRect.top = getPixelsFromDimensityIndependentPixels(spacing) / 2
             }
             // Иной
             else -> {

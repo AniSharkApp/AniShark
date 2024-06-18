@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="anime_screen_medium_text">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/onSurface</item>
         <item name="android:textSize">18sp</item>
         <item name="android:fontFamily">@font/roboto</item>
     </style>
 
     <style name="anime_screen_description">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/onSurface</item>
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="bookmark_title">
+        <item name="android:textColor">@color/onSurface</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+    
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:editTextColor">@color/black</item>
+        <item name="android:textColorHint">#25000000</item>
     </style>
 </resources>

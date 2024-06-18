@@ -14,7 +14,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val loadTopsHomeUseCase: LoadTopsHomeUseCase,
-    private val loadActualHomeUseCase: LoadActualHomeUseCase
+    private val loadActualHomeUseCase: LoadActualHomeUseCase,
 ) : ViewModel() {
     // TODO скомбайнить состояния, подумать над тем как создать BehaviorSubject реемитом
     private val _topsState = BehaviorSubject.fromSingle(loadTopsHomeUseCase())

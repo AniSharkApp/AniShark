@@ -21,7 +21,6 @@ import ru.anishark.app.presentation.catalog.recycler.AnimeModelForCatalog
 import ru.anishark.app.presentation.catalog.recycler.CatalogAnimeListAdapter
 import ru.anishark.app.presentation.filter.activity.FilterActivity
 
-
 const val FIRST_NAME_KEY = "fnk"
 const val SECOND_NAME_KEY = "snk"
 const val THIRD_NAME_KEY = "tnk"
@@ -35,6 +34,7 @@ class CatalogFragment : Fragment() {
     private lateinit var type: ArrayList<String>
     private lateinit var rating: ArrayList<String>
     private lateinit var genresList: ArrayList<String>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -275,10 +275,11 @@ class CatalogFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentCatalogBinding.inflate(inflater, container, false)
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        _binding = FragmentCatalogBinding.inflate(inflater, container, false)
         with(binding) {
             catalogRv.layoutManager = LinearLayoutManager(catalogRv.context)
             catalogRv.adapter = CatalogAnimeListAdapter(list)
@@ -290,10 +291,9 @@ class CatalogFragment : Fragment() {
         }
         return binding.root
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        disposables.clear()
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+      disposables.clear()
     }
 }

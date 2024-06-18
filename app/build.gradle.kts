@@ -25,7 +25,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -44,12 +44,13 @@ android {
 dependencies {
     // Room
     implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.rxjava3)
 
     // Coil
     implementation(libs.coil)
 
-    //RxJava
+    // RxJava
     implementation(libs.rxkotlin)
     implementation(libs.rxandroid)
 
