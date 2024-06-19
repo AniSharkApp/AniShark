@@ -1,72 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".presentation.home.fragment.HomeFragment">
+
         <TextView
             android:id="@+id/actual_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/home_actual_of_season"
-            android:textSize="@dimen/home_section_heading_text_size"
             android:fontFamily="sans-serif-medium"
-            android:paddingHorizontal="24dp"/>
+            android:paddingHorizontal="24dp"
+            android:text="@string/home_actual_of_season"
+            android:textColor="@color/onSurface"
+            android:textSize="@dimen/home_section_heading_text_size" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/actual_rv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
             android:paddingHorizontal="18dp"
-            android:paddingBottom="12dp"
-            android:clipToPadding="false" />
+            android:paddingBottom="12dp" />
 
         <TextView
             android:id="@+id/tops_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/home_tops"
-            android:textSize="@dimen/home_section_heading_text_size"
             android:fontFamily="sans-serif-medium"
-            android:paddingHorizontal="24dp"/>
+            android:paddingHorizontal="24dp"
+            android:text="@string/home_tops"
+            android:textColor="@color/onSurface"
+            android:textSize="@dimen/home_section_heading_text_size" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tops_rv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
             android:paddingHorizontal="18dp"
-            android:paddingBottom="12dp"
-            android:clipToPadding="false"/>
+            android:paddingBottom="12dp" />
+
         <androidx.constraintlayout.helper.widget.Flow
             android:id="@+id/actual_flow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            app:constraint_referenced_ids="actual_tv,actual_rv"
             app:flow_verticalAlign="top"
             app:flow_verticalBias="0.0"
             app:flow_verticalGap="@dimen/home_gap_tv_rv"
-            app:flow_verticalStyle="packed"
-            app:constraint_referenced_ids="actual_tv,actual_rv"/>
+            app:flow_verticalStyle="packed" />
+
         <androidx.constraintlayout.helper.widget.Flow
             android:id="@+id/tops_flow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            app:constraint_referenced_ids="tops_tv,tops_rv"
             app:flow_verticalAlign="top"
             app:flow_verticalBias="0.0"
             app:flow_verticalGap="@dimen/home_gap_tv_rv"
-            app:flow_verticalStyle="packed"
-            app:constraint_referenced_ids="tops_tv,tops_rv"/>
+            app:flow_verticalStyle="packed" />
+
         <androidx.constraintlayout.helper.widget.Flow
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:orientation="vertical"
             android:layout_marginTop="12dp"
+            android:orientation="vertical"
             app:constraint_referenced_ids="actual_flow,tops_flow"
             app:flow_verticalAlign="top"
             app:flow_verticalBias="0.0"

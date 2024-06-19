@@ -29,5 +29,5 @@ class BookmarkViewModel
 
         fun deleteBookmark(animeId: Int) = deleteBookmarkUseCase(animeId)
 
-        fun getBookmark(animeId: Int) = oneBookmarkUseCase(animeId).toFuture().get()
+        fun getBookmark(animeId: Int) = oneBookmarkUseCase(animeId)
     }
