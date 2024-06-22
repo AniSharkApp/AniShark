@@ -24,6 +24,9 @@
         <item name="colorSurfaceVariant">@color/surfaceVariant</item>
         <item name="colorOnSurfaceVariant">@color/onSurfaceVariant</item>
         <item name="colorOutline">@color/outline</item>
+
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:navigationBarColor">@color/background</item>
     </style>
 
     <style name="Dark.Theme.AniShark" parent="Dark.Base.Theme.AniShark"/>

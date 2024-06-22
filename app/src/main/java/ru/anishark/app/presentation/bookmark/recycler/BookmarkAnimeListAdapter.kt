@@ -10,9 +10,6 @@ import ru.anishark.app.databinding.CardEmptyBookmarksBinding
 import ru.anishark.app.databinding.LayoutErrorBinding
 import ru.anishark.app.databinding.LayoutLoadingBinding
 import ru.anishark.app.domain.model.BookmarkModel
-import ru.anishark.app.presentation.home.recycler.HomeAnimeListAdapter.ErrorViewHolder
-import ru.anishark.app.presentation.home.recycler.HomeAnimeListAdapter.LoadingViewHolder
-import ru.anishark.app.presentation.home.recycler.HomeAnimeListDiffUtilCallback
 
 class BookmarkAnimeListAdapter(
     private val onClickListener: (Int) -> Unit,

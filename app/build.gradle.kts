@@ -72,6 +72,9 @@ dependencies {
     // Core Splashscreen API
     implementation(libs.androidx.core.splashscreen)
 
+    // Datastore
+    implementation(libs.androidx.datastore.preferences.rxjava3)
+
     implementation(libs.dagger.hiltAndroid)
     kapt(libs.dagger.hiltAndroidCompiler)
 

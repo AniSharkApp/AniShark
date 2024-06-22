@@ -1,30 +1,62 @@
 package ru.anishark.app.presentation.main
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.rxjava3.rxPreferencesDataStore
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.anishark.app.R
 import ru.anishark.app.databinding.ActivityMainBinding
 import ru.anishark.app.presentation.bookmark.fragment.BookmarkFragment
 import ru.anishark.app.presentation.catalog.fragment.CatalogFragment
 import ru.anishark.app.presentation.home.fragment.HomeFragment
 
+val Context.rxDataStore by rxPreferencesDataStore("settings")
+
+val THEME = intPreferencesKey("theme")
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private var isDarkTheme = true
 
+    @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
+        val themeObservable = this.rxDataStore.data().map {
+            it[THEME] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        }
+
+        themeObservable
+//            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    isDarkTheme = it == AppCompatDelegate.MODE_NIGHT_YES
+                    AppCompatDelegate.setDefaultNightMode(it)
+                    Log.d("MyLog", "Tri olega")
+                },
+                {
+                    Log.d("MyLog", it.message ?: "Dwa olega")
+                }
+            )
         installSplashScreen()
 
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         setSupportActionBar(binding.topAppBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
@@ -65,8 +97,8 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.change_theme -> {
                 // TODO: сделать реализацию смену темы
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                Toast.makeText(this, "Помогите, я китайский мальчик", Toast.LENGTH_SHORT).show()
+                changeTheme(isDarkTheme)
+
                 return true
             }
 
@@ -78,5 +110,25 @@ class MainActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(binding.container.id, fragment, null)
         transaction.commit()
+    }
+
+    private fun changeTheme(state: Boolean) {
+        if (state) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            this.rxDataStore.updateDataAsync {
+                val result = it.toMutablePreferences().apply {
+                    this[THEME] = AppCompatDelegate.MODE_NIGHT_NO
+                }.toPreferences()
+                Single.just(result)
+            }
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            this.rxDataStore.updateDataAsync {
+                val result = it.toMutablePreferences().apply {
+                    this[THEME] = AppCompatDelegate.MODE_NIGHT_YES
+                }.toPreferences()
+                Single.just(result)
+            }
+        }
     }
 }

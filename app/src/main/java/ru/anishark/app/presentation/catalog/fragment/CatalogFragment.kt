@@ -27,7 +27,8 @@ const val THIRD_NAME_KEY = "tnk"
 
 @AndroidEntryPoint
 class CatalogFragment : Fragment() {
-    private lateinit var binding: FragmentCatalogBinding
+    private var _binding: FragmentCatalogBinding? = null
+    private val binding get() = _binding!!
     var list: ArrayList<AnimeModelForCatalog> = ArrayList()
     private lateinit var startForResultLauncher: ActivityResultLauncher<Intent>
     private val disposables = CompositeDisposable()
