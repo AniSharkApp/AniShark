@@ -27,13 +27,13 @@
         </activity>
         <activity
             android:name=".presentation.filter.activity.FilterActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presentation.anime.AnimeScreenActivity"
             android:exported="true"
-            android:screenOrientation="portrait" />
-
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

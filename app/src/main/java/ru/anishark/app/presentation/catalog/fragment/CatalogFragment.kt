@@ -30,7 +30,8 @@ const val RATING_KEY = "tnk"
 
 @AndroidEntryPoint
 class CatalogFragment : Fragment() {
-    private lateinit var binding: FragmentCatalogBinding
+    private var _binding: FragmentCatalogBinding? = null
+    private val binding get() = _binding!!
     var list: ArrayList<AnimeModel> = ArrayList()
     private lateinit var startForResultLauncher: ActivityResultLauncher<Intent>
     private val disposables = CompositeDisposable()
@@ -45,7 +46,7 @@ class CatalogFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        binding = FragmentCatalogBinding.inflate(inflater, container, false)
+        _binding = FragmentCatalogBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -124,5 +125,6 @@ class CatalogFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         disposables.clear()
+        _binding = null
     }
 }
