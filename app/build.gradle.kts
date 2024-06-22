@@ -42,6 +42,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.logging.interceptor)
+
     // Room
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)

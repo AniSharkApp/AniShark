@@ -9,14 +9,12 @@ import android.widget.CheckBox
 import android.widget.ExpandableListView
 import android.widget.TextView
 import ru.anishark.app.R
-import ru.anishark.app.presentation.filter.activity.FilterActivity
 
 class ExpandableListAdapter(
     private val context: Context,
     private var expandableListTitle: List<String>,
-    private var expandableListDetail: HashMap<String, List<String>>
+    private var expandableListDetail: Map<String, List<String>>,
 ) : BaseExpandableListAdapter() {
-
     private val checkBoxStates = mutableMapOf<String, MutableMap<Int, Boolean>>()
     val selectedRatings = mutableSetOf<String>()
     val selectedTypes = mutableSetOf<String>()
@@ -28,20 +26,22 @@ class ExpandableListAdapter(
         }
     }
 
-    override fun getChild(listPosition: Int, expandedListPosition: Int): Any {
-        return this.expandableListDetail[this.expandableListTitle[listPosition]]!![expandedListPosition]
-    }
+    override fun getChild(
+        listPosition: Int,
+        expandedListPosition: Int,
+    ): Any = this.expandableListDetail[this.expandableListTitle[listPosition]]!![expandedListPosition]
 
-    override fun getChildId(listPosition: Int, expandedListPosition: Int): Long {
-        return expandedListPosition.toLong()
-    }
+    override fun getChildId(
+        listPosition: Int,
+        expandedListPosition: Int,
+    ): Long = expandedListPosition.toLong()
 
     override fun getChildView(
         listPosition: Int,
         expandedListPosition: Int,
         isLastChild: Boolean,
         convertView: View?,
-        parent: ViewGroup
+        parent: ViewGroup,
     ): View {
         var convertView = convertView
         val expandedListText = getChild(listPosition, expandedListPosition) as String
@@ -104,27 +104,19 @@ class ExpandableListAdapter(
         return convertView
     }
 
-    override fun getChildrenCount(listPosition: Int): Int {
-        return this.expandableListDetail[this.expandableListTitle[listPosition]]!!.size
-    }
+    override fun getChildrenCount(listPosition: Int): Int = this.expandableListDetail[this.expandableListTitle[listPosition]]!!.size
 
-    override fun getGroup(listPosition: Int): Any {
-        return this.expandableListTitle[listPosition]
-    }
+    override fun getGroup(listPosition: Int): Any = this.expandableListTitle[listPosition]
 
-    override fun getGroupCount(): Int {
-        return this.expandableListTitle.size
-    }
+    override fun getGroupCount(): Int = this.expandableListTitle.size
 
-    override fun getGroupId(listPosition: Int): Long {
-        return listPosition.toLong()
-    }
+    override fun getGroupId(listPosition: Int): Long = listPosition.toLong()
 
     override fun getGroupView(
         listPosition: Int,
         isExpanded: Boolean,
         convertView: View?,
-        parent: ViewGroup
+        parent: ViewGroup,
     ): View {
         var convertView = convertView
         val listTitle = getGroup(listPosition) as String
@@ -138,15 +130,14 @@ class ExpandableListAdapter(
         return convertView
     }
 
-    override fun hasStableIds(): Boolean {
-        return false
-    }
+    override fun hasStableIds(): Boolean = false
 
-    override fun isChildSelectable(listPosition: Int, expandedListPosition: Int): Boolean {
-        return true
-    }
+    override fun isChildSelectable(
+        listPosition: Int,
+        expandedListPosition: Int,
+    ): Boolean = true
 
-    fun updateData(newData: HashMap<String, List<String>>) {
+    fun updateData(newData: Map<String, List<String>>) {
         expandableListDetail = newData
         expandableListTitle = ArrayList(newData.keys)
         notifyDataSetChanged()
