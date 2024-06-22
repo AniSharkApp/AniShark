@@ -1,5 +1,6 @@
 package ru.anishark.app.data.di
 
+import android.util.Log
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -7,21 +8,27 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.logging.HttpLoggingInterceptor.Level
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import ru.anishark.app.data.datasource.AnimeDataSource
+import ru.anishark.app.data.datasource.GenreDataSource
 import ru.anishark.app.data.datasource.RecommendationsDataSource
 import ru.anishark.app.data.datasource.SeasonsDataSource
 import ru.anishark.app.data.datasource.TopDataSource
 import ru.anishark.app.data.di.annotation.Remote
 import ru.anishark.app.data.remote.RemoteConstants.BASE_URL
 import ru.anishark.app.data.remote.api.AnimeService
+import ru.anishark.app.data.remote.api.GenreService
 import ru.anishark.app.data.remote.api.RecommendationsService
 import ru.anishark.app.data.remote.api.SeasonsService
 import ru.anishark.app.data.remote.api.TopService
 import ru.anishark.app.data.remote.datasource.RemoteAnimeDataSourceImpl
+import ru.anishark.app.data.remote.datasource.RemoteGenreDataSourceImpl
 import ru.anishark.app.data.remote.datasource.RemoteRecommendationsDataSourceImpl
 import ru.anishark.app.data.remote.datasource.RemoteSeasonsDataSourceImpl
 import ru.anishark.app.data.remote.datasource.RemoteTopDataSourceImpl
@@ -47,13 +54,32 @@ class RemoteDataSourceModule {
 
     @Provides
     @Singleton
+    fun provideOkHttpClient(): OkHttpClient =
+        OkHttpClient
+            .Builder()
+            .addInterceptor(
+                HttpLoggingInterceptor(
+                    object : HttpLoggingInterceptor.Logger {
+                        override fun log(message: String) {
+                            Log.d("OkHttp", message)
+                        }
+                    },
+                ).apply {
+                    setLevel(Level.BODY)
+                },
+            ).build()
+
+    @Provides
+    @Singleton
     fun provideRetrofit(
         rxJava3CallAdapterFactory: RxJava3CallAdapterFactory,
         jsonConverterFactory: Converter.Factory,
+        okHttpClient: OkHttpClient,
     ): Retrofit =
         Retrofit
             .Builder()
             .baseUrl(BASE_URL)
+            .client(okHttpClient)
             .addConverterFactory(jsonConverterFactory)
             .addCallAdapterFactory(rxJava3CallAdapterFactory)
             .build()
@@ -61,6 +87,10 @@ class RemoteDataSourceModule {
     @Provides
     @Singleton
     fun provideAnimeService(retrofit: Retrofit): AnimeService = retrofit.create(AnimeService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideGenreService(retrofit: Retrofit): GenreService = retrofit.create(GenreService::class.java)
 
     @Provides
     @Singleton
@@ -81,6 +111,11 @@ class RemoteDataSourceModule {
         @Singleton
         @Remote
         abstract fun bindRemoteAnimeDataSource(impl: RemoteAnimeDataSourceImpl): AnimeDataSource
+
+        @Binds
+        @Singleton
+        @Remote
+        abstract fun bindRemoteGenreDataSource(impl: RemoteGenreDataSourceImpl): GenreDataSource
 
         @Binds
         @Singleton

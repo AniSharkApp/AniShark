@@ -5,13 +5,17 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.anishark.app.data.db.datasource.DatabaseBookmarksDataSource
+import ru.anishark.app.domain.repository.AnimeRepository
+import ru.anishark.app.domain.repository.GenresRepository
 import ru.anishark.app.domain.repository.SeasonsRepository
 import ru.anishark.app.domain.repository.TopRepository
 import ru.anishark.app.domain.usecase.DeleteBookmarkCatalogUseCase
 import ru.anishark.app.domain.usecase.GetAllBookmarksCatalogUseCase
+import ru.anishark.app.domain.usecase.GetAnimeSearchUseCase
 import ru.anishark.app.domain.usecase.GetOneBookmarkCatalogUseCase
 import ru.anishark.app.domain.usecase.InsertBookmarkCatalogUseCase
 import ru.anishark.app.domain.usecase.LoadActualHomeUseCase
+import ru.anishark.app.domain.usecase.LoadGenresFilterUseCase
 import ru.anishark.app.domain.usecase.LoadTopsHomeUseCase
 import javax.inject.Singleton
 
@@ -20,37 +24,38 @@ import javax.inject.Singleton
 class UseCaseModule {
     @Provides
     @Singleton
-    fun provideLoadActualHomeUseCase(
-        seasonsRepository: SeasonsRepository
-    ): LoadActualHomeUseCase = LoadActualHomeUseCase(seasonsRepository)
+    fun provideLoadActualHomeUseCase(seasonsRepository: SeasonsRepository): LoadActualHomeUseCase = LoadActualHomeUseCase(seasonsRepository)
 
     @Provides
     @Singleton
-    fun provideLoadTopsHomeUseCase(
-        topRepository: TopRepository
-    ): LoadTopsHomeUseCase = LoadTopsHomeUseCase(topRepository)
+    fun provideLoadTopsHomeUseCase(topRepository: TopRepository): LoadTopsHomeUseCase = LoadTopsHomeUseCase(topRepository)
 
     @Provides
     @Singleton
-    fun provideGetAllBookmarksCatalogUseCase(
-       bookmarksDataSource: DatabaseBookmarksDataSource
-    ): GetAllBookmarksCatalogUseCase = GetAllBookmarksCatalogUseCase(bookmarksDataSource)
+    fun provideGetAllBookmarksCatalogUseCase(bookmarksDataSource: DatabaseBookmarksDataSource): GetAllBookmarksCatalogUseCase =
+        GetAllBookmarksCatalogUseCase(bookmarksDataSource)
 
     @Provides
     @Singleton
-    fun provideGetOneBookmarkCatalogUseCase(
-        bookmarksDataSource: DatabaseBookmarksDataSource
-    ): GetOneBookmarkCatalogUseCase = GetOneBookmarkCatalogUseCase(bookmarksDataSource)
+    fun provideGetOneBookmarkCatalogUseCase(bookmarksDataSource: DatabaseBookmarksDataSource): GetOneBookmarkCatalogUseCase =
+        GetOneBookmarkCatalogUseCase(bookmarksDataSource)
 
     @Provides
     @Singleton
-    fun provideInsertBookmarkCatalogUseCase(
-        bookmarksDataSource: DatabaseBookmarksDataSource
-    ): InsertBookmarkCatalogUseCase = InsertBookmarkCatalogUseCase(bookmarksDataSource)
+    fun provideInsertBookmarkCatalogUseCase(bookmarksDataSource: DatabaseBookmarksDataSource): InsertBookmarkCatalogUseCase =
+        InsertBookmarkCatalogUseCase(bookmarksDataSource)
 
     @Provides
     @Singleton
-    fun provideDeleteBookmarkCatalogUseCase(
-        bookmarksDataSource: DatabaseBookmarksDataSource
-    ): DeleteBookmarkCatalogUseCase = DeleteBookmarkCatalogUseCase(bookmarksDataSource)
+    fun provideDeleteBookmarkCatalogUseCase(bookmarksDataSource: DatabaseBookmarksDataSource): DeleteBookmarkCatalogUseCase =
+        DeleteBookmarkCatalogUseCase(bookmarksDataSource)
+
+    @Provides
+    @Singleton
+    fun provideGetAnimeSearchUseCase(animeRepository: AnimeRepository): GetAnimeSearchUseCase = GetAnimeSearchUseCase(animeRepository)
+
+    @Provides
+    @Singleton
+    fun provideLoadGenresFilterUseCase(genresRepository: GenresRepository): LoadGenresFilterUseCase =
+        LoadGenresFilterUseCase(genresRepository)
 }

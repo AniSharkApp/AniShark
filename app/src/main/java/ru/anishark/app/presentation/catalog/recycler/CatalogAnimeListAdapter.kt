@@ -3,29 +3,28 @@ package ru.anishark.app.presentation.catalog.recycler
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import ru.anishark.app.R
 import ru.anishark.app.databinding.CardAnimeCatalogBinding
-import coil.load
+import ru.anishark.app.domain.model.AnimeModel
 
-class CatalogAnimeListAdapter(val data: List<AnimeModelForCatalog>)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
+class CatalogAnimeListAdapter(
+    val data: List<AnimeModel>,
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class AnimeViewHolder(
         val binding: CardAnimeCatalogBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(model: AnimeModelForCatalog) {
-            binding.nameTv.text = model.name
-            binding.episodesTv.text = "${model.episodesCount + 1} ep"
-            binding.ratingTv.text = "${model.rating}"
-            binding.descriptionTv.text = model.description
+        fun bind(model: AnimeModel) {
+            binding.nameTv.text = model.title
+            binding.episodesTv.text = if (model.episodes == null) "0" else "${model.episodes + 1} ep"
+            binding.ratingTv.text = "${model.score}"
+            binding.descriptionTv.text = model.synopsis
             binding.cardIv.load(model.imageUrl) {
                 placeholder(R.drawable.default_anime_catalog_image)
                 error(R.drawable.default_anime_catalog_image)
             }
-
         }
     }
 

@@ -37,7 +37,7 @@ data class AnimeDTO(
     @SerialName("scored_by")
     val scoredBy: Int,
     @SerialName("rank")
-    val rank: Int,
+    val rank: Int?,
     @SerialName("popularity")
     val popularity: Int,
     @SerialName("members")
