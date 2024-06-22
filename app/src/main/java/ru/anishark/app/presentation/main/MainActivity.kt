@@ -8,9 +8,12 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
+import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.rxjava3.rxPreferencesDataStore
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,7 +23,13 @@ import ru.anishark.app.presentation.bookmark.fragment.BookmarkFragment
 import ru.anishark.app.presentation.catalog.fragment.CatalogFragment
 import ru.anishark.app.presentation.home.fragment.HomeFragment
 
-val Context.rxDataStore by rxPreferencesDataStore("settings")
+val Context.rxDataStore by rxPreferencesDataStore(
+    name = "settings",
+    corruptionHandler =
+        ReplaceFileCorruptionHandler(
+            produceNewData = { emptyPreferences() },
+        ),
+)
 
 val THEME = intPreferencesKey("theme")
 
@@ -31,9 +40,10 @@ class MainActivity : AppCompatActivity() {
 
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
-        val themeObservable = this.rxDataStore.data().map {
-            it[THEME] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-        }
+        val themeObservable =
+            this.rxDataStore.data().map {
+                it[THEME] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            }
 
         themeObservable
 //            .observeOn(AndroidSchedulers.mainThread())
@@ -45,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                 },
                 {
                     Log.d("MyLog", it.message ?: "Dwa olega")
-                }
+                },
             )
         installSplashScreen()
 
@@ -62,22 +72,22 @@ class MainActivity : AppCompatActivity() {
 //            insets
 //        }
 
-        loadFragment(HomeFragment::class.java)
+        loadFragment(HomeFragment::class.java, HOME_FRAGMENT_TAG)
         // TODO: сделать реализацию navigation по человечески
         binding.bottomNavBar.setOnItemSelectedListener { fragment ->
             when (fragment.itemId) {
                 R.id.home -> {
-                    loadFragment(HomeFragment::class.java)
+                    loadFragment(HomeFragment::class.java, HOME_FRAGMENT_TAG)
                     true
                 }
 
                 R.id.catalog -> {
-                    loadFragment(CatalogFragment::class.java)
+                    loadFragment(CatalogFragment::class.java, CATALOG_FRAGMENT_TAG)
                     true
                 }
 
                 else -> {
-                    loadFragment(BookmarkFragment::class.java)
+                    loadFragment(BookmarkFragment::class.java, BOOKMARKS_FRAGMENT_TAG)
                     true
                 }
             }
@@ -102,29 +112,56 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun <T : Fragment> loadFragment(fragment: Class<out T>) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(binding.container.id, fragment, null)
-        transaction.commit()
+    private fun <T : Fragment> loadFragment(
+        fragment: Class<out T>,
+        key: String,
+    ) {
+        val rememberedFragment = supportFragmentManager.findFragmentByTag(key)
+        when (rememberedFragment) {
+            null -> {
+                supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    add(binding.container.id, fragment, null, key)
+                    addToBackStack(key)
+                }
+            }
+
+            else -> {
+                supportFragmentManager.popBackStack(key, 0)
+            }
+        }
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     private fun changeTheme(state: Boolean) {
         if (state) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             this.rxDataStore.updateDataAsync {
-                val result = it.toMutablePreferences().apply {
-                    this[THEME] = AppCompatDelegate.MODE_NIGHT_NO
-                }.toPreferences()
+                val result =
+                    it
+                        .toMutablePreferences()
+                        .apply {
+                            this[THEME] = AppCompatDelegate.MODE_NIGHT_NO
+                        }.toPreferences()
                 Single.just(result)
             }
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             this.rxDataStore.updateDataAsync {
-                val result = it.toMutablePreferences().apply {
-                    this[THEME] = AppCompatDelegate.MODE_NIGHT_YES
-                }.toPreferences()
+                val result =
+                    it
+                        .toMutablePreferences()
+                        .apply {
+                            this[THEME] = AppCompatDelegate.MODE_NIGHT_YES
+                        }.toPreferences()
                 Single.just(result)
             }
         }
+    }
+
+    companion object {
+        const val HOME_FRAGMENT_TAG = "HOME"
+        const val CATALOG_FRAGMENT_TAG = "CATALOG"
+        const val BOOKMARKS_FRAGMENT_TAG = "BOOKMARKS"
     }
 }

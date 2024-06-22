@@ -2,14 +2,13 @@ package ru.anishark.app.presentation.bookmark.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -22,6 +21,7 @@ import ru.anishark.app.domain.model.AnimeModel
 import ru.anishark.app.domain.model.BookmarkModel
 import ru.anishark.app.presentation.anime.AnimeScreenActivity
 import ru.anishark.app.presentation.bookmark.recycler.BookmarkAnimeListAdapter
+import ru.anishark.app.presentation.bookmark.recycler.BookmarksState
 import ru.anishark.app.presentation.bookmark.viewmodel.BookmarkViewModel
 
 @AndroidEntryPoint
@@ -57,33 +57,29 @@ class BookmarkFragment : Fragment() {
     ): View? {
         _binding = FragmentBookmarkBinding.inflate(inflater, container, false)
 
+        vm.loadBookmarks()
+
         disposable +=
-            vm.bookmarks
+            vm.bookmarksState
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { data ->
-                        bookmarks = data
-
-                        bookmarkAdapter.loadContent(bookmarks)
-                        Toast.makeText(context, "Удача", Toast.LENGTH_SHORT).show()
-                    },
-                    { error ->
-                        Log.e("MyLog", error.message ?: "empty error")
-                        bookmarkAdapter.loadError(error.message ?: "empty error")
-                        Toast.makeText(context, "Ошибка", Toast.LENGTH_SHORT).show()
-                    },
-                )
+                .subscribe({
+                    if (it is BookmarksState.Content) {
+                        binding.bookmarkRv.layoutManager = GridLayoutManager(binding.bookmarkRv.context, 2)
+                    }
+                    bookmarkAdapter.updateState(it)
+                })
 
         with(binding) {
             bookmarkRv.adapter = bookmarkAdapter
-            bookmarkRv.layoutManager = GridLayoutManager(binding.bookmarkRv.context, 2)
+            bookmarkRv.layoutManager = LinearLayoutManager(binding.bookmarkRv.context)
             bookmarkRv.addItemDecoration(VerticalSpacingItemDecoration(0f, 12f))
-            // TODO: убрать, это рыбка 
+            // TODO: убрать, это рыбка
             bookmarkRv.setOnClickListener {
-                vm.insertBookmark(
-                    AnimeModel(10,"", "", 0, 0, "", 0.1)
-                ).subscribeOn(Schedulers.io())
+                vm
+                    .insertBookmark(
+                        AnimeModel(10, "", "", 0, 0, "", 0.1),
+                    ).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe()
             }

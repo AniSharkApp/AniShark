@@ -4,8 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ru.anishark.app.data.db.datasource.DatabaseBookmarksDataSource
 import ru.anishark.app.domain.repository.AnimeRepository
+import ru.anishark.app.domain.repository.BookmarkRepository
 import ru.anishark.app.domain.repository.GenresRepository
 import ru.anishark.app.domain.repository.SeasonsRepository
 import ru.anishark.app.domain.repository.TopRepository
@@ -32,23 +32,23 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetAllBookmarksCatalogUseCase(bookmarksDataSource: DatabaseBookmarksDataSource): GetAllBookmarksCatalogUseCase =
-        GetAllBookmarksCatalogUseCase(bookmarksDataSource)
+    fun provideGetAllBookmarksCatalogUseCase(bookmarksRepository: BookmarkRepository): GetAllBookmarksCatalogUseCase =
+        GetAllBookmarksCatalogUseCase(bookmarksRepository)
 
     @Provides
     @Singleton
-    fun provideGetOneBookmarkCatalogUseCase(bookmarksDataSource: DatabaseBookmarksDataSource): GetOneBookmarkCatalogUseCase =
-        GetOneBookmarkCatalogUseCase(bookmarksDataSource)
+    fun provideGetOneBookmarkCatalogUseCase(bookmarksRepository: BookmarkRepository): GetOneBookmarkCatalogUseCase =
+        GetOneBookmarkCatalogUseCase(bookmarksRepository)
 
     @Provides
     @Singleton
-    fun provideInsertBookmarkCatalogUseCase(bookmarksDataSource: DatabaseBookmarksDataSource): InsertBookmarkCatalogUseCase =
-        InsertBookmarkCatalogUseCase(bookmarksDataSource)
+    fun provideInsertBookmarkCatalogUseCase(bookmarksRepository: BookmarkRepository): InsertBookmarkCatalogUseCase =
+        InsertBookmarkCatalogUseCase(bookmarksRepository)
 
     @Provides
     @Singleton
-    fun provideDeleteBookmarkCatalogUseCase(bookmarksDataSource: DatabaseBookmarksDataSource): DeleteBookmarkCatalogUseCase =
-        DeleteBookmarkCatalogUseCase(bookmarksDataSource)
+    fun provideDeleteBookmarkCatalogUseCase(bookmarksRepository: BookmarkRepository): DeleteBookmarkCatalogUseCase =
+        DeleteBookmarkCatalogUseCase(bookmarksRepository)
 
     @Provides
     @Singleton

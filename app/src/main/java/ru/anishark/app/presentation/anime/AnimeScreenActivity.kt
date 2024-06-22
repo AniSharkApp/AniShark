@@ -2,10 +2,8 @@ package ru.anishark.app.presentation.anime
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.drawable.toDrawable
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -15,10 +13,8 @@ import ru.anishark.app.R
 import ru.anishark.app.common.ui.disposeOnDestroy
 import ru.anishark.app.data.db.mapper.toAnimeModel
 import ru.anishark.app.databinding.ActivityAnimeBinding
-import ru.anishark.app.domain.model.AnimeModel
 import ru.anishark.app.domain.model.BookmarkModel
 import ru.anishark.app.presentation.anime.viewmodel.AnimeViewModel
-import kotlin.math.log
 
 @AndroidEntryPoint
 class AnimeScreenActivity : AppCompatActivity() {
@@ -28,8 +24,8 @@ class AnimeScreenActivity : AppCompatActivity() {
 
     private var bookmarkState = false
 
-    // TODO: переделать на человеческий, но я не хочу null 
-    private var currentAnime: BookmarkModel = BookmarkModel(0,"","")
+    // TODO: переделать на человеческий, но я не хочу null
+    private var currentAnime: BookmarkModel = BookmarkModel(0, "", "")
 
     private val disposable = CompositeDisposable()
 
@@ -39,20 +35,22 @@ class AnimeScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         intent.extras?.let { screenData ->
-            val malId = screenData.getInt("malId") ?: -1
-            disposable += vm.getBookmark(malId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { data ->
-                        currentAnime = data
-                        bookmarkState = true
-                        changeBookmarkState(bookmarkState)
-                    },
-                    { error ->
-                        Log.d("MyLog", error.toString())
-                    }
-                )
+            val malId = screenData.getInt("malId")
+            disposable +=
+                vm
+                    .getBookmark(malId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { data ->
+                            currentAnime = data
+                            bookmarkState = true
+                            changeBookmarkState(bookmarkState)
+                        },
+                        { error ->
+                            Log.d("MyLog", error.toString())
+                        },
+                    )
         }
         with(binding) {
             bookmarksScrollView.smoothScrollTo(0, 0)
@@ -62,12 +60,14 @@ class AnimeScreenActivity : AppCompatActivity() {
 
             icAnimeScreenBookmark.setOnClickListener {
                 if (bookmarkState) {
-                    vm.deleteBookmark(currentAnime.malId )
+                    vm
+                        .deleteBookmark(currentAnime.malId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe()
                 } else {
-                    vm.insertBookmark(currentAnime.toAnimeModel())
+                    vm
+                        .insertBookmark(currentAnime.toAnimeModel())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe()

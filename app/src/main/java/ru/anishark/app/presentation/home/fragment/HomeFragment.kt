@@ -9,10 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
-import io.reactivex.rxjava3.schedulers.Schedulers
 import ru.anishark.app.common.ui.HorizontalSpacingItemDecoration
 import ru.anishark.app.common.ui.disposeOnDestroy
 import ru.anishark.app.databinding.FragmentHomeBinding
@@ -53,6 +51,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?,
     ) {
         super.onViewCreated(view, savedInstanceState)
+        vm.loadAllData()
         with(binding) {
             // TODO объединить несколько RV с заголовками в один RV.
             topsRv.adapter = topsAdapter
@@ -73,8 +72,6 @@ class HomeFragment : Fragment() {
             actualRv.addItemDecoration(itemDecoration)
             disposable +=
                 vm.topsState
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                         {
                             val topsRVState = topsRv.layoutManager?.onSaveInstanceState()
@@ -88,8 +85,6 @@ class HomeFragment : Fragment() {
                     )
             disposable +=
                 vm.actualState
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                         {
                             val actualRVState = actualRv.layoutManager?.onSaveInstanceState()

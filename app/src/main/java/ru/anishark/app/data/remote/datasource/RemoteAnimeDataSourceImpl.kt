@@ -33,7 +33,7 @@ class RemoteAnimeDataSourceImpl @Inject constructor(
                             it.titles
                                 .first()
                                 .title,
-                        synopsis = it.synopsis,
+                        synopsis = it.synopsis ?: "",
                         year = it.year ?: 0,
                         episodes = it.episodes,
                         imageUrl = it.images.jpeg.imageUrl ?: "",

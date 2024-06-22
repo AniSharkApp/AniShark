@@ -1,12 +1,11 @@
 package ru.anishark.app.domain.usecase
 
 import io.reactivex.rxjava3.core.Completable
-import ru.anishark.app.data.db.datasource.DatabaseBookmarksDataSource
 import ru.anishark.app.domain.model.AnimeModel
+import ru.anishark.app.domain.repository.BookmarkRepository
 
 class InsertBookmarkCatalogUseCase(
-    private val bookmarksDataSource: DatabaseBookmarksDataSource,
+    private val bookmarkRepository: BookmarkRepository,
 ) {
-    operator fun invoke(anime: AnimeModel): Completable = bookmarksDataSource.createBookmark(anime)
-
+    operator fun invoke(anime: AnimeModel): Completable = bookmarkRepository.insertBookmark(anime)
 }
