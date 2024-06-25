@@ -121,17 +121,12 @@ class BookmarkAnimeListAdapter(
                     val diffCallback = BookmarkAnimeListDiffUtilCallback((state as BookmarksState.Content).data, newState.data)
                     val diffResult = DiffUtil.calculateDiff(diffCallback)
                     diffResult.dispatchUpdatesTo(this)
+                } else {
+                    state = newState
+                    notifyDataSetChanged()
                 }
             }
-            BookmarksState.EmptyContent -> {
-                state = newState
-                notifyDataSetChanged()
-            }
-            is BookmarksState.Error -> {
-                state = newState
-                notifyDataSetChanged()
-            }
-            BookmarksState.Loading -> {
+            else -> {
                 state = newState
                 notifyDataSetChanged()
             }

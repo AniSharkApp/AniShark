@@ -66,6 +66,8 @@ class BookmarkFragment : Fragment() {
                 .subscribe({
                     if (it is BookmarksState.Content) {
                         binding.bookmarkRv.layoutManager = GridLayoutManager(binding.bookmarkRv.context, 2)
+                    } else {
+                        binding.bookmarkRv.layoutManager = LinearLayoutManager(binding.bookmarkRv.context)
                     }
                     bookmarkAdapter.updateState(it)
                 })
