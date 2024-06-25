@@ -37,6 +37,5 @@
         <item name="windowSplashScreenIconBackgroundColor">#001</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_dark</item>
         <item name="postSplashScreenTheme">@style/Base.Theme.AniShark</item>
-        <item name="android:windowSplashScreenBehavior">icon_preferred</item>
     </style>
 </resources>

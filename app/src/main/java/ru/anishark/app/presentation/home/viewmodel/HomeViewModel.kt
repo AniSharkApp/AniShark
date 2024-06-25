@@ -31,30 +31,35 @@ class HomeViewModel @Inject constructor(
         get() = _actualState.hide()
 
     fun loadAllData() {
-        compositeDisposable +=
-            loadTopsHomeUseCase()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    {
-                        _topsState.onNext(it)
-                    },
-                    {
-                        _topsState.onError(it)
-                    },
-                )
-        compositeDisposable +=
-            loadActualHomeUseCase()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    {
-                        _actualState.onNext(it)
-                    },
-                    {
-                        _actualState.onError(it)
-                    },
-                )
+        compositeDisposable.clear()
+        if (!_topsState.hasValue() || _topsState.value!!.isEmpty()) {
+            compositeDisposable +=
+                loadTopsHomeUseCase()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        {
+                            _topsState.onNext(it)
+                        },
+                        {
+                            _topsState.onError(it)
+                        },
+                    )
+        }
+        if (!_actualState.hasValue() || _actualState.value!!.isEmpty()) {
+            compositeDisposable +=
+                loadActualHomeUseCase()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        {
+                            _actualState.onNext(it)
+                        },
+                        {
+                            _actualState.onError(it)
+                        },
+                    )
+        }
     }
 
     override fun onCleared() {
