@@ -10,15 +10,13 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.rxjava3.rxPreferencesDataStore
-import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.anishark.app.R
 import ru.anishark.app.databinding.ActivityMainBinding
-import ru.anishark.app.presentation.bookmark.fragment.BookmarkFragment
-import ru.anishark.app.presentation.catalog.fragment.CatalogFragment
-import ru.anishark.app.presentation.home.fragment.HomeFragment
+import ru.anishark.app.presentation.BottomNavigationAdapter
 
 val Context.rxDataStore by rxPreferencesDataStore("settings")
 
@@ -36,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         themeObservable
-//            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
                     isDarkTheme = it == AppCompatDelegate.MODE_NIGHT_YES
@@ -56,28 +53,35 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.topAppBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
+        val viewPager = binding.container
+        viewPager.adapter = BottomNavigationAdapter(this)
+        viewPager.currentItem = 0
 
-        loadFragment(HomeFragment::class.java)
-        // TODO: сделать реализацию navigation по человечески
+        viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                when(position) {
+                    0 -> binding.bottomNavBar.menu.findItem(R.id.home).setChecked(true)
+                    1 -> binding.bottomNavBar.menu.findItem(R.id.catalog).setChecked(true)
+                    2 -> binding.bottomNavBar.menu.findItem(R.id.bookmark).setChecked(true)
+                }
+            }
+        })
+
         binding.bottomNavBar.setOnItemSelectedListener { fragment ->
             when (fragment.itemId) {
                 R.id.home -> {
-                    loadFragment(HomeFragment::class.java)
+                    viewPager.currentItem = 0
                     true
                 }
 
                 R.id.catalog -> {
-                    loadFragment(CatalogFragment::class.java)
+                    viewPager.currentItem = 1
                     true
                 }
 
                 else -> {
-                    loadFragment(BookmarkFragment::class.java)
+                    viewPager.currentItem = 2
                     true
                 }
             }
@@ -92,9 +96,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.change_theme -> {
-                // TODO: сделать реализацию смену темы
                 changeTheme(isDarkTheme)
-
                 return true
             }
 
@@ -102,12 +104,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun <T : Fragment> loadFragment(fragment: Class<out T>) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(binding.container.id, fragment, null)
-        transaction.commit()
-    }
-
+    @OptIn(ExperimentalCoroutinesApi::class)
     private fun changeTheme(state: Boolean) {
         if (state) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -127,4 +124,25 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+//    private fun <T : Fragment> loadFragment(fragment: Class<out T>) {
+//        val transaction = supportFragmentManager.beginTransaction()
+//        // TODO: Переделать на человеческий
+//        // Слева направо
+//        transaction.setCustomAnimations(
+//            R.anim.enter_from_right,
+//            R.anim.exit_to_left,
+//            R.anim.enter_from_left,
+//            R.anim.exit_to_right
+//        )
+////        // Справа налево
+////        transaction.setCustomAnimations(
+////            R.anim.enter_from_left,
+////            R.anim.exit_to_right,
+////            R.anim.enter_from_right,
+////            R.anim.exit_to_left
+////        )
+//        transaction.replace(binding.container.id, fragment, null)
+//        transaction.commit()
+//    }
 }

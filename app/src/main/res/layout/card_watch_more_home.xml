@@ -6,6 +6,7 @@
     android:layout_width="160dp"
     android:layout_height="222dp"
     app:cardElevation="0dp"
+    android:stateListAnimator="@animator/change_size_card_onclick"
     app:cardBackgroundColor="@color/full_transparent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

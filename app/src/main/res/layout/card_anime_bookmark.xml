@@ -6,6 +6,7 @@
     android:layout_width="168dp"
     android:layout_height="222dp"
     android:background="@color/background"
+    android:stateListAnimator="@animator/change_size_card_onclick"
     app:cardCornerRadius="20dp"
     app:cardElevation="6dp">
 
