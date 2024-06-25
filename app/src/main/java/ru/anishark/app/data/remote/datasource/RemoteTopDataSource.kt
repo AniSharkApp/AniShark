@@ -1,15 +1,14 @@
 package ru.anishark.app.data.remote.datasource
 
 import io.reactivex.rxjava3.core.Single
-import ru.anishark.app.data.datasource.TopDataSource
 import ru.anishark.app.data.remote.api.TopService
 import ru.anishark.app.domain.model.AnimeModel
 import javax.inject.Inject
 
-class RemoteTopDataSourceImpl @Inject constructor(
+class RemoteTopDataSource @Inject constructor(
     private val remoteTopService: TopService,
-) : TopDataSource {
-    override fun getTopAnime(): Single<List<AnimeModel>> =
+) {
+    fun getTopAnime(): Single<List<AnimeModel>> =
         remoteTopService
             .getTopAnime()
             .map {

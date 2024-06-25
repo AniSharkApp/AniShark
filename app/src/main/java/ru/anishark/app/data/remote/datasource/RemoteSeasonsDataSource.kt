@@ -1,15 +1,14 @@
 package ru.anishark.app.data.remote.datasource
 
 import io.reactivex.rxjava3.core.Single
-import ru.anishark.app.data.datasource.SeasonsDataSource
 import ru.anishark.app.data.remote.api.SeasonsService
 import ru.anishark.app.domain.model.AnimeModel
 import javax.inject.Inject
 
-class RemoteSeasonsDataSourceImpl @Inject constructor(
+class RemoteSeasonsDataSource @Inject constructor(
     private val remoteSeasonsService: SeasonsService,
-) : SeasonsDataSource {
-    override fun getSeasonsNowAnime(): Single<List<AnimeModel>> =
+) {
+    fun getSeasonsNowAnime(): Single<List<AnimeModel>> =
         remoteSeasonsService
             .getSeasonsNow()
             .map {
