@@ -1,5 +1,6 @@
 package ru.anishark.app.presentation.home.recycler
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -41,7 +42,7 @@ class HomeAnimeListAdapter(
             }
             binding.animeNameTv.text = model.title
             binding.episodesTv.text = episodesNumber
-            binding.ratingTv.text = String.format(Locale.ROOT, "%.2f", model.score).toString()
+            binding.ratingTv.text = String.format(Locale.ROOT, "%.2f", model.score)
             binding.cardIv.load(model.imageUrl)
         }
     }

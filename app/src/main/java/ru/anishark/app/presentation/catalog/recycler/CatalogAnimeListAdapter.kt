@@ -1,8 +1,10 @@
 package ru.anishark.app.presentation.catalog.recycler
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.anishark.app.R

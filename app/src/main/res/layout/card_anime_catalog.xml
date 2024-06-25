@@ -2,8 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/catalog_card"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:stateListAnimator="@animator/change_size_card_onclick">
 
     <androidx.cardview.widget.CardView
         android:layout_width="377dp"
@@ -29,11 +31,11 @@
                 android:layout_height="235dp"
                 android:elevation="6dp"
                 android:paddingRight="21dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.476"
-                app:srcCompat="@drawable/default_anime_catalog_image" />
+                app:layout_constraintVertical_bias="0.476" />
 
             <ImageView
                 android:id="@+id/star_iv"
@@ -81,17 +83,24 @@
                 android:text="Боль, кровь и слёзы. На престол восходит новый правитель. Его слуги, подручные демоны безнаказанно творят бесчинства в городе. Все меняется когда в город, скрытый темнотой ночи, попадает тяжёлый воин. С разнообразным вооружением для самых непредвиденных моментов, в броне, тело его все покрыто шрамами – черный мечник. Его меч настолько огромен, что может сравниться с его лютой злобой к королю и демонам."
                 android:textColor="@color/onSurfaceVariant"
                 android:textSize="11sp"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nameTv" />
+                app:layout_constraintTop_toBottomOf="@+id/nameTv"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/nameTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
+                android:maxLines="2"
                 android:text="Берсерк"
                 android:textColor="@color/onSurface"
                 android:textSize="18sp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="@+id/descriptionTv"
                 app:layout_constraintTop_toBottomOf="@+id/episodes_tv" />
         </androidx.constraintlayout.widget.ConstraintLayout>
