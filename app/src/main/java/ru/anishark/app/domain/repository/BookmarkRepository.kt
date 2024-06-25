@@ -10,7 +10,9 @@ interface BookmarkRepository {
 
     fun getBookmark(animeId: Int): Observable<BookmarkModel>
 
-    fun insertBookmark(anime: AnimeModel): Completable
+    fun insertBookmarkFromAnime(model: AnimeModel): Completable
+
+    fun insertBookmark(model: BookmarkModel): Completable
 
     fun deleteBookmark(animeId: Int): Completable
 }

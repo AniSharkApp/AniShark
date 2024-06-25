@@ -1,5 +1,6 @@
 package ru.anishark.app.data.repository
 
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import ru.anishark.app.data.db.datasource.DatabaseBookmarksDataSource
 import ru.anishark.app.domain.model.AnimeModel
@@ -14,7 +15,9 @@ class BookmarkRepositoryImpl @Inject constructor(
 
     override fun getBookmark(animeId: Int): Observable<BookmarkModel> = dataSorce.getBookmark(animeId)
 
-    override fun insertBookmark(anime: AnimeModel) = dataSorce.createBookmark(anime)
+    override fun insertBookmarkFromAnime(model: AnimeModel) = dataSorce.createBookmarkFromAnime(model)
+
+    override fun insertBookmark(model: BookmarkModel): Completable = dataSorce.createBookmark(model)
 
     override fun deleteBookmark(animeId: Int) = dataSorce.removeBookmark(animeId)
 }

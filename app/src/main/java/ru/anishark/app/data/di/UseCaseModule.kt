@@ -13,6 +13,7 @@ import ru.anishark.app.domain.usecase.DeleteBookmarkCatalogUseCase
 import ru.anishark.app.domain.usecase.GetAllBookmarksCatalogUseCase
 import ru.anishark.app.domain.usecase.GetAnimeSearchUseCase
 import ru.anishark.app.domain.usecase.GetOneBookmarkCatalogUseCase
+import ru.anishark.app.domain.usecase.InsertBookmarkAnimeUseCase
 import ru.anishark.app.domain.usecase.InsertBookmarkCatalogUseCase
 import ru.anishark.app.domain.usecase.LoadActualHomeUseCase
 import ru.anishark.app.domain.usecase.LoadGenresFilterUseCase
@@ -58,4 +59,9 @@ class UseCaseModule {
     @Singleton
     fun provideLoadGenresFilterUseCase(genresRepository: GenresRepository): LoadGenresFilterUseCase =
         LoadGenresFilterUseCase(genresRepository)
+
+    @Provides
+    @Singleton
+    fun provideInsertBookmarkAnimeUseCase(bookmarkRepository: BookmarkRepository): InsertBookmarkAnimeUseCase =
+        InsertBookmarkAnimeUseCase(bookmarkRepository)
 }

@@ -11,7 +11,6 @@ import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.schedulers.Schedulers
 import ru.anishark.app.R
 import ru.anishark.app.common.ui.disposeOnDestroy
-import ru.anishark.app.data.db.mapper.toAnimeModel
 import ru.anishark.app.databinding.ActivityAnimeBinding
 import ru.anishark.app.domain.model.BookmarkModel
 import ru.anishark.app.presentation.anime.viewmodel.AnimeViewModel
@@ -67,7 +66,7 @@ class AnimeScreenActivity : AppCompatActivity() {
                         .subscribe()
                 } else {
                     vm
-                        .insertBookmark(currentAnime.toAnimeModel())
+                        .insertBookmark(currentAnime)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe()

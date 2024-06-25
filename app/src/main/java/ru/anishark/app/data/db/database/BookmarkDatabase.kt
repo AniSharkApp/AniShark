@@ -14,11 +14,11 @@ import ru.anishark.app.data.db.items.BookmarkAnimeEntity
 abstract class BookmarkDatabase : RoomDatabase() {
     companion object {
         @Volatile
-        private var INSTANCE: BookmarkDatabase? = null
+        private var database: BookmarkDatabase? = null
 
         fun getInstance(app: Context): BookmarkDatabase =
-            INSTANCE ?: synchronized(this) {
-                INSTANCE ?: buildDatabase(app).also { INSTANCE = it }
+            database ?: synchronized(this) {
+                database ?: buildDatabase(app).also { database = it }
             }
 
         private fun buildDatabase(app: Context) =
