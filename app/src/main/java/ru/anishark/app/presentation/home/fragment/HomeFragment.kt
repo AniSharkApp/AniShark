@@ -1,5 +1,6 @@
 package ru.anishark.app.presentation.home.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,15 +15,13 @@ import io.reactivex.rxjava3.kotlin.plusAssign
 import ru.anishark.app.common.ui.HorizontalSpacingItemDecoration
 import ru.anishark.app.common.ui.disposeOnDestroy
 import ru.anishark.app.databinding.FragmentHomeBinding
+import ru.anishark.app.presentation.anime.AnimeScreenActivity
 import ru.anishark.app.presentation.home.recycler.HomeAnimeListAdapter
 import ru.anishark.app.presentation.home.viewmodel.HomeViewModel
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private val vm: HomeViewModel by viewModels()
-
-    private val topsAdapter = HomeAnimeListAdapter()
-    private val actualAdapter = HomeAnimeListAdapter()
 
     // TODO использовать dimens ресурс
     private val itemDecoration = HorizontalSpacingItemDecoration(0f, 12f)
@@ -35,6 +34,12 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         disposable.disposeOnDestroy(this.lifecycle)
+    }
+
+    private fun startAnimeActivity(malId: Int) {
+        val intent = Intent(this@HomeFragment.context, AnimeScreenActivity::class.java)
+        intent.putExtra("malId", malId)
+        startActivity(intent)
     }
 
     override fun onCreateView(
@@ -54,6 +59,7 @@ class HomeFragment : Fragment() {
         vm.loadAllData()
         with(binding) {
             // TODO объединить несколько RV с заголовками в один RV.
+            val topsAdapter = HomeAnimeListAdapter(::startAnimeActivity)
             topsRv.adapter = topsAdapter
             topsRv.layoutManager =
                 LinearLayoutManager(
@@ -62,6 +68,7 @@ class HomeFragment : Fragment() {
                     false,
                 )
             topsRv.addItemDecoration(itemDecoration)
+            val actualAdapter = HomeAnimeListAdapter(::startAnimeActivity)
             actualRv.adapter = actualAdapter
             actualRv.layoutManager =
                 LinearLayoutManager(

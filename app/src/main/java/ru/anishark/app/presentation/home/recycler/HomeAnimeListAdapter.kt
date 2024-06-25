@@ -13,7 +13,9 @@ import ru.anishark.app.databinding.LayoutLoadingBinding
 import ru.anishark.app.domain.model.AnimeModel
 import java.util.Locale
 
-class HomeAnimeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeAnimeListAdapter(
+    private val onClick: (Int) -> Unit,
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val data: MutableList<AnimeModel> = mutableListOf()
     private var errorMessage: String? = null
 
@@ -23,6 +25,7 @@ class HomeAnimeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class AnimeViewHolder(
         val binding: CardAnimeHomeBinding,
+        private val onClick: (Int) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(model: AnimeModel) {
             val episodesNumber =
@@ -33,6 +36,9 @@ class HomeAnimeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         getString(R.string.ongoing)
                     }
                 }
+            binding.root.setOnClickListener {
+                onClick(model.malId)
+            }
             binding.animeNameTv.text = model.title
             binding.episodesTv.text = episodesNumber
             binding.ratingTv.text = String.format(Locale.ROOT, "%.2f", model.score).toString()
@@ -102,7 +108,7 @@ class HomeAnimeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         parent,
                         false,
                     )
-                AnimeViewHolder(animeCardViewBinding)
+                AnimeViewHolder(animeCardViewBinding, onClick)
             }
         }
 
