@@ -45,7 +45,7 @@ data class AnimeDTO(
     @SerialName("favorites")
     val favorites: Int,
     @SerialName("synopsis")
-    val synopsis: String,
+    val synopsis: String?,
     @SerialName("background")
     val background: String?,
     @SerialName("season")

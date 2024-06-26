@@ -1,5 +1,6 @@
 package ru.anishark.app.presentation.home.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,22 +10,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
-import io.reactivex.rxjava3.schedulers.Schedulers
 import ru.anishark.app.common.ui.HorizontalSpacingItemDecoration
 import ru.anishark.app.common.ui.disposeOnDestroy
 import ru.anishark.app.databinding.FragmentHomeBinding
+import ru.anishark.app.presentation.anime.AnimeScreenActivity
 import ru.anishark.app.presentation.home.recycler.HomeAnimeListAdapter
 import ru.anishark.app.presentation.home.viewmodel.HomeViewModel
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private val vm: HomeViewModel by viewModels()
-
-    private val topsAdapter = HomeAnimeListAdapter()
-    private val actualAdapter = HomeAnimeListAdapter()
 
     // TODO использовать dimens ресурс
     private val itemDecoration = HorizontalSpacingItemDecoration(0f, 12f)
@@ -37,6 +34,12 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         disposable.disposeOnDestroy(this.lifecycle)
+    }
+
+    private fun startAnimeActivity(malId: Int) {
+        val intent = Intent(this@HomeFragment.context, AnimeScreenActivity::class.java)
+        intent.putExtra("malId", malId)
+        startActivity(intent)
     }
 
     override fun onCreateView(
@@ -53,8 +56,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?,
     ) {
         super.onViewCreated(view, savedInstanceState)
+        vm.loadAllData()
         with(binding) {
             // TODO объединить несколько RV с заголовками в один RV.
+            val topsAdapter = HomeAnimeListAdapter(::startAnimeActivity)
             topsRv.adapter = topsAdapter
             topsRv.layoutManager =
                 LinearLayoutManager(
@@ -63,6 +68,7 @@ class HomeFragment : Fragment() {
                     false,
                 )
             topsRv.addItemDecoration(itemDecoration)
+            val actualAdapter = HomeAnimeListAdapter(::startAnimeActivity)
             actualRv.adapter = actualAdapter
             actualRv.layoutManager =
                 LinearLayoutManager(
@@ -73,8 +79,6 @@ class HomeFragment : Fragment() {
             actualRv.addItemDecoration(itemDecoration)
             disposable +=
                 vm.topsState
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                         {
                             val topsRVState = topsRv.layoutManager?.onSaveInstanceState()
@@ -88,8 +92,6 @@ class HomeFragment : Fragment() {
                     )
             disposable +=
                 vm.actualState
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                         {
                             val actualRVState = actualRv.layoutManager?.onSaveInstanceState()

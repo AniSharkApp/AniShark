@@ -4,8 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ru.anishark.app.data.db.datasource.DatabaseBookmarksDataSource
 import ru.anishark.app.domain.repository.AnimeRepository
+import ru.anishark.app.domain.repository.BookmarkRepository
 import ru.anishark.app.domain.repository.GenresRepository
 import ru.anishark.app.domain.repository.SeasonsRepository
 import ru.anishark.app.domain.repository.TopRepository
@@ -13,6 +13,7 @@ import ru.anishark.app.domain.usecase.DeleteBookmarkCatalogUseCase
 import ru.anishark.app.domain.usecase.GetAllBookmarksCatalogUseCase
 import ru.anishark.app.domain.usecase.GetAnimeSearchUseCase
 import ru.anishark.app.domain.usecase.GetOneBookmarkCatalogUseCase
+import ru.anishark.app.domain.usecase.InsertBookmarkAnimeUseCase
 import ru.anishark.app.domain.usecase.InsertBookmarkCatalogUseCase
 import ru.anishark.app.domain.usecase.LoadActualHomeUseCase
 import ru.anishark.app.domain.usecase.LoadGenresFilterUseCase
@@ -32,23 +33,23 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetAllBookmarksCatalogUseCase(bookmarksDataSource: DatabaseBookmarksDataSource): GetAllBookmarksCatalogUseCase =
-        GetAllBookmarksCatalogUseCase(bookmarksDataSource)
+    fun provideGetAllBookmarksCatalogUseCase(bookmarksRepository: BookmarkRepository): GetAllBookmarksCatalogUseCase =
+        GetAllBookmarksCatalogUseCase(bookmarksRepository)
 
     @Provides
     @Singleton
-    fun provideGetOneBookmarkCatalogUseCase(bookmarksDataSource: DatabaseBookmarksDataSource): GetOneBookmarkCatalogUseCase =
-        GetOneBookmarkCatalogUseCase(bookmarksDataSource)
+    fun provideGetOneBookmarkCatalogUseCase(bookmarksRepository: BookmarkRepository): GetOneBookmarkCatalogUseCase =
+        GetOneBookmarkCatalogUseCase(bookmarksRepository)
 
     @Provides
     @Singleton
-    fun provideInsertBookmarkCatalogUseCase(bookmarksDataSource: DatabaseBookmarksDataSource): InsertBookmarkCatalogUseCase =
-        InsertBookmarkCatalogUseCase(bookmarksDataSource)
+    fun provideInsertBookmarkCatalogUseCase(bookmarksRepository: BookmarkRepository): InsertBookmarkCatalogUseCase =
+        InsertBookmarkCatalogUseCase(bookmarksRepository)
 
     @Provides
     @Singleton
-    fun provideDeleteBookmarkCatalogUseCase(bookmarksDataSource: DatabaseBookmarksDataSource): DeleteBookmarkCatalogUseCase =
-        DeleteBookmarkCatalogUseCase(bookmarksDataSource)
+    fun provideDeleteBookmarkCatalogUseCase(bookmarksRepository: BookmarkRepository): DeleteBookmarkCatalogUseCase =
+        DeleteBookmarkCatalogUseCase(bookmarksRepository)
 
     @Provides
     @Singleton
@@ -58,4 +59,9 @@ class UseCaseModule {
     @Singleton
     fun provideLoadGenresFilterUseCase(genresRepository: GenresRepository): LoadGenresFilterUseCase =
         LoadGenresFilterUseCase(genresRepository)
+
+    @Provides
+    @Singleton
+    fun provideInsertBookmarkAnimeUseCase(bookmarkRepository: BookmarkRepository): InsertBookmarkAnimeUseCase =
+        InsertBookmarkAnimeUseCase(bookmarkRepository)
 }

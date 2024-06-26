@@ -1,9 +1,9 @@
 package ru.anishark.app.domain.usecase
 
-import ru.anishark.app.data.db.datasource.DatabaseBookmarksDataSource
+import ru.anishark.app.domain.repository.BookmarkRepository
 
 class DeleteBookmarkCatalogUseCase(
-    private val bookmarksDataSource: DatabaseBookmarksDataSource,
+    private val bookmarksRepository: BookmarkRepository,
 ) {
-    operator fun invoke(animeId: Int) = bookmarksDataSource.removeBookmark(animeId)
+    operator fun invoke(animeId: Int) = bookmarksRepository.deleteBookmark(animeId)
 }

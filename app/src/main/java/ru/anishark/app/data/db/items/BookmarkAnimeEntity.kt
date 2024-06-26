@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 data class BookmarkAnimeEntity(
     @PrimaryKey
     val animeId: Int,
-    val image: String,
+    val image: String?,
     val title: String,
 )

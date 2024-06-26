@@ -17,7 +17,7 @@ class BookmarkAnimeListAdapter(
     private var state: BookmarksState = BookmarksState.Loading
 
     class EmptyBookmarksViewHolder(
-        val binding: CardEmptyBookmarksBinding
+        val binding: CardEmptyBookmarksBinding,
     ) : RecyclerView.ViewHolder(binding.root)
 
     class BookmarkViewHolder(
@@ -30,7 +30,7 @@ class BookmarkAnimeListAdapter(
     }
 
     class LoadingViewHolder(
-        val binding: LayoutLoadingBinding
+        val binding: LayoutLoadingBinding,
     ) : RecyclerView.ViewHolder(binding.root)
 
     class ErrorViewHolder(
@@ -91,17 +91,19 @@ class BookmarkAnimeListAdapter(
             }
         }
 
-    override fun getItemCount(): Int {
-        return if (state is BookmarksState.Content) (state as BookmarksState.Content).data.size
-        else 1
-    }
+    override fun getItemCount(): Int =
+        if (state is BookmarksState.Content) {
+            (state as BookmarksState.Content).data.size
+        } else {
+            1
+        }
 
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
         position: Int,
     ) {
         if (holder is ErrorViewHolder) {
-            holder.bind("Помогите, я китайский мальчик")
+            holder.bind((state as BookmarksState.Error).msg ?: "Error with no message!")
         }
         if (holder is BookmarkViewHolder) {
             holder.bind((state as BookmarksState.Content).data[position])
@@ -111,22 +113,39 @@ class BookmarkAnimeListAdapter(
         }
     }
 
-    fun loadContent(list: List<BookmarkModel>) {
-        val diffCallback = BookmarkAnimeListDiffUtilCallback((state as BookmarksState.Content).data, list)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        state = if (list.isNotEmpty()) BookmarksState.Content(list) else BookmarksState.EmptyContent
-        diffResult.dispatchUpdatesTo(this)
-    }
-
-    fun loadError(message: String?) {
-        state = BookmarksState.Error(message ?: "No error message provided.")
-        notifyDataSetChanged()
+    fun updateState(newState: BookmarksState) {
+        when (newState) {
+            is BookmarksState.Content -> {
+                val previousDataExists = state is BookmarksState.Content
+                if (previousDataExists) {
+                    val diffCallback = BookmarkAnimeListDiffUtilCallback((state as BookmarksState.Content).data, newState.data)
+                    val diffResult = DiffUtil.calculateDiff(diffCallback)
+                    diffResult.dispatchUpdatesTo(this)
+                } else {
+                    state = newState
+                    notifyDataSetChanged()
+                }
+            }
+            else -> {
+                state = newState
+                notifyDataSetChanged()
+            }
+        }
     }
 }
 
-sealed class BookmarksState(val itemType: Int) {
+sealed class BookmarksState(
+    val itemType: Int,
+) {
     data object Loading : BookmarksState(1)
-    data class Error(val msg: String) : BookmarksState(2)
-    data class Content(val data: List<BookmarkModel>) : BookmarksState(3)
+
+    data class Error(
+        val msg: String?,
+    ) : BookmarksState(2)
+
+    data class Content(
+        val data: List<BookmarkModel>,
+    ) : BookmarksState(3)
+
     data object EmptyContent : BookmarksState(4)
 }

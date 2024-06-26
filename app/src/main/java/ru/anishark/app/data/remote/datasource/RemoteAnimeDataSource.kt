@@ -1,19 +1,20 @@
 package ru.anishark.app.data.remote.datasource
 
 import io.reactivex.rxjava3.core.Single
-import ru.anishark.app.data.datasource.AnimeDataSource
 import ru.anishark.app.data.remote.api.AnimeService
 import ru.anishark.app.data.remote.dto.response.SearchAnimeDTO
+import ru.anishark.app.data.remote.mapper.RemoteAnimeMapper
 import ru.anishark.app.domain.model.AnimeGenreModel
 import ru.anishark.app.domain.model.AnimeModel
 import ru.anishark.app.domain.model.AnimeRatingModel
 import ru.anishark.app.domain.model.AnimeTypeModel
 import javax.inject.Inject
 
-class RemoteAnimeDataSourceImpl @Inject constructor(
+class RemoteAnimeDataSource @Inject constructor(
     private val animeService: AnimeService,
-) : AnimeDataSource {
-    override fun getAnimeSearch(
+    private val remoteAnimeMapper: RemoteAnimeMapper,
+) {
+    fun getAnimeSearch(
         ratings: List<AnimeRatingModel>,
         genres: List<AnimeGenreModel>,
         type: List<AnimeTypeModel>,
@@ -26,19 +27,6 @@ class RemoteAnimeDataSourceImpl @Inject constructor(
                     "type" to type.map { it.backingName }.joinToString(separator = ","),
                 ),
             ).map { v: SearchAnimeDTO ->
-                v.data.map {
-                    AnimeModel(
-                        malId = it.malId,
-                        title =
-                            it.titles
-                                .first()
-                                .title,
-                        synopsis = it.synopsis,
-                        year = it.year ?: 0,
-                        episodes = it.episodes,
-                        imageUrl = it.images.jpeg.imageUrl ?: "",
-                        score = it.score,
-                    )
-                }
+                v.data.map(remoteAnimeMapper::toDomainModel)
             }
 }

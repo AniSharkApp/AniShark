@@ -39,21 +39,20 @@ class FilterActivity : AppCompatActivity() {
         setContentView(binding!!.root)
 
         disposables.add(
-            vm.genres
-                .subscribe(
-                    { genres ->
-                        listGenres = genres
-                        genres.forEach { genre ->
-                            genresNameAndId.put("${genre.name}", "${genre.malId}")
-                            Log.i("MainActivity", "Genre: ${genre.name}, ID: ${genre.malId}")
-                        }
-                        expandableListDetail = getData()
-                        expandableListAdapter.updateData(expandableListDetail)
-                    },
-                    { error ->
-                        Log.e("MainActivity", "Error fetching genres", error)
-                    },
-                ),
+            vm.genres.subscribe(
+                { genres ->
+                    listGenres = genres
+                    genres.forEach { genre ->
+                        genresNameAndId.put("${genre.name}", "${genre.malId}")
+                        Log.i("MainActivity", "Genre: ${genre.name}, ID: ${genre.malId}")
+                    }
+                    expandableListDetail = getData()
+                    expandableListAdapter.updateData(expandableListDetail)
+                },
+                { error ->
+                    Log.e("MainActivity", "Error fetching genres", error)
+                },
+            ),
         )
         vm.loadGenres()
 

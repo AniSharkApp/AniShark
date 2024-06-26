@@ -3,10 +3,14 @@ package ru.anishark.app.data.db.mapper
 import ru.anishark.app.data.db.items.BookmarkAnimeEntity
 import ru.anishark.app.domain.model.AnimeModel
 import ru.anishark.app.domain.model.BookmarkModel
+import javax.inject.Inject
+import javax.inject.Singleton
 
-fun BookmarkAnimeEntity.toModel() = BookmarkModel(malId = this.animeId, imageUrl = this.image, title = this.title)
+@Singleton
+class BookmarksMapper @Inject constructor() {
+    fun toDomainModel(input: BookmarkAnimeEntity): BookmarkModel = BookmarkModel(input.animeId, input.image, input.title)
 
-fun BookmarkModel.toEntity() = BookmarkAnimeEntity(animeId = this.malId, image = this.imageUrl, title = this.title)
+    fun fromDomainModel(input: BookmarkModel): BookmarkAnimeEntity = BookmarkAnimeEntity(input.malId, input.imageUrl, input.title)
 
-// TODO: человеческий маппер
-fun BookmarkModel.toAnimeModel() = AnimeModel(malId = this.malId, title = this.title, synopsis = "", year = 0, episodes = 0, imageUrl = this.imageUrl, score = 0.0)
+    fun fromAnimeDomainModel(input: AnimeModel): BookmarkAnimeEntity = BookmarkAnimeEntity(input.malId, input.imageUrl, input.title)
+}

@@ -32,6 +32,7 @@ const val RATING_KEY = "tnk"
 class CatalogFragment : Fragment() {
     private var _binding: FragmentCatalogBinding? = null
     private val binding get() = _binding!!
+
     var list: ArrayList<AnimeModel> = ArrayList()
     private lateinit var startForResultLauncher: ActivityResultLauncher<Intent>
     private val disposables = CompositeDisposable()
@@ -85,9 +86,8 @@ class CatalogFragment : Fragment() {
                         Log.e("AAA", r.toString())
                         rating =
                             r
-                                .map { str ->
-                                    Log.e("HUI", str)
-                                    AnimeRatingModel.getByDisplayName(str) ?: AnimeRatingModel.RX
+                                .mapNotNull { str ->
+                                    AnimeRatingModel.getByDisplayName(str)
                                 }.toList()
                         Log.e("AAA", rating.toString())
                         vm.searchAnime(ratings = rating, genres = genresList, type = type)

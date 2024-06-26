@@ -2,6 +2,7 @@ package ru.anishark.app.presentation.catalog.viewmodel
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -30,7 +31,8 @@ class CatalogViewModel @Inject constructor(
     ) {
         compositeDisposable +=
             getAnimeSearchUseCase(ratings, genres, type)
-                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
                         _searchResults.onNext(it)

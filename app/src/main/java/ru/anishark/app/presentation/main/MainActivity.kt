@@ -8,6 +8,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
+import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.rxjava3.rxPreferencesDataStore
 import androidx.viewpager2.widget.ViewPager2
@@ -18,7 +20,13 @@ import ru.anishark.app.R
 import ru.anishark.app.databinding.ActivityMainBinding
 import ru.anishark.app.presentation.BottomNavigationAdapter
 
-val Context.rxDataStore by rxPreferencesDataStore("settings")
+val Context.rxDataStore by rxPreferencesDataStore(
+    name = "settings",
+    corruptionHandler =
+        ReplaceFileCorruptionHandler(
+            produceNewData = { emptyPreferences() },
+        ),
+)
 
 val THEME = intPreferencesKey("theme")
 
@@ -29,9 +37,10 @@ class MainActivity : AppCompatActivity() {
 
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
-        val themeObservable = this.rxDataStore.data().map {
-            it[THEME] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-        }
+        val themeObservable =
+            this.rxDataStore.data().map {
+                it[THEME] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            }
 
         themeObservable
             .subscribe(
@@ -42,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                 },
                 {
                     Log.d("MyLog", it.message ?: "Dwa olega")
-                }
+                },
             )
         installSplashScreen()
 
@@ -67,6 +76,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+
 
         binding.bottomNavBar.setOnItemSelectedListener { fragment ->
             when (fragment.itemId) {
@@ -109,21 +119,28 @@ class MainActivity : AppCompatActivity() {
         if (state) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             this.rxDataStore.updateDataAsync {
-                val result = it.toMutablePreferences().apply {
-                    this[THEME] = AppCompatDelegate.MODE_NIGHT_NO
-                }.toPreferences()
+                val result =
+                    it
+                        .toMutablePreferences()
+                        .apply {
+                            this[THEME] = AppCompatDelegate.MODE_NIGHT_NO
+                        }.toPreferences()
                 Single.just(result)
             }
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             this.rxDataStore.updateDataAsync {
-                val result = it.toMutablePreferences().apply {
-                    this[THEME] = AppCompatDelegate.MODE_NIGHT_YES
-                }.toPreferences()
+                val result =
+                    it
+                        .toMutablePreferences()
+                        .apply {
+                            this[THEME] = AppCompatDelegate.MODE_NIGHT_YES
+                        }.toPreferences()
                 Single.just(result)
             }
         }
     }
+
 
 //    private fun <T : Fragment> loadFragment(fragment: Class<out T>) {
 //        val transaction = supportFragmentManager.beginTransaction()

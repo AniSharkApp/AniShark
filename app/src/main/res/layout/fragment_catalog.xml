@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.catalog.fragment.CatalogFragment">
+    tools:context=".presentation.catalog.fragment.CatalogFragment"
+    android:background="@color/background">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,12 +27,12 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/catalogRv"
-            android:layout_width="409dp"
-            android:layout_height="677dp"
-            android:paddingBottom="50dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filterButton" />
+            app:layout_constraintTop_toBottomOf="@+id/filterButton"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
