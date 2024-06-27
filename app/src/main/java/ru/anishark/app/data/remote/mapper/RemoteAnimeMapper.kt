@@ -1,6 +1,7 @@
 package ru.anishark.app.data.remote.mapper
 
 import ru.anishark.app.data.remote.dto.response.AnimeDTO
+import ru.anishark.app.data.remote.dto.response.AnimeFullDTO
 import ru.anishark.app.domain.model.AnimeModel
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -19,4 +20,5 @@ class RemoteAnimeMapper @Inject constructor() {
                 score = score,
             )
         }
+    fun toDomainModel(dto: AnimeFullDTO): AnimeModel = toDomainModel(dto.data)
 }

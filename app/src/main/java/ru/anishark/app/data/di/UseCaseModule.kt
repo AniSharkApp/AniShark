@@ -12,6 +12,7 @@ import ru.anishark.app.domain.repository.TopRepository
 import ru.anishark.app.domain.usecase.DeleteBookmarkCatalogUseCase
 import ru.anishark.app.domain.usecase.GetAllBookmarksCatalogUseCase
 import ru.anishark.app.domain.usecase.GetAnimeSearchUseCase
+import ru.anishark.app.domain.usecase.GetOnClickAnimeUseCase
 import ru.anishark.app.domain.usecase.GetOneBookmarkCatalogUseCase
 import ru.anishark.app.domain.usecase.InsertBookmarkAnimeUseCase
 import ru.anishark.app.domain.usecase.InsertBookmarkCatalogUseCase
@@ -64,4 +65,9 @@ class UseCaseModule {
     @Singleton
     fun provideInsertBookmarkAnimeUseCase(bookmarkRepository: BookmarkRepository): InsertBookmarkAnimeUseCase =
         InsertBookmarkAnimeUseCase(bookmarkRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetOnClickAnimeUseCase(animeRepository: AnimeRepository) : GetOnClickAnimeUseCase =
+        GetOnClickAnimeUseCase(animeRepository)
 }

@@ -13,12 +13,17 @@ import ru.anishark.app.domain.model.AnimeModel
 
 class CatalogAnimeListAdapter(
     val data: List<AnimeModel>,
+    private val onClick: (Int) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class AnimeViewHolder(
         val binding: CardAnimeCatalogBinding,
+        private val onClick: (Int) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(model: AnimeModel) {
+            binding.root.setOnClickListener {
+                onClick(model.malId)
+            }
             binding.nameTv.text = model.title
             binding.episodesTv.text = if (model.episodes == null) "0" else "${model.episodes + 1} ep"
             binding.ratingTv.text = "${model.score}"
@@ -36,7 +41,7 @@ class CatalogAnimeListAdapter(
     ): RecyclerView.ViewHolder {
         val animeCardViewBinding =
             CardAnimeCatalogBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return AnimeViewHolder(animeCardViewBinding)
+        return AnimeViewHolder(animeCardViewBinding, onClick)
     }
 
     override fun getItemCount(): Int = data.size

@@ -63,14 +63,14 @@ class BookmarkFragment : Fragment() {
             vm.bookmarksState
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
+                .subscribe {
                     if (it is BookmarksState.Content) {
                         binding.bookmarkRv.layoutManager = GridLayoutManager(binding.bookmarkRv.context, 2)
                     } else {
                         binding.bookmarkRv.layoutManager = LinearLayoutManager(binding.bookmarkRv.context)
                     }
                     bookmarkAdapter.updateState(it)
-                })
+                }
 
         with(binding) {
             bookmarkRv.adapter = bookmarkAdapter
@@ -80,7 +80,7 @@ class BookmarkFragment : Fragment() {
             bookmarkRv.setOnClickListener {
                 vm
                     .insertBookmark(
-                        AnimeModel(10, "", "", 0, 0, "", 0.1),
+                        AnimeModel(22, "", "", 0, 0, "", 0.1),
                     ).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe()

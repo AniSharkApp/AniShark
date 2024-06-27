@@ -31,6 +31,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private val topsAdapter = HomeAnimeListAdapter(::startAnimeActivity)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         disposable.disposeOnDestroy(this.lifecycle)
@@ -59,7 +61,6 @@ class HomeFragment : Fragment() {
         vm.loadAllData()
         with(binding) {
             // TODO объединить несколько RV с заголовками в один RV.
-            val topsAdapter = HomeAnimeListAdapter(::startAnimeActivity)
             topsRv.adapter = topsAdapter
             topsRv.layoutManager =
                 LinearLayoutManager(
