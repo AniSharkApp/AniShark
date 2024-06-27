@@ -41,17 +41,15 @@ class AnimeScreenActivity : AppCompatActivity() {
             vm.loadData(malId)
             disposable +=
                 vm
-                    .getBookmark(malId)
+                    .currentAnime
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                         { data ->
-                            currentAnime = data
+//                            currentAnime = data
                             bookmarkState = true
                             changeBookmarkState(bookmarkState)
                             setDataOnView()
-                            Toast.makeText(this@AnimeScreenActivity, "${currentAnime.title}, ${currentAnime.malId}", Toast.LENGTH_SHORT)
-                                .show()
                         },
                         { error ->
                             Log.d("MyLog", error.toString())
