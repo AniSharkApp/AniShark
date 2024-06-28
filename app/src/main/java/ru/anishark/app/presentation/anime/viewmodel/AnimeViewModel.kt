@@ -1,5 +1,6 @@
 package ru.anishark.app.presentation.anime.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,6 +31,8 @@ class AnimeViewModel @Inject constructor(
     val currentAnime
         get() = _currentAnime.hide()
 
+    var isAnimeInBookmark = false
+
     fun loadData(malId: Int) {
         compositeDisposable +=
             getOnClickAnimeUseCase(malId)
@@ -41,6 +44,19 @@ class AnimeViewModel @Inject constructor(
                     },
                     {
                         _currentAnime.onError(it)
+                    }
+                )
+
+        compositeDisposable +=
+            getBookmark(malId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        isAnimeInBookmark = it.let { true } ?: false
+                    },
+                    {
+                        Log.d("MyLog", it.message.toString())
                     }
                 )
     }

@@ -76,15 +76,6 @@ class BookmarkFragment : Fragment() {
             bookmarkRv.adapter = bookmarkAdapter
             bookmarkRv.layoutManager = LinearLayoutManager(binding.bookmarkRv.context)
             bookmarkRv.addItemDecoration(VerticalSpacingItemDecoration(0f, 12f))
-            // TODO: убрать, это рыбка
-            bookmarkRv.setOnClickListener {
-                vm
-                    .insertBookmark(
-                        AnimeModel(22, "", "", 0, 0, "", 0.1),
-                    ).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe()
-            }
         }
 
         return binding.root

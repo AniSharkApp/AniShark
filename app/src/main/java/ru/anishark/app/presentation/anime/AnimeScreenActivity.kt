@@ -13,6 +13,7 @@ import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.schedulers.Schedulers
 import ru.anishark.app.R
 import ru.anishark.app.common.ui.disposeOnDestroy
+import ru.anishark.app.data.db.mapper.BookmarksMapper
 import ru.anishark.app.databinding.ActivityAnimeBinding
 import ru.anishark.app.domain.model.AnimeModel
 import ru.anishark.app.domain.model.BookmarkModel
@@ -26,10 +27,13 @@ class AnimeScreenActivity : AppCompatActivity() {
 
     private var bookmarkState = false
 
-    // TODO: переделать на человеческий, но я не хочу null
-    private var currentAnime: BookmarkModel = BookmarkModel(22, "", "фываыва")
 
     private val disposable = CompositeDisposable()
+
+    companion object {
+        // TODO: переделать на человеческий, но я не хочу null
+        private var currentAnime = AnimeModel(0,"","",0,0,"",0.0)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +50,8 @@ class AnimeScreenActivity : AppCompatActivity() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                         { data ->
-//                            currentAnime = data
-                            bookmarkState = true
+                            currentAnime = data
+                            bookmarkState = vm.isAnimeInBookmark
                             changeBookmarkState(bookmarkState)
                             setDataOnView()
                         },
@@ -73,7 +77,11 @@ class AnimeScreenActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this@AnimeScreenActivity, "Anime Id - ${currentAnime.malId} added", Toast.LENGTH_SHORT).show()
                     vm
-                        .insertBookmark(currentAnime)
+                        .insertBookmark(BookmarkModel(
+                            malId = currentAnime.malId,
+                            imageUrl = currentAnime.imageUrl,
+                            title = currentAnime.title
+                        ))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe()
