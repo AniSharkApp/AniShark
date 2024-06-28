@@ -23,23 +23,23 @@ import ru.anishark.app.presentation.home.viewmodel.HomeViewModel
 class HomeFragment : Fragment() {
     private val vm: HomeViewModel by viewModels()
 
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
     // TODO использовать dimens ресурс
     private val itemDecoration = HorizontalSpacingItemDecoration(0f, 12f)
 
     private val disposable = CompositeDisposable()
 
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        disposable.disposeOnDestroy(this.lifecycle)
-    }
-
     private fun startAnimeActivity(malId: Int) {
         val intent = Intent(this@HomeFragment.context, AnimeScreenActivity::class.java)
         intent.putExtra("malId", malId)
         startActivity(intent)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        disposable.disposeOnDestroy(this.lifecycle)
     }
 
     override fun onCreateView(

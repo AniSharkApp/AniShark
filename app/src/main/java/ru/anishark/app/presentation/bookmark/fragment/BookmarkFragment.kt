@@ -17,8 +17,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import ru.anishark.app.common.ui.VerticalSpacingItemDecoration
 import ru.anishark.app.common.ui.disposeOnDestroy
 import ru.anishark.app.databinding.FragmentBookmarkBinding
-import ru.anishark.app.domain.model.AnimeModel
-import ru.anishark.app.domain.model.BookmarkModel
 import ru.anishark.app.presentation.anime.AnimeScreenActivity
 import ru.anishark.app.presentation.bookmark.recycler.BookmarkAnimeListAdapter
 import ru.anishark.app.presentation.bookmark.recycler.BookmarksState
@@ -28,22 +26,18 @@ import ru.anishark.app.presentation.bookmark.viewmodel.BookmarkViewModel
 class BookmarkFragment : Fragment() {
     private val vm: BookmarkViewModel by viewModels()
 
-    private var bookmarks: List<BookmarkModel> = emptyList()
-
-    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentBookmarkBinding? = null
     private val binding get() = _binding!!
 
-    private val bookmarkAdapter =
-        BookmarkAnimeListAdapter {
-            val intent =
-                Intent(context, AnimeScreenActivity::class.java).apply {
-                    putExtra("malId", it)
-                }
-            startActivity(intent)
-        }
+    private val bookmarkAdapter = BookmarkAnimeListAdapter(::startAnimeActivity)
 
     private val disposable = CompositeDisposable()
+
+    private fun startAnimeActivity(malId: Int) {
+        val intent = Intent(this@BookmarkFragment.context, AnimeScreenActivity::class.java)
+        intent.putExtra("malId", malId)
+        startActivity(intent)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

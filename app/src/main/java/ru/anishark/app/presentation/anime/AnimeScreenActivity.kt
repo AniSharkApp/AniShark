@@ -13,7 +13,6 @@ import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.schedulers.Schedulers
 import ru.anishark.app.R
 import ru.anishark.app.common.ui.disposeOnDestroy
-import ru.anishark.app.data.db.mapper.BookmarksMapper
 import ru.anishark.app.databinding.ActivityAnimeBinding
 import ru.anishark.app.domain.model.AnimeModel
 import ru.anishark.app.domain.model.BookmarkModel
@@ -27,11 +26,9 @@ class AnimeScreenActivity : AppCompatActivity() {
 
     private var bookmarkState = false
 
-
     private val disposable = CompositeDisposable()
 
     companion object {
-        // TODO: переделать на человеческий, но я не хочу null
         private var currentAnime = AnimeModel(0,"","",0,0,"",0.0)
     }
 
@@ -97,21 +94,12 @@ class AnimeScreenActivity : AppCompatActivity() {
         disposable.disposeOnDestroy(this.lifecycle)
     }
 
-    private fun changeBookmarkState(state: Boolean) {
-        if (state) {
-            binding.icAnimeScreenBookmark.setImageResource(R.drawable.ic_anime_screen_bookmark_filled)
-        } else {
-            binding.icAnimeScreenBookmark.setImageResource(R.drawable.ic_anime_screen_bookmark)
-        }
-    }
-
     private fun setDataOnView() {
         with(binding) {
             disposable +=
                 vm.currentAnime
                     .subscribe(
                         { model ->
-                            Toast.makeText(this@AnimeScreenActivity, "${model.malId}, ${model.title}", Toast.LENGTH_SHORT).show()
                             backgroundImage.load(model.imageUrl) {
                                 placeholder(R.drawable.default_anime_catalog_image)
                                 error(R.drawable.default_anime_catalog_image)
@@ -124,6 +112,7 @@ class AnimeScreenActivity : AppCompatActivity() {
                             animeTitleEnglish.text = model.title
                             animeRatingText.text = model.score.toString()
                             animeScreenDescriptionText.text = model.synopsis
+                            changeSeasonIcon(model.season ?: "")
                             animeScreenEpisodesText.text = resources.getString(R.string.episodes, model.episodes)
                             animeScreenSeasonText.text = resources.getString(R.string.anime_screen_season_text, (model.season ?: "-"))
                             animeScreenStudioText.text = resources.getString(R.string.anime_screen_studio_text, (model.studio ?: "-"))
@@ -132,6 +121,24 @@ class AnimeScreenActivity : AppCompatActivity() {
                             Log.d("MyLog", it.message.toString())
                         }
                     )
+        }
+    }
+
+
+    private fun changeBookmarkState(state: Boolean) {
+        if (state) {
+            binding.icAnimeScreenBookmark.setImageResource(R.drawable.ic_anime_screen_bookmark_filled)
+        } else {
+            binding.icAnimeScreenBookmark.setImageResource(R.drawable.ic_anime_screen_bookmark)
+        }
+    }
+
+    private fun changeSeasonIcon(season: String) {
+        when(season) {
+            "fall" -> binding.icAnimeScreenSeason.setImageResource(R.drawable.ic_fall)
+            "spring" -> binding.icAnimeScreenSeason.setImageResource(R.drawable.ic_spring)
+            "winter" -> binding.icAnimeScreenSeason.setImageResource(R.drawable.ic_winter)
+            "summer" -> binding.icAnimeScreenSeason.setImageResource(R.drawable.ic_summer)
         }
     }
 }

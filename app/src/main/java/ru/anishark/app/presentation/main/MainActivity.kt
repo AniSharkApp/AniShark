@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
                 {
                     isDarkTheme = it == AppCompatDelegate.MODE_NIGHT_YES
                     AppCompatDelegate.setDefaultNightMode(it)
-                    Log.d("MyLog", "Tri olega")
                 },
                 {
                     Log.d("MyLog", it.message ?: "Dwa olega")

@@ -31,6 +31,8 @@ const val RATING_KEY = "tnk"
 
 @AndroidEntryPoint
 class CatalogFragment : Fragment() {
+    private val vm: CatalogViewModel by viewModels()
+
     private var _binding: FragmentCatalogBinding? = null
     private val binding get() = _binding!!
 
@@ -40,8 +42,6 @@ class CatalogFragment : Fragment() {
     private var type: List<AnimeTypeModel> = listOf()
     private var rating: List<AnimeRatingModel> = listOf()
     private var genresList: List<AnimeGenreModel> = listOf()
-
-    private val vm: CatalogViewModel by viewModels()
 
     private fun startAnimeActivity(malId: Int) {
         val intent = Intent(this@CatalogFragment.context, AnimeScreenActivity::class.java)
