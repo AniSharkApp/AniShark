@@ -20,7 +20,7 @@
 
             <ImageView
                 android:id="@+id/background_image"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/default_anime_image" />

@@ -17,4 +17,6 @@ class AnimeRepositoryImpl @Inject constructor(
         genres: List<AnimeGenreModel>,
         type: List<AnimeTypeModel>,
     ): Single<List<AnimeModel>> = animeDataSource.getAnimeSearch(ratings, genres, type)
+
+    override fun getAnime(malId: Int): Single<AnimeModel> = animeDataSource.getAnimeSearch(malId)
 }

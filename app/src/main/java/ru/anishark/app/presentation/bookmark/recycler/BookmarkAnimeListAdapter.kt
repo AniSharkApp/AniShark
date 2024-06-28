@@ -1,5 +1,6 @@
 package ru.anishark.app.presentation.bookmark.recycler
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -120,6 +121,7 @@ class BookmarkAnimeListAdapter(
                 if (previousDataExists) {
                     val diffCallback = BookmarkAnimeListDiffUtilCallback((state as BookmarksState.Content).data, newState.data)
                     val diffResult = DiffUtil.calculateDiff(diffCallback)
+                    state = BookmarksState.Content(newState.data)
                     diffResult.dispatchUpdatesTo(this)
                 } else {
                     state = newState

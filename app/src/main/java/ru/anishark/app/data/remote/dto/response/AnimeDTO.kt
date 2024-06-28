@@ -52,4 +52,6 @@ data class AnimeDTO(
     val season: String?,
     @SerialName("year")
     val year: Int?,
+    @SerialName("studios")
+    val studios: List<StudioDTO>
 )

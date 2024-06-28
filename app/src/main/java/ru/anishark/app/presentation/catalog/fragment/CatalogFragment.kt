@@ -20,6 +20,7 @@ import ru.anishark.app.domain.model.AnimeGenreModel
 import ru.anishark.app.domain.model.AnimeModel
 import ru.anishark.app.domain.model.AnimeRatingModel
 import ru.anishark.app.domain.model.AnimeTypeModel
+import ru.anishark.app.presentation.anime.AnimeScreenActivity
 import ru.anishark.app.presentation.catalog.recycler.CatalogAnimeListAdapter
 import ru.anishark.app.presentation.catalog.viewmodel.CatalogViewModel
 import ru.anishark.app.presentation.filter.activity.FilterActivity
@@ -30,6 +31,8 @@ const val RATING_KEY = "tnk"
 
 @AndroidEntryPoint
 class CatalogFragment : Fragment() {
+    private val vm: CatalogViewModel by viewModels()
+
     private var _binding: FragmentCatalogBinding? = null
     private val binding get() = _binding!!
 
@@ -40,7 +43,11 @@ class CatalogFragment : Fragment() {
     private var rating: List<AnimeRatingModel> = listOf()
     private var genresList: List<AnimeGenreModel> = listOf()
 
-    private val vm: CatalogViewModel by viewModels()
+    private fun startAnimeActivity(malId: Int) {
+        val intent = Intent(this@CatalogFragment.context, AnimeScreenActivity::class.java)
+        intent.putExtra("malId", malId)
+        startActivity(intent)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,7 +65,7 @@ class CatalogFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             catalogRv.layoutManager = LinearLayoutManager(catalogRv.context)
-            catalogRv.adapter = CatalogAnimeListAdapter(list)
+            catalogRv.adapter = CatalogAnimeListAdapter(list, ::startAnimeActivity)
 
             filterButton.setOnClickListener {
                 val intent = Intent(filterButton.context, FilterActivity::class.java)
@@ -111,7 +118,7 @@ class CatalogFragment : Fragment() {
                     {
                         with(binding) {
                             catalogRv.layoutManager = LinearLayoutManager(catalogRv.context)
-                            catalogRv.adapter = CatalogAnimeListAdapter(it)
+                            catalogRv.adapter = CatalogAnimeListAdapter(it, ::startAnimeActivity)
                         }
                     },
                     {
