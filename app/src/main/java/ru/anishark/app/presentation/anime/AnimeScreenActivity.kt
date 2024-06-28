@@ -29,7 +29,7 @@ class AnimeScreenActivity : AppCompatActivity() {
     private val disposable = CompositeDisposable()
 
     companion object {
-        private var currentAnime = AnimeModel(0,"","",0,0,"",0.0)
+        private var currentAnime = AnimeModel(0, "", "", 0, 0, "", 0.0)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,11 +74,13 @@ class AnimeScreenActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this@AnimeScreenActivity, "Anime Id - ${currentAnime.malId} added", Toast.LENGTH_SHORT).show()
                     vm
-                        .insertBookmark(BookmarkModel(
-                            malId = currentAnime.malId,
-                            imageUrl = currentAnime.imageUrl,
-                            title = currentAnime.title
-                        ))
+                        .insertBookmark(
+                            BookmarkModel(
+                                malId = currentAnime.malId,
+                                imageUrl = currentAnime.imageUrl,
+                                title = currentAnime.title
+                            )
+                        )
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe()
@@ -95,33 +97,33 @@ class AnimeScreenActivity : AppCompatActivity() {
     }
 
     private fun setDataOnView() {
-        with(binding) {
-            disposable +=
-                vm.currentAnime
-                    .subscribe(
-                        { model ->
-                            backgroundImage.load(model.imageUrl) {
-                                placeholder(R.drawable.default_anime_catalog_image)
-                                error(R.drawable.default_anime_catalog_image)
-                            }
-                            mainImage.load(model.imageUrl) {
-                                placeholder(R.drawable.default_anime_catalog_image)
-                                error(R.drawable.default_anime_catalog_image)
-                            }
-                            animeTitle.text = model.title
-                            animeTitleEnglish.text = model.title
-                            animeRatingText.text = model.score.toString()
-                            animeScreenDescriptionText.text = model.synopsis
-                            changeSeasonIcon(model.season ?: "")
-                            animeScreenEpisodesText.text = resources.getString(R.string.episodes, model.episodes)
-                            animeScreenSeasonText.text = resources.getString(R.string.anime_screen_season_text, (model.season ?: "-"))
-                            animeScreenStudioText.text = resources.getString(R.string.anime_screen_studio_text, (model.studio ?: "-"))
-                        },
-                        {
-                            Log.d("MyLog", it.message.toString())
+        disposable +=
+            vm.currentAnime
+                .subscribe({ model ->
+                    with(binding) {
+                        backgroundImage.load(model.imageUrl) {
+                            placeholder(R.drawable.default_anime_catalog_image)
+                            error(R.drawable.default_anime_catalog_image)
                         }
-                    )
-        }
+                        mainImage.load(model.imageUrl) {
+                            placeholder(R.drawable.default_anime_catalog_image)
+                            error(R.drawable.default_anime_catalog_image)
+                        }
+                        animeTitle.text = model.title
+                        animeTitleEnglish.text = model.title
+                        animeRatingText.text = model.score.toString()
+                        animeScreenDescriptionText.text = model.synopsis
+                        changeSeasonIcon(model.season ?: "")
+                        animeScreenEpisodesText.text = resources.getString(R.string.episodes, model.episodes)
+                        animeScreenSeasonText.text = resources.getString(R.string.anime_screen_season_text, (model.season ?: "-"))
+                        animeScreenStudioText.text = resources.getString(R.string.anime_screen_studio_text, (model.studio ?: "-"))
+                    }
+                },
+                    {
+                        Log.d("MyLog", it.message.toString())
+                    }
+                )
+
     }
 
 
@@ -134,7 +136,7 @@ class AnimeScreenActivity : AppCompatActivity() {
     }
 
     private fun changeSeasonIcon(season: String) {
-        when(season) {
+        when (season) {
             "fall" -> binding.icAnimeScreenSeason.setImageResource(R.drawable.ic_fall)
             "spring" -> binding.icAnimeScreenSeason.setImageResource(R.drawable.ic_spring)
             "winter" -> binding.icAnimeScreenSeason.setImageResource(R.drawable.ic_winter)
