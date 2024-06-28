@@ -123,8 +123,10 @@ class AnimeScreenActivity : AppCompatActivity() {
                             animeTitle.text = model.title
                             animeTitleEnglish.text = model.title
                             animeRatingText.text = model.score.toString()
-                            animeScreenEpisodesText.text = resources.getString(R.string.episodes, model.episodes)
                             animeScreenDescriptionText.text = model.synopsis
+                            animeScreenEpisodesText.text = resources.getString(R.string.episodes, model.episodes)
+                            animeScreenSeasonText.text = resources.getString(R.string.anime_screen_season_text, (model.season ?: "-"))
+                            animeScreenStudioText.text = resources.getString(R.string.anime_screen_studio_text, (model.studio ?: "-"))
                         },
                         {
                             Log.d("MyLog", it.message.toString())

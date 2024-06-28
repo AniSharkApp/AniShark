@@ -18,6 +18,8 @@ class RemoteAnimeMapper @Inject constructor() {
                 episodes = episodes,
                 imageUrl = images.jpeg.imageUrl,
                 score = score,
+                season = season,
+                studio = studios.first().name,
             )
         }
     fun toDomainModel(dto: AnimeFullDTO): AnimeModel = toDomainModel(dto.data)
