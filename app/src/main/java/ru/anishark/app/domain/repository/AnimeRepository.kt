@@ -13,4 +13,5 @@ interface AnimeRepository {
         type: List<AnimeTypeModel> = listOf(),
     ): Single<List<AnimeModel>>
     fun getAnime(malId: Int): Single<AnimeModel>
+    fun getAnimeByTitle(letter: String): Single<List<AnimeModel>>
 }

@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import androidx.datastore.preferences.core.emptyPreferences
@@ -19,6 +21,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.anishark.app.R
 import ru.anishark.app.databinding.ActivityMainBinding
 import ru.anishark.app.presentation.BottomNavigationAdapter
+import ru.anishark.app.presentation.search.fragment.SearchFragment
 
 val Context.rxDataStore by rxPreferencesDataStore(
     name = "settings",
@@ -57,8 +60,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.topAppBar)
+
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         val viewPager = binding.container
@@ -95,6 +98,28 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        binding.searchBar.setOnQueryTextListener(object: OnQueryTextListener {
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.setCustomAnimations(
+                    R.anim.enter_from_right,
+                    R.anim.exit_to_left,
+                    R.anim.enter_from_left,
+                    R.anim.exit_to_right
+                )
+                transaction.replace(binding.searchFragment.id, SearchFragment(), "SEARCH")
+                transaction.addToBackStack(null)
+                transaction.commit()
+
+                return false
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -139,26 +164,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-
-//    private fun <T : Fragment> loadFragment(fragment: Class<out T>) {
-//        val transaction = supportFragmentManager.beginTransaction()
-//        // TODO: Переделать на человеческий
-//        // Слева направо
-//        transaction.setCustomAnimations(
-//            R.anim.enter_from_right,
-//            R.anim.exit_to_left,
-//            R.anim.enter_from_left,
-//            R.anim.exit_to_right
-//        )
-////        // Справа налево
-////        transaction.setCustomAnimations(
-////            R.anim.enter_from_left,
-////            R.anim.exit_to_right,
-////            R.anim.enter_from_right,
-////            R.anim.exit_to_left
-////        )
-//        transaction.replace(binding.container.id, fragment, null)
-//        transaction.commit()
-//    }
 }

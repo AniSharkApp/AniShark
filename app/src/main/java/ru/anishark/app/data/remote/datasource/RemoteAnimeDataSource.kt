@@ -35,4 +35,11 @@ class RemoteAnimeDataSource @Inject constructor(
         animeService
             .getAnime(malId)
             .map(remoteAnimeMapper::toDomainModel)
+
+    fun getAnimeByTitle(letter: String): Single<List<AnimeModel>> =
+        animeService
+            .getAnimeByTitle(letter)
+            .map { v: SearchAnimeDTO ->
+                v.data.map(remoteAnimeMapper::toDomainModel)
+            }
 }
