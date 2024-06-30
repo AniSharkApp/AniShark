@@ -16,6 +16,8 @@
 <a name="first"></a>
 ### Информация о приложении [К оглавлению](#heading)
 
+
+
 <a name="second"></a>
 ### Список используемых технологий и архитектура
 
@@ -97,7 +99,7 @@
 
 <details>
 
-```roomsql
+```sql
 CREATE TABLE bookmarks(
     animeId INTEGER NOT NULL PRIMARY KEY,
     image TEXT,
