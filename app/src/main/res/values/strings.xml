@@ -19,4 +19,5 @@
     <string name="anime_screen_description_title">Description</string>
     <string name="anime_screen_trailer_title">Trailer</string>
     <string name="empty_bookmark_text">The bookmarks are empty</string>
+    <string name="no_rating_yet">No rating yet</string>
 </resources>

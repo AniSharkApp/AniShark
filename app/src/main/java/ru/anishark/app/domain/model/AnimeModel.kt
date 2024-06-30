@@ -7,7 +7,7 @@ data class AnimeModel(
     val year: Int?,
     val episodes: Int?,
     val imageUrl: String?,
-    val score: Double,
+    val score: Double?,
     val season: String? = null,
     val studio: String? = null,
 )

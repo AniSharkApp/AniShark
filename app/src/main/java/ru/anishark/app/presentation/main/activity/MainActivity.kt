@@ -1,4 +1,4 @@
-package ru.anishark.app.presentation.main
+package ru.anishark.app.presentation.main.activity
 
 import android.content.Context
 import android.os.Bundle
@@ -14,11 +14,17 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.rxjava3.rxPreferencesDataStore
 import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.plusAssign
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.anishark.app.R
+import ru.anishark.app.common.ui.disposeOnDestroy
 import ru.anishark.app.databinding.ActivityMainBinding
-import ru.anishark.app.presentation.BottomNavigationAdapter
+import ru.anishark.app.presentation.main.adapter.BottomNavigationAdapter
+import ru.anishark.app.presentation.main.bus.NavigationEventBus
+import javax.inject.Inject
 
 val Context.rxDataStore by rxPreferencesDataStore(
     name = "settings",
@@ -34,6 +40,10 @@ val THEME = intPreferencesKey("theme")
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var isDarkTheme = true
+    private var compositeDisposable = CompositeDisposable()
+
+    @Inject
+    lateinit var eventBus: NavigationEventBus
 
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
 
         super.onCreate(savedInstanceState)
+        compositeDisposable.disposeOnDestroy(this.lifecycle)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -63,34 +74,51 @@ class MainActivity : AppCompatActivity() {
 
         val viewPager = binding.container
         viewPager.adapter = BottomNavigationAdapter(this)
-        viewPager.currentItem = 0
+        compositeDisposable +=
+            eventBus.subject
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    viewPager.currentItem = it
+                })
+        viewPager.isUserInputEnabled = false
+        viewPager.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    when (position) {
+                        0 ->
+                            binding.bottomNavBar.menu
+                                .findItem(R.id.home)
+                                .setChecked(true)
 
-        viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                when(position) {
-                    0 -> binding.bottomNavBar.menu.findItem(R.id.home).setChecked(true)
-                    1 -> binding.bottomNavBar.menu.findItem(R.id.catalog).setChecked(true)
-                    2 -> binding.bottomNavBar.menu.findItem(R.id.bookmark).setChecked(true)
+                        1 ->
+                            binding.bottomNavBar.menu
+                                .findItem(R.id.catalog)
+                                .setChecked(true)
+
+                        2 ->
+                            binding.bottomNavBar.menu
+                                .findItem(R.id.bookmark)
+                                .setChecked(true)
+                    }
                 }
-            }
-        })
-
+            },
+        )
 
         binding.bottomNavBar.setOnItemSelectedListener { fragment ->
             when (fragment.itemId) {
                 R.id.home -> {
-                    viewPager.currentItem = 0
+                    eventBus.changeTo(0)
                     true
                 }
 
                 R.id.catalog -> {
-                    viewPager.currentItem = 1
+                    eventBus.changeTo(1)
                     true
                 }
 
                 else -> {
-                    viewPager.currentItem = 2
+                    eventBus.changeTo(2)
                     true
                 }
             }
@@ -139,26 +167,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-
-//    private fun <T : Fragment> loadFragment(fragment: Class<out T>) {
-//        val transaction = supportFragmentManager.beginTransaction()
-//        // TODO: Переделать на человеческий
-//        // Слева направо
-//        transaction.setCustomAnimations(
-//            R.anim.enter_from_right,
-//            R.anim.exit_to_left,
-//            R.anim.enter_from_left,
-//            R.anim.exit_to_right
-//        )
-////        // Справа налево
-////        transaction.setCustomAnimations(
-////            R.anim.enter_from_left,
-////            R.anim.exit_to_right,
-////            R.anim.enter_from_right,
-////            R.anim.exit_to_left
-////        )
-//        transaction.replace(binding.container.id, fragment, null)
-//        transaction.commit()
-//    }
 }
