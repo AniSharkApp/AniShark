@@ -109,11 +109,7 @@ AniShark - мобильное приложение-вики для поиска 
 
 #### Особенности реализации архитектуры/структуры DI [К оглавлению](#heading)
 
-<details>
-
 ![Примерная архитектурная схема](./docs/arch.png)
-
-</details>
 
 Для Presentation слоя выбран шаблон проектирования MVVM.
 
@@ -143,8 +139,6 @@ AniShark - мобильное приложение-вики для поиска 
 
 Примерный DDL:
 
-<details>
-
 ```sql
 CREATE TABLE bookmarks(
     animeId INTEGER NOT NULL PRIMARY KEY,
@@ -158,8 +152,6 @@ CREATE TABLE bookmarks(
 RxJava используется во всех трёх слоях приложения - для работы Room и Retrofit с Observable были
 добавлены
 зависимости на соответствующие адаптеры вызовов.
-
-</details>
 
 <a name="fourth"></a>
 
