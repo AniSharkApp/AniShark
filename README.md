@@ -18,6 +18,20 @@
 
 ### Информация о приложении [К оглавлению](#heading)
 
+AniShark - мобильное приложение-вики для поиска аниме.
+
+Создатели:
+
+- [Дмитрий Абдуллаев](https://github.com/MiddleShamil)
+- [Александр Ерешкин](https://github.com/AlexEreh)
+- [Александр Губанов](https://github.com/AleksandrPravdin)
+
+Дизайн собственный, [ссылка](https://www.figma.com/design/sIVIyUVphZiYJoK3KyPGl6/AniShark). 
+
+Техническое задание: [ссылка](https://anishark.notion.site/794aedc3f949470e8a24b4eaea5f851f)
+
+Приложение использует [Jikan API](https://docs.api.jikan.moe/) как основной источник данных
+
 Сделанные фичи:
 
  Фича             | Стадия       
