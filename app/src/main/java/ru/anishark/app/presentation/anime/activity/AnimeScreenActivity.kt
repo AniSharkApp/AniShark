@@ -113,7 +113,11 @@ class AnimeScreenActivity : AppCompatActivity() {
                             }
                             animeScreenDescriptionText.text = model.synopsis
                             changeSeasonIcon(model.season ?: "")
-                            animeScreenEpisodesText.text = resources.getString(R.string.episodes, model.episodes)
+                            if (model.episodes != null) {
+                                animeScreenEpisodesText.text = resources.getString(R.string.episodes, model.episodes)
+                            } else {
+                                animeScreenEpisodesText.text = resources.getString(R.string.ongoing_full)
+                            }
                             animeScreenSeasonText.text = resources.getString(R.string.anime_screen_season_text, (model.season ?: "-"))
                             animeScreenStudioText.text = resources.getString(R.string.anime_screen_studio_text, (model.studio ?: "-"))
                         }

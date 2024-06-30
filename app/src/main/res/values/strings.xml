@@ -7,12 +7,13 @@
     <string name="query_hint">Search</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="change_theme_icon_description">Смена темы</string>
+    <string name="change_theme_icon_description">Theme change</string>
     <string name="home_actual_of_season">Actual of the season</string>
     <string name="home_tops">Tops</string>
     <string name="home_show_more">More</string>
     <string name="episodes">%1$d EP</string>
     <string name="ongoing">ON</string>
+    <string name="ongoing_full">Ongoing / No episodes</string>
     <string name="anime_screen_episodes_text">%1$d episodes</string>
     <string name="anime_screen_season_text">Season: %1$s</string>
     <string name="anime_screen_studio_text">Studio: %1$s</string>
