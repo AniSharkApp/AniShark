@@ -1,11 +1,10 @@
-package ru.anishark.app.presentation.main
+package ru.anishark.app.presentation.main.activity
 
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
@@ -20,7 +19,7 @@ import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.anishark.app.R
 import ru.anishark.app.databinding.ActivityMainBinding
-import ru.anishark.app.presentation.BottomNavigationAdapter
+import ru.anishark.app.presentation.main.adapter.BottomNavigationAdapter
 import ru.anishark.app.presentation.search.fragment.SearchFragment
 
 val Context.rxDataStore by rxPreferencesDataStore(

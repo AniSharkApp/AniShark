@@ -15,7 +15,7 @@ import io.reactivex.rxjava3.kotlin.plusAssign
 import ru.anishark.app.common.ui.HorizontalSpacingItemDecoration
 import ru.anishark.app.common.ui.disposeOnDestroy
 import ru.anishark.app.databinding.FragmentHomeBinding
-import ru.anishark.app.presentation.anime.AnimeScreenActivity
+import ru.anishark.app.presentation.anime.activity.AnimeScreenActivity
 import ru.anishark.app.presentation.home.recycler.HomeAnimeListAdapter
 import ru.anishark.app.presentation.home.viewmodel.HomeViewModel
 

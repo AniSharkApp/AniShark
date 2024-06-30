@@ -1,4 +1,4 @@
-package ru.anishark.app.presentation.anime
+package ru.anishark.app.presentation.anime.activity
 
 import android.os.Bundle
 import android.util.Log
