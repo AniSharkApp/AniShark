@@ -16,14 +16,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import ru.anishark.app.databinding.FragmentCatalogBinding
-import ru.anishark.app.domain.model.AnimeGenreModel
-import ru.anishark.app.domain.model.AnimeModel
-import ru.anishark.app.domain.model.AnimeRatingModel
-import ru.anishark.app.domain.model.AnimeTypeModel
 import ru.anishark.app.presentation.anime.activity.AnimeScreenActivity
 import ru.anishark.app.presentation.catalog.recycler.CatalogAnimeListAdapter
 import ru.anishark.app.presentation.catalog.viewmodel.CatalogViewModel
 import ru.anishark.app.presentation.filter.activity.FilterActivity
+import ru.anishark.domain.model.AnimeGenreModel
+import ru.anishark.domain.model.AnimeModel
+import ru.anishark.domain.model.AnimeRatingModel
+import ru.anishark.domain.model.AnimeTypeModel
 
 const val FIRST_NAME_KEY = "fnk"
 const val TYPES_KEY = "snk"

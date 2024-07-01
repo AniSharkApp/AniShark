@@ -10,7 +10,7 @@ import ru.anishark.app.databinding.CardAnimeHomeBinding
 import ru.anishark.app.databinding.CardWatchMoreHomeBinding
 import ru.anishark.app.databinding.LayoutErrorBinding
 import ru.anishark.app.databinding.LayoutLoadingBinding
-import ru.anishark.app.domain.model.AnimeModel
+import ru.anishark.domain.model.AnimeModel
 import java.util.Locale
 
 class HomeAnimeListAdapter(

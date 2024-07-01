@@ -9,12 +9,12 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
-import ru.anishark.app.domain.model.AnimeModel
-import ru.anishark.app.domain.model.BookmarkModel
-import ru.anishark.app.domain.usecase.DeleteBookmarkCatalogUseCase
-import ru.anishark.app.domain.usecase.GetOnClickAnimeUseCase
-import ru.anishark.app.domain.usecase.GetOneBookmarkCatalogUseCase
-import ru.anishark.app.domain.usecase.InsertBookmarkAnimeUseCase
+import ru.anishark.domain.model.AnimeModel
+import ru.anishark.domain.model.BookmarkModel
+import ru.anishark.domain.usecase.DeleteBookmarkCatalogUseCase
+import ru.anishark.domain.usecase.GetOnClickAnimeUseCase
+import ru.anishark.domain.usecase.GetOneBookmarkCatalogUseCase
+import ru.anishark.domain.usecase.InsertBookmarkAnimeUseCase
 import javax.inject.Inject
 
 @HiltViewModel
@@ -44,7 +44,7 @@ class AnimeViewModel @Inject constructor(
                     },
                     {
                         _currentAnime.onError(it)
-                    }
+                    },
                 )
 
         compositeDisposable +=
@@ -57,7 +57,7 @@ class AnimeViewModel @Inject constructor(
                     },
                     {
                         Log.d("MyLog", it.message.toString())
-                    }
+                    },
                 )
     }
 

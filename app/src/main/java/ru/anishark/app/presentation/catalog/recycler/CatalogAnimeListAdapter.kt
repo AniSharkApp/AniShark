@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.anishark.app.R
 import ru.anishark.app.databinding.CardAnimeCatalogBinding
-import ru.anishark.app.domain.model.AnimeModel
+import ru.anishark.domain.model.AnimeModel
 
 class CatalogAnimeListAdapter(
     val data: List<AnimeModel>,
@@ -23,7 +23,7 @@ class CatalogAnimeListAdapter(
                 onClick(model.malId)
             }
             binding.nameTv.text = model.title
-            binding.episodesTv.text = if (model.episodes == null) "ON" else "${model.episodes + 1} ep"
+            binding.episodesTv.text = if (model.episodes == null) "ON" else "${model.episodes!! + 1} ep"
             binding.ratingTv.text = "${model.score}"
             binding.descriptionTv.text = model.synopsis
             binding.cardIv.load(model.imageUrl) {

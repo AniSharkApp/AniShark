@@ -1,6 +1,5 @@
 package ru.anishark.app.presentation.bookmark.recycler
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,7 +9,7 @@ import ru.anishark.app.databinding.CardAnimeBookmarkBinding
 import ru.anishark.app.databinding.CardEmptyBookmarksBinding
 import ru.anishark.app.databinding.LayoutErrorBinding
 import ru.anishark.app.databinding.LayoutLoadingBinding
-import ru.anishark.app.domain.model.BookmarkModel
+import ru.anishark.domain.model.BookmarkModel
 
 class BookmarkAnimeListAdapter(
     private val onClickListener: (Int) -> Unit,
