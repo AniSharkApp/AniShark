@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
@@ -34,28 +33,45 @@
             app:submitBackground="@drawable/bg_search_bar_light" />
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/container"
+    <FrameLayout
+        android:id="@+id/search_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_above="@+id/bottom_nav_bar"
-        android:background="@color/background"
-        android:backgroundTint="@color/background"
-        app:layout_constraintTop_toBottomOf="@+id/top_app_bar"
-        app:layout_constraintBottom_toTopOf="@id/bottom_nav_bar"/>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav_bar"
-        style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/background"
-        android:backgroundTintMode="add"
-        app:itemBackground="@color/background"
-        app:itemIconTint="@drawable/bottom_nav_selector"
-        app:itemTextColor="@drawable/bottom_nav_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/nav_menu" />
+        app:layout_constraintTop_toBottomOf="@+id/top_app_bar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/search_constraint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_above="@+id/bottom_nav_bar"
+                android:background="@color/background"
+                android:backgroundTint="@color/background"
+                app:layout_constraintBottom_toTopOf="@id/bottom_nav_bar"
+                app:layout_constraintTop_toTopOf="@+id/search_constraint_layout" />
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_nav_bar"
+                style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background"
+                android:backgroundTintMode="add"
+                app:itemBackground="@color/background"
+                app:itemIconTint="@drawable/bottom_nav_selector"
+                app:itemTextColor="@drawable/bottom_nav_selector"
+                app:layout_constraintBottom_toBottomOf="@id/search_constraint_layout"
+                app:layout_constraintEnd_toEndOf="@id/search_constraint_layout"
+                app:layout_constraintStart_toStartOf="@id/search_constraint_layout"
+                app:menu="@menu/nav_menu" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

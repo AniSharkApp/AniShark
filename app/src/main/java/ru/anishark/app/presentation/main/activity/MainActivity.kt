@@ -7,6 +7,8 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.core.os.bundleOf
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import androidx.datastore.preferences.core.emptyPreferences
@@ -25,6 +27,7 @@ import ru.anishark.app.databinding.ActivityMainBinding
 import ru.anishark.app.presentation.main.adapter.BottomNavigationAdapter
 import ru.anishark.app.presentation.main.bus.NavigationEventBus
 import javax.inject.Inject
+import ru.anishark.app.presentation.search.fragment.SearchFragment
 
 val Context.rxDataStore by rxPreferencesDataStore(
     name = "settings",
@@ -40,19 +43,24 @@ val THEME = intPreferencesKey("theme")
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var isDarkTheme = true
-    private var compositeDisposable = CompositeDisposable()
+    private var disposable = CompositeDisposable()
 
     @Inject
     lateinit var eventBus: NavigationEventBus
 
+    companion object {
+        const val SEARCH = "SEARCH"
+    }
+
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
+        disposable.disposeOnDestroy(this.lifecycle)
         val themeObservable =
             this.rxDataStore.data().map {
                 it[THEME] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
             }
 
-        themeObservable
+        disposable += themeObservable
             .subscribe(
                 {
                     isDarkTheme = it == AppCompatDelegate.MODE_NIGHT_YES
@@ -65,16 +73,16 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
 
         super.onCreate(savedInstanceState)
-        compositeDisposable.disposeOnDestroy(this.lifecycle)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.topAppBar)
+
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         val viewPager = binding.container
         viewPager.adapter = BottomNavigationAdapter(this)
-        compositeDisposable +=
+        
+        disposable +=
             eventBus.subject
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -123,6 +131,32 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        binding.searchBar.setOnQueryTextListener(object: OnQueryTextListener {
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                val arguments = bundleOf(SEARCH to query)
+
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.setCustomAnimations(
+                    R.anim.enter_from_right,
+                    R.anim.exit_to_left,
+                    R.anim.enter_from_left,
+                    R.anim.exit_to_right
+                )
+                transaction.replace(binding.searchFragment.id, SearchFragment::class.java, arguments)
+                transaction.addToBackStack(SEARCH)
+                transaction.commit()
+
+                binding.searchBar.setQuery("", false)
+                binding.searchBar.clearFocus()
+
+                return false
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

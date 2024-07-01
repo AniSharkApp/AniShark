@@ -17,6 +17,8 @@ data class AnimeDTO(
     val approved: Boolean,
     @SerialName("titles")
     val titles: List<TitleDTO>,
+    @SerialName("title_english")
+    val titleEnglish: String?,
     @SerialName("type")
     val type: String?,
     @SerialName("source")

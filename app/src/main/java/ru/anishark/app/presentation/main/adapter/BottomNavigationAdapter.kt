@@ -14,6 +14,7 @@ class BottomNavigationAdapter(
 
     override fun createFragment(position: Int): Fragment =
         when (position) {
+
             0 -> HomeFragment()
             1 -> CatalogFragment()
             2 -> BookmarkFragment()
