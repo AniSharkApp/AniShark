@@ -118,6 +118,9 @@ class MainActivity : AppCompatActivity() {
                 transaction.addToBackStack("SEARCH")
                 transaction.commit()
 
+                binding.searchBar.setQuery("", false)
+                binding.searchBar.clearFocus()
+
                 return false
             }
         })
