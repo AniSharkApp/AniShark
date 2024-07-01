@@ -11,6 +11,7 @@ import ru.anishark.app.domain.repository.SeasonsRepository
 import ru.anishark.app.domain.repository.TopRepository
 import ru.anishark.app.domain.usecase.DeleteBookmarkCatalogUseCase
 import ru.anishark.app.domain.usecase.GetAllBookmarksCatalogUseCase
+import ru.anishark.app.domain.usecase.GetAnimeByTitleSearchUseCase
 import ru.anishark.app.domain.usecase.GetAnimeSearchUseCase
 import ru.anishark.app.domain.usecase.GetOnClickAnimeUseCase
 import ru.anishark.app.domain.usecase.GetOneBookmarkCatalogUseCase
@@ -70,4 +71,9 @@ class UseCaseModule {
     @Singleton
     fun provideGetOnClickAnimeUseCase(animeRepository: AnimeRepository) : GetOnClickAnimeUseCase =
         GetOnClickAnimeUseCase(animeRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetAnimeByTitleSearchUseCase(animeRepository: AnimeRepository) : GetAnimeByTitleSearchUseCase =
+        GetAnimeByTitleSearchUseCase(animeRepository)
 }

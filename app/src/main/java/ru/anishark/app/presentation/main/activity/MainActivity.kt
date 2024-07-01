@@ -1,4 +1,4 @@
-package ru.anishark.app.presentation.main
+package ru.anishark.app.presentation.main.activity
 
 import android.content.Context
 import android.os.Bundle
@@ -7,6 +7,8 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.core.os.bundleOf
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import androidx.datastore.preferences.core.emptyPreferences
@@ -15,10 +17,14 @@ import androidx.datastore.preferences.rxjava3.rxPreferencesDataStore
 import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.plusAssign
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.anishark.app.R
+import ru.anishark.app.common.ui.disposeOnDestroy
 import ru.anishark.app.databinding.ActivityMainBinding
-import ru.anishark.app.presentation.BottomNavigationAdapter
+import ru.anishark.app.presentation.main.adapter.BottomNavigationAdapter
+import ru.anishark.app.presentation.search.fragment.SearchFragment
 
 val Context.rxDataStore by rxPreferencesDataStore(
     name = "settings",
@@ -35,14 +41,22 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var isDarkTheme = true
 
+    private var disposable = CompositeDisposable()
+
+    companion object {
+        const val SEARCH = "SEARCH"
+    }
+
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
+        disposable.disposeOnDestroy(this.lifecycle)
+
         val themeObservable =
             this.rxDataStore.data().map {
                 it[THEME] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
             }
 
-        themeObservable
+        disposable += themeObservable
             .subscribe(
                 {
                     isDarkTheme = it == AppCompatDelegate.MODE_NIGHT_YES
@@ -57,8 +71,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.topAppBar)
+
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         val viewPager = binding.container
@@ -95,6 +109,32 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        binding.searchBar.setOnQueryTextListener(object: OnQueryTextListener {
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                val arguments = bundleOf(SEARCH to query)
+
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.setCustomAnimations(
+                    R.anim.enter_from_right,
+                    R.anim.exit_to_left,
+                    R.anim.enter_from_left,
+                    R.anim.exit_to_right
+                )
+                transaction.replace(binding.searchFragment.id, SearchFragment::class.java, arguments)
+                transaction.addToBackStack(SEARCH)
+                transaction.commit()
+
+                binding.searchBar.setQuery("", false)
+                binding.searchBar.clearFocus()
+
+                return false
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -139,26 +179,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-
-//    private fun <T : Fragment> loadFragment(fragment: Class<out T>) {
-//        val transaction = supportFragmentManager.beginTransaction()
-//        // TODO: Переделать на человеческий
-//        // Слева направо
-//        transaction.setCustomAnimations(
-//            R.anim.enter_from_right,
-//            R.anim.exit_to_left,
-//            R.anim.enter_from_left,
-//            R.anim.exit_to_right
-//        )
-////        // Справа налево
-////        transaction.setCustomAnimations(
-////            R.anim.enter_from_left,
-////            R.anim.exit_to_right,
-////            R.anim.enter_from_right,
-////            R.anim.exit_to_left
-////        )
-//        transaction.replace(binding.container.id, fragment, null)
-//        transaction.commit()
-//    }
 }

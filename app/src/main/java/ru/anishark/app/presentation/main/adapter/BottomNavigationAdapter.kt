@@ -1,4 +1,4 @@
-package ru.anishark.app.presentation
+package ru.anishark.app.presentation.main.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

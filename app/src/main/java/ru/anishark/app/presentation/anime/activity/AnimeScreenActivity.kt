@@ -1,4 +1,4 @@
-package ru.anishark.app.presentation.anime
+package ru.anishark.app.presentation.anime.activity
 
 import android.os.Bundle
 import android.util.Log
@@ -28,9 +28,7 @@ class AnimeScreenActivity : AppCompatActivity() {
 
     private val disposable = CompositeDisposable()
 
-    companion object {
-        private var currentAnime = AnimeModel(0, "", "", 0, 0, "", 0.0)
-    }
+    private var currentAnime = AnimeModel(0, "", "", "",0, 0, "", 0.0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,11 +108,12 @@ class AnimeScreenActivity : AppCompatActivity() {
                             error(R.drawable.default_anime_catalog_image)
                         }
                         animeTitle.text = model.title
-                        animeTitleEnglish.text = model.title
-                        animeRatingText.text = model.score.toString()
+                        animeTitleEnglish.text = model.titleEnglish ?: model.title
+                        animeRatingText.text = if (model.score == null) "-" else model.score.toString()
+                        animeScreenRatingText.text = if (model.score == null) "-" else model.score.toString()
                         animeScreenDescriptionText.text = model.synopsis
                         changeSeasonIcon(model.season ?: "")
-                        animeScreenEpisodesText.text = resources.getString(R.string.episodes, model.episodes)
+                        animeScreenEpisodesText.text = resources.getString(R.string.episodes, (model.episodes ?: "-"))
                         animeScreenSeasonText.text = resources.getString(R.string.anime_screen_season_text, (model.season ?: "-"))
                         animeScreenStudioText.text = resources.getString(R.string.anime_screen_studio_text, (model.studio ?: "-"))
                     }

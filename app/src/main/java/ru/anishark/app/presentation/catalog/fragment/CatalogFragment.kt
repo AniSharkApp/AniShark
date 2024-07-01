@@ -20,7 +20,7 @@ import ru.anishark.app.domain.model.AnimeGenreModel
 import ru.anishark.app.domain.model.AnimeModel
 import ru.anishark.app.domain.model.AnimeRatingModel
 import ru.anishark.app.domain.model.AnimeTypeModel
-import ru.anishark.app.presentation.anime.AnimeScreenActivity
+import ru.anishark.app.presentation.anime.activity.AnimeScreenActivity
 import ru.anishark.app.presentation.catalog.recycler.CatalogAnimeListAdapter
 import ru.anishark.app.presentation.catalog.viewmodel.CatalogViewModel
 import ru.anishark.app.presentation.filter.activity.FilterActivity
