@@ -24,6 +24,10 @@ class TopRepositoryImpl @Inject constructor(
             .subscribe(
                 {
                     databaseTopDataSource
+                        .deleteAll()
+                        .subscribeOn(Schedulers.io())
+                        .subscribe()
+                    databaseTopDataSource
                         .insert(it)
                         .subscribeOn(Schedulers.io())
                         .subscribe()
@@ -32,6 +36,8 @@ class TopRepositoryImpl @Inject constructor(
                 },
                 compositeDisposable,
             )
-        return databaseTopDataSource.getAll()
+        return databaseTopDataSource
+            .getAll()
+            .filter { it.isNotEmpty() }
     }
 }

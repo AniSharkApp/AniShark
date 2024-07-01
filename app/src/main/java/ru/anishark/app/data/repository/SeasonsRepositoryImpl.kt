@@ -27,6 +27,10 @@ class SeasonsRepositoryImpl @Inject constructor(
             .subscribe(
                 {
                     dabataseSeasonsDataSource
+                        .deleteAll()
+                        .subscribeOn(Schedulers.io())
+                        .subscribe()
+                    dabataseSeasonsDataSource
                         .insert(it)
                         .subscribeOn(Schedulers.io())
                         .subscribe()
@@ -35,6 +39,8 @@ class SeasonsRepositoryImpl @Inject constructor(
                 },
                 compositeDisposable,
             )
-        return dabataseSeasonsDataSource.getAll()
+        return dabataseSeasonsDataSource
+            .getAll()
+            .filter { it.isNotEmpty() }
     }
 }
