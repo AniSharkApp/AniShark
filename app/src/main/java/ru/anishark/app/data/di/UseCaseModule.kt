@@ -4,22 +4,22 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ru.anishark.app.domain.repository.AnimeRepository
-import ru.anishark.app.domain.repository.BookmarkRepository
-import ru.anishark.app.domain.repository.GenresRepository
-import ru.anishark.app.domain.repository.SeasonsRepository
-import ru.anishark.app.domain.repository.TopRepository
-import ru.anishark.app.domain.usecase.DeleteBookmarkCatalogUseCase
-import ru.anishark.app.domain.usecase.GetAllBookmarksCatalogUseCase
-import ru.anishark.app.domain.usecase.GetAnimeByTitleSearchUseCase
-import ru.anishark.app.domain.usecase.GetAnimeSearchUseCase
-import ru.anishark.app.domain.usecase.GetOnClickAnimeUseCase
-import ru.anishark.app.domain.usecase.GetOneBookmarkCatalogUseCase
-import ru.anishark.app.domain.usecase.InsertBookmarkAnimeUseCase
-import ru.anishark.app.domain.usecase.InsertBookmarkCatalogUseCase
-import ru.anishark.app.domain.usecase.LoadActualHomeUseCase
-import ru.anishark.app.domain.usecase.LoadGenresFilterUseCase
-import ru.anishark.app.domain.usecase.LoadTopsHomeUseCase
+import ru.anishark.domain.repository.AnimeRepository
+import ru.anishark.domain.repository.BookmarkRepository
+import ru.anishark.domain.repository.GenresRepository
+import ru.anishark.domain.repository.SeasonsRepository
+import ru.anishark.domain.repository.TopRepository
+import ru.anishark.domain.usecase.DeleteBookmarkCatalogUseCase
+import ru.anishark.domain.usecase.GetAllBookmarksCatalogUseCase
+import ru.anishark.domain.usecase.GetAnimeByTitleSearchUseCase
+import ru.anishark.domain.usecase.GetAnimeSearchUseCase
+import ru.anishark.domain.usecase.GetOnClickAnimeUseCase
+import ru.anishark.domain.usecase.GetOneBookmarkCatalogUseCase
+import ru.anishark.domain.usecase.InsertBookmarkAnimeUseCase
+import ru.anishark.domain.usecase.InsertBookmarkCatalogUseCase
+import ru.anishark.domain.usecase.LoadActualHomeUseCase
+import ru.anishark.domain.usecase.LoadGenresFilterUseCase
+import ru.anishark.domain.usecase.LoadTopsHomeUseCase
 import javax.inject.Singleton
 
 @Module
@@ -69,11 +69,10 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetOnClickAnimeUseCase(animeRepository: AnimeRepository) : GetOnClickAnimeUseCase =
-        GetOnClickAnimeUseCase(animeRepository)
+    fun provideGetOnClickAnimeUseCase(animeRepository: AnimeRepository): GetOnClickAnimeUseCase = GetOnClickAnimeUseCase(animeRepository)
 
     @Provides
     @Singleton
-    fun provideGetAnimeByTitleSearchUseCase(animeRepository: AnimeRepository) : GetAnimeByTitleSearchUseCase =
+    fun provideGetAnimeByTitleSearchUseCase(animeRepository: AnimeRepository): GetAnimeByTitleSearchUseCase =
         GetAnimeByTitleSearchUseCase(animeRepository)
 }

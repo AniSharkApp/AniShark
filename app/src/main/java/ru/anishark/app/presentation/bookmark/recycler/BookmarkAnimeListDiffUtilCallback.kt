@@ -1,7 +1,7 @@
 package ru.anishark.app.presentation.bookmark.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.anishark.app.domain.model.BookmarkModel
+import ru.anishark.domain.model.BookmarkModel
 
 class BookmarkAnimeListDiffUtilCallback(
     private val oldList: List<BookmarkModel>,

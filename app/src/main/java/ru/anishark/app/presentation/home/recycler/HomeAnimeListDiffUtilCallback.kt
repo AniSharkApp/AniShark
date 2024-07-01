@@ -1,7 +1,7 @@
 package ru.anishark.app.presentation.home.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.anishark.app.domain.model.AnimeModel
+import ru.anishark.domain.model.AnimeModel
 
 class HomeAnimeListDiffUtilCallback(
     private val oldList: List<AnimeModel>,

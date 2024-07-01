@@ -19,11 +19,10 @@ import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.schedulers.Schedulers
 import ru.anishark.app.common.ui.disposeOnDestroy
 import ru.anishark.app.databinding.FragmentSearchBinding
-import ru.anishark.app.domain.model.AnimeModel
 import ru.anishark.app.presentation.anime.activity.AnimeScreenActivity
-import ru.anishark.app.presentation.catalog.recycler.CatalogAnimeListAdapter
 import ru.anishark.app.presentation.search.adapter.SearchAnimeListAdapter
 import ru.anishark.app.presentation.search.viewmodel.SearchViewModel
+import ru.anishark.domain.model.AnimeModel
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
@@ -54,7 +53,7 @@ class SearchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
 
@@ -71,7 +70,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(
         view: View,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ) {
         super.onViewCreated(view, savedInstanceState)
         binding.fragmentSearch.setOnClickListener {
@@ -95,9 +94,8 @@ class SearchFragment : Fragment() {
                     },
                     {
                         Log.e("MyLog", "Error getting search results")
-                    }
+                    },
                 )
-
     }
 
     override fun onDestroyView() {

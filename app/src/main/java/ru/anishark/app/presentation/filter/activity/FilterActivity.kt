@@ -8,14 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import ru.anishark.app.databinding.ActivityFilterBinding
-import ru.anishark.app.domain.model.AnimeGenreModel
-import ru.anishark.app.domain.model.AnimeRatingModel
-import ru.anishark.app.domain.model.AnimeTypeModel
 import ru.anishark.app.presentation.catalog.fragment.FIRST_NAME_KEY
 import ru.anishark.app.presentation.catalog.fragment.RATING_KEY
 import ru.anishark.app.presentation.catalog.fragment.TYPES_KEY
 import ru.anishark.app.presentation.filter.expandablelist.ExpandableListAdapter
 import ru.anishark.app.presentation.filter.viewmodel.FilterViewModel
+import ru.anishark.domain.model.AnimeGenreModel
+import ru.anishark.domain.model.AnimeRatingModel
+import ru.anishark.domain.model.AnimeTypeModel
 
 @AndroidEntryPoint
 class FilterActivity : AppCompatActivity() {

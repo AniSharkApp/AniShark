@@ -6,22 +6,22 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.anishark.app.R
 import ru.anishark.app.databinding.CardSearchCatalogBinding
-import ru.anishark.app.domain.model.AnimeModel
+import ru.anishark.domain.model.AnimeModel
 
 class SearchAnimeListAdapter(
     val data: List<AnimeModel>,
-    private val onClick: (Int) -> Unit
+    private val onClick: (Int) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class SearchAnimeViewHolder(
         val binding: CardSearchCatalogBinding,
         private val onClick: (Int) -> Unit,
-    ): RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(model: AnimeModel) {
             binding.root.setOnClickListener {
                 onClick(model.malId)
             }
             binding.nameTv.text = model.title
-            binding.episodesTv.text = if (model.episodes == null) "0" else "${model.episodes + 1} ep"
+            binding.episodesTv.text = if (model.episodes == null) "0" else "${model.episodes!! + 1} ep"
             binding.ratingTv.text = "${model.score}"
             binding.descriptionTv.text = model.synopsis
             binding.cardIv.load(model.imageUrl) {
@@ -35,23 +35,23 @@ class SearchAnimeListAdapter(
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): RecyclerView.ViewHolder {
-        val searchCardViewBinding = CardSearchCatalogBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false,
+        val searchCardViewBinding =
+            CardSearchCatalogBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false,
             )
         return SearchAnimeViewHolder(searchCardViewBinding, onClick)
     }
 
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
-        position: Int
+        position: Int,
     ) {
         if (holder is SearchAnimeViewHolder) {
             holder.bind(data[position])
         }
     }
-
 }
