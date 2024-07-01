@@ -2,7 +2,6 @@ package ru.anishark.app.presentation.anime.activity
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
@@ -63,14 +62,12 @@ class AnimeScreenActivity : AppCompatActivity() {
 
             icAnimeScreenBookmark.setOnClickListener {
                 if (bookmarkState) {
-                    Toast.makeText(this@AnimeScreenActivity, "Anime Id - ${currentAnime.malId} removed", Toast.LENGTH_SHORT).show()
                     vm
                         .deleteBookmark(currentAnime.malId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe()
                 } else {
-                    Toast.makeText(this@AnimeScreenActivity, "Anime Id - ${currentAnime.malId} added", Toast.LENGTH_SHORT).show()
                     vm
                         .insertBookmark(
                             BookmarkModel(
