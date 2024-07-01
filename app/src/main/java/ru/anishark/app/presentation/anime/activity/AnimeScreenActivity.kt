@@ -125,6 +125,7 @@ class AnimeScreenActivity : AppCompatActivity() {
 
     }
 
+
     private fun changeBookmarkState(state: Boolean) {
         if (state) {
             binding.icAnimeScreenBookmark.setImageResource(R.drawable.ic_anime_screen_bookmark_filled)

@@ -1,8 +1,8 @@
 package ru.anishark.app.domain.repository
 
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 import ru.anishark.app.domain.model.AnimeModel
 
 interface SeasonsRepository {
-    fun getCurrentSeasonAnime(): Observable<List<AnimeModel>>
+    fun getCurrentSeasonAnime(): Single<List<AnimeModel>>
 }
