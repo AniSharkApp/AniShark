@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/default_anime_image" />
+                tools:src="@drawable/default_anime_image" />
 
             <View
                 android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                     android:layout_width="186dp"
                     android:layout_height="262dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/default_anime_image" />
+                    tools:src="@drawable/default_anime_image" />
             </androidx.cardview.widget.CardView>
 
         </FrameLayout>
@@ -74,11 +74,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
-                android:text="Pomogite"
                 android:textColor="@color/onSurface"
                 android:textSize="26sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Pomogite" />
 
             <TextView
                 android:id="@+id/anime_title_english"
@@ -87,10 +87,10 @@
                 android:layout_marginTop="2dp"
                 android:alpha="0.5"
                 android:fontFamily="@font/roboto"
-                android:text="Pomogite na angliskom"
                 android:textColor="@color/onSurface"
                 android:textSize="18sp"
-                app:layout_constrainedWidth="true" />
+                app:layout_constrainedWidth="true"
+                tools:text="Pomogite na angliskom" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/anime_rating_card"
@@ -110,8 +110,8 @@
                     android:fontFamily="@font/roboto"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="2dp"
-                    android:text="PG-13"
-                    android:textColor="@color/onAge" />
+                    android:textColor="@color/onAge"
+                    tools:text="PG-13" />
             </androidx.cardview.widget.CardView>
 
             <androidx.constraintlayout.helper.widget.Flow
@@ -149,10 +149,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
-                android:text="9.43"
                 app:layout_constraintBottom_toBottomOf="@id/ic_anime_screen_star"
                 app:layout_constraintStart_toEndOf="@id/ic_anime_screen_star"
-                app:layout_constraintTop_toTopOf="@id/ic_anime_screen_star" />
+                app:layout_constraintTop_toTopOf="@id/ic_anime_screen_star"
+                tools:text="9.43" />
 
             <ImageView
                 android:id="@+id/ic_anime_screen_episodes"
@@ -169,10 +169,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
-                android:text="@string/anime_screen_episodes_text"
                 app:layout_constraintBottom_toBottomOf="@id/ic_anime_screen_episodes"
                 app:layout_constraintStart_toEndOf="@id/ic_anime_screen_episodes"
-                app:layout_constraintTop_toTopOf="@id/ic_anime_screen_episodes" />
+                app:layout_constraintTop_toTopOf="@id/ic_anime_screen_episodes"
+                tools:text="@string/anime_screen_episodes_text" />
 
             <ImageView
                 android:id="@+id/ic_anime_screen_season"
@@ -189,10 +189,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
-                android:text="@string/anime_screen_season_text"
                 app:layout_constraintBottom_toBottomOf="@id/ic_anime_screen_season"
                 app:layout_constraintStart_toEndOf="@id/ic_anime_screen_season"
-                app:layout_constraintTop_toTopOf="@id/ic_anime_screen_season" />
+                app:layout_constraintTop_toTopOf="@id/ic_anime_screen_season"
+                tools:text="@string/anime_screen_season_text" />
 
             <ImageView
                 android:id="@+id/ic_anime_screen_studio"
@@ -209,10 +209,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
-                android:text="@string/anime_screen_studio_text"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintStart_toEndOf="@id/ic_anime_screen_studio"
-                app:layout_constraintTop_toTopOf="@id/ic_anime_screen_studio" />
+                app:layout_constraintTop_toTopOf="@id/ic_anime_screen_studio"
+                tools:text="@string/anime_screen_studio_text" />
 
             <ImageButton
                 android:id="@+id/ic_anime_screen_bookmark"
@@ -269,10 +269,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:lineHeight="20sp"
-                android:text="Eikichi Onizuka, a former member of the terrifying Onibaku gang, sets his sights on becoming the coolest school teacher in the world. Why a teacher? Because schools are full of sexy high school girls!"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/short_description_bottom_barrier" />
+                app:layout_constraintTop_toBottomOf="@id/short_description_bottom_barrier"
+                tools:text="Eikichi Onizuka, a former member of the terrifying Onibaku gang, sets his sights on becoming the coolest school teacher in the world. Why a teacher? Because schools are full of sexy high school girls!" />
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/full_description_bottom_barrier"
@@ -280,43 +280,6 @@
                 android:layout_height="0dp"
                 app:barrierDirection="bottom"
                 app:constraint_referenced_ids="ic_anime_screen_description, anime_screen_description_title, anime_screen_description_text" />
-
-            <ImageView
-                android:id="@+id/ic_anime_screen_trailer"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="32dp"
-                android:src="@drawable/ic_anime_screen_trailer"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/full_description_bottom_barrier" />
-
-            <TextView
-                android:id="@+id/anime_screen_trailer_title"
-                style="@style/anime_screen_medium_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="9dp"
-                android:text="@string/anime_screen_trailer_title"
-                app:layout_constraintBottom_toBottomOf="@id/ic_anime_screen_trailer"
-                app:layout_constraintStart_toEndOf="@id/ic_anime_screen_trailer"
-                app:layout_constraintTop_toTopOf="@id/ic_anime_screen_trailer" />
-
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/trailer_title_bottom_barrier"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:barrierDirection="bottom"
-                app:constraint_referenced_ids="anime_screen_trailer_title, ic_anime_screen_trailer" />
-
-            <VideoView
-                android:id="@+id/anime_screen_trailer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/trailer_title_bottom_barrier" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
