@@ -6,7 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ru.anishark.app.data.db.database.BookmarkDatabase
+import ru.anishark.app.data.db.database.AniSharkDatabase
 import javax.inject.Singleton
 
 @Module
@@ -16,9 +16,17 @@ class DatabaseDataSourceModule {
     @Singleton
     fun provideDatabase(
         @ApplicationContext app: Context,
-    ) = BookmarkDatabase.getInstance(app)
+    ) = AniSharkDatabase.getInstance(app)
 
     @Provides
     @Singleton
-    fun provideBookmarkDao(db: BookmarkDatabase) = db.getDao()
+    fun provideBookmarkDao(db: AniSharkDatabase) = db.getBookmarkDao()
+
+    @Provides
+    @Singleton
+    fun provideActualDao(db: AniSharkDatabase) = db.getActualDao()
+
+    @Provides
+    @Singleton
+    fun provideTopDao(db: AniSharkDatabase) = db.getTopDao()
 }
