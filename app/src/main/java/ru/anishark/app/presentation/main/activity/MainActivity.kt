@@ -17,8 +17,11 @@ import androidx.datastore.preferences.rxjava3.rxPreferencesDataStore
 import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.plusAssign
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.anishark.app.R
+import ru.anishark.app.common.ui.disposeOnDestroy
 import ru.anishark.app.databinding.ActivityMainBinding
 import ru.anishark.app.presentation.main.adapter.BottomNavigationAdapter
 import ru.anishark.app.presentation.search.fragment.SearchFragment
@@ -38,14 +41,22 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var isDarkTheme = true
 
+    private var disposable = CompositeDisposable()
+
+    companion object {
+        const val SEARCH = "SEARCH"
+    }
+
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
+        disposable.disposeOnDestroy(this.lifecycle)
+
         val themeObservable =
             this.rxDataStore.data().map {
                 it[THEME] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
             }
 
-        themeObservable
+        disposable += themeObservable
             .subscribe(
                 {
                     isDarkTheme = it == AppCompatDelegate.MODE_NIGHT_YES
@@ -105,7 +116,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
-                val arguments = bundleOf("SEARCH" to query)
+                val arguments = bundleOf(SEARCH to query)
 
                 val transaction = supportFragmentManager.beginTransaction()
                 transaction.setCustomAnimations(
@@ -115,7 +126,7 @@ class MainActivity : AppCompatActivity() {
                     R.anim.exit_to_right
                 )
                 transaction.replace(binding.searchFragment.id, SearchFragment::class.java, arguments)
-                transaction.addToBackStack("SEARCH")
+                transaction.addToBackStack(SEARCH)
                 transaction.commit()
 
                 binding.searchBar.setQuery("", false)

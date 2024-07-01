@@ -28,9 +28,7 @@ class AnimeScreenActivity : AppCompatActivity() {
 
     private val disposable = CompositeDisposable()
 
-    companion object {
-        private var currentAnime = AnimeModel(0, "", "", "",0, 0, "", 0.0)
-    }
+    private var currentAnime = AnimeModel(0, "", "", "",0, 0, "", 0.0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
