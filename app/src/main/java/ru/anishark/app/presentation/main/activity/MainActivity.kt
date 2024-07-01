@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                     R.anim.exit_to_right
                 )
                 transaction.replace(binding.searchFragment.id, SearchFragment::class.java, arguments)
-                transaction.addToBackStack(null)
+                transaction.addToBackStack("SEARCH")
                 transaction.commit()
 
                 return false

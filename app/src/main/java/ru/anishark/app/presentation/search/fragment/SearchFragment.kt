@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,7 +56,7 @@ class SearchFragment : Fragment() {
 
         val mainActivity = requireActivity()
         mainActivity.onBackPressedDispatcher.addCallback(this) {
-            mainActivity.supportFragmentManager.popBackStackImmediate()
+            mainActivity.supportFragmentManager.popBackStack("SEARCH", POP_BACK_STACK_INCLUSIVE)
         }
 
         val searchText: String = arguments?.getString("SEARCH") ?: ""
@@ -84,7 +85,6 @@ class SearchFragment : Fragment() {
                             searchRv.layoutManager = LinearLayoutManager(searchRv.context)
                             searchRv.adapter = SearchAnimeListAdapter(it, ::startAnimeActivity)
                         }
-                        Toast.makeText(context, "Данные полученны", Toast.LENGTH_SHORT).show()
                     },
                     {
                         Log.e("MyLog", "Error getting search results")

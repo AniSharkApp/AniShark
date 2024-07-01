@@ -30,11 +30,9 @@ class SearchViewModel @Inject constructor(
                 .subscribe(
                     {
                         _searchResults.onNext(it)
-                        Log.d("MyLog", "Данные с активити получены")
                     },
                     {
                         _searchResults.onError(it)
-                        Log.e("MyLog", "$it")
                     },
                 )
     }

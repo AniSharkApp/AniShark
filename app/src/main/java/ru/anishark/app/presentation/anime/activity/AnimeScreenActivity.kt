@@ -111,7 +111,8 @@ class AnimeScreenActivity : AppCompatActivity() {
                         }
                         animeTitle.text = model.title
                         animeTitleEnglish.text = model.title
-                        animeRatingText.text = model.score.toString()
+                        animeRatingText.text = if (model.score == null) "-" else model.score.toString()
+                        animeScreenRatingText.text = if (model.score == null) "-" else model.score.toString()
                         animeScreenDescriptionText.text = model.synopsis
                         changeSeasonIcon(model.season ?: "")
                         animeScreenEpisodesText.text = resources.getString(R.string.episodes, model.episodes)
