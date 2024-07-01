@@ -36,6 +36,10 @@ class SearchFragment : Fragment() {
 
     var list: List<AnimeModel> = emptyList()
 
+    companion object {
+        const val SEARCH = "SEARCH"
+    }
+
     private fun startAnimeActivity(malId: Int) {
         val intent = Intent(this@SearchFragment.context, AnimeScreenActivity::class.java)
         intent.putExtra("malId", malId)
@@ -56,10 +60,10 @@ class SearchFragment : Fragment() {
 
         val mainActivity = requireActivity()
         mainActivity.onBackPressedDispatcher.addCallback(this) {
-            mainActivity.supportFragmentManager.popBackStack("SEARCH", POP_BACK_STACK_INCLUSIVE)
+            mainActivity.supportFragmentManager.popBackStack(SEARCH, POP_BACK_STACK_INCLUSIVE)
         }
 
-        val searchText: String = arguments?.getString("SEARCH") ?: ""
+        val searchText: String = arguments?.getString(SEARCH) ?: ""
         vm.searchAnime(searchText)
 
         return binding.root
@@ -81,6 +85,9 @@ class SearchFragment : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
+                        if (it.isEmpty()) {
+                            Toast.makeText(context, "Список пуст", Toast.LENGTH_SHORT).show()
+                        }
                         with(binding) {
                             searchRv.layoutManager = LinearLayoutManager(searchRv.context)
                             searchRv.adapter = SearchAnimeListAdapter(it, ::startAnimeActivity)

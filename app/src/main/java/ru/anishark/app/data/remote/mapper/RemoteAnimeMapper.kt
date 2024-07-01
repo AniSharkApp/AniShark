@@ -13,6 +13,7 @@ class RemoteAnimeMapper @Inject constructor() {
             AnimeModel(
                 malId = malId,
                 title = titles.first().title,
+                titleEnglish = titleEnglish,
                 synopsis = synopsis,
                 year = year,
                 episodes = episodes,

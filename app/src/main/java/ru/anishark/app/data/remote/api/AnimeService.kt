@@ -19,5 +19,5 @@ interface AnimeService {
     fun getAnime(@Path("id") malId: Int): Single<AnimeFullDTO>
 
     @GET("anime")
-    fun getAnimeByTitle(@Query("q") letter: String, @Query("page") page: Int = 1): Single<SearchAnimeDTO>
+    fun getAnimeByTitle(@Query("q") query: String): Single<SearchAnimeDTO>
 }
