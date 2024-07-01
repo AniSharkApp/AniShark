@@ -1,5 +1,6 @@
 package ru.anishark.app.presentation.search.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -29,9 +30,11 @@ class SearchViewModel @Inject constructor(
                 .subscribe(
                     {
                         _searchResults.onNext(it)
+                        Log.d("MyLog", "Данные с активити получены")
                     },
                     {
                         _searchResults.onError(it)
+                        Log.e("MyLog", "$it")
                     },
                 )
     }

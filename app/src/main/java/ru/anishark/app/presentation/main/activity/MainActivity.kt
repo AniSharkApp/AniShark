@@ -8,6 +8,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.core.os.bundleOf
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import androidx.datastore.preferences.core.emptyPreferences
@@ -104,6 +105,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
+                val arguments = bundleOf("SEARCH" to query)
 
                 val transaction = supportFragmentManager.beginTransaction()
                 transaction.setCustomAnimations(
@@ -112,7 +114,7 @@ class MainActivity : AppCompatActivity() {
                     R.anim.enter_from_left,
                     R.anim.exit_to_right
                 )
-                transaction.replace(binding.searchFragment.id, SearchFragment(), "SEARCH")
+                transaction.replace(binding.searchFragment.id, SearchFragment::class.java, arguments)
                 transaction.addToBackStack(null)
                 transaction.commit()
 

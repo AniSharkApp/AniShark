@@ -31,19 +31,19 @@ data class AnimeDTO(
     @SerialName("duration")
     val duration: String,
     @SerialName("rating")
-    val rating: String,
+    val rating: String?,
     @SerialName("score")
-    val score: Double,
+    val score: Double?,
     @SerialName("scored_by")
-    val scoredBy: Int,
+    val scoredBy: Int?,
     @SerialName("rank")
     val rank: Int?,
     @SerialName("popularity")
-    val popularity: Int,
+    val popularity: Int?,
     @SerialName("members")
-    val members: Int,
+    val members: Int?,
     @SerialName("favorites")
-    val favorites: Int,
+    val favorites: Int?,
     @SerialName("synopsis")
     val synopsis: String?,
     @SerialName("background")
@@ -53,5 +53,5 @@ data class AnimeDTO(
     @SerialName("year")
     val year: Int?,
     @SerialName("studios")
-    val studios: List<StudioDTO>
+    val studios: List<StudioDTO>,
 )

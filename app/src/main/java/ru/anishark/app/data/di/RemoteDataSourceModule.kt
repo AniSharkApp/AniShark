@@ -30,6 +30,7 @@ class RemoteDataSourceModule {
     fun provideJson(): Json =
         Json {
             ignoreUnknownKeys = true
+            coerceInputValues = false
         }
 
     @Provides

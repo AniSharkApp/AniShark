@@ -2,7 +2,6 @@ package ru.anishark.app.data.remote.datasource
 
 import io.reactivex.rxjava3.core.Single
 import ru.anishark.app.data.remote.api.AnimeService
-import ru.anishark.app.data.remote.dto.response.AnimeDTO
 import ru.anishark.app.data.remote.dto.response.SearchAnimeDTO
 import ru.anishark.app.data.remote.mapper.RemoteAnimeMapper
 import ru.anishark.app.domain.model.AnimeGenreModel
