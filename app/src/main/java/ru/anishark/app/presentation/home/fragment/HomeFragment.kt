@@ -18,6 +18,8 @@ import ru.anishark.app.databinding.FragmentHomeBinding
 import ru.anishark.app.presentation.anime.activity.AnimeScreenActivity
 import ru.anishark.app.presentation.home.recycler.HomeAnimeListAdapter
 import ru.anishark.app.presentation.home.viewmodel.HomeViewModel
+import ru.anishark.app.presentation.main.bus.NavigationEventBus
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -25,6 +27,9 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var eventBus: NavigationEventBus
 
     // TODO использовать dimens ресурс
     private val itemDecoration = HorizontalSpacingItemDecoration(0f, 12f)
@@ -59,7 +64,10 @@ class HomeFragment : Fragment() {
         vm.loadAllData()
         with(binding) {
             // TODO объединить несколько RV с заголовками в один RV.
-            val topsAdapter = HomeAnimeListAdapter(::startAnimeActivity)
+            val topsAdapter =
+                HomeAnimeListAdapter(::startAnimeActivity) {
+                    eventBus.changeTo(1)
+                }
             topsRv.adapter = topsAdapter
             topsRv.layoutManager =
                 LinearLayoutManager(
@@ -68,7 +76,10 @@ class HomeFragment : Fragment() {
                     false,
                 )
             topsRv.addItemDecoration(itemDecoration)
-            val actualAdapter = HomeAnimeListAdapter(::startAnimeActivity)
+            val actualAdapter =
+                HomeAnimeListAdapter(::startAnimeActivity) {
+                    eventBus.changeTo(1)
+                }
             actualRv.adapter = actualAdapter
             actualRv.layoutManager =
                 LinearLayoutManager(

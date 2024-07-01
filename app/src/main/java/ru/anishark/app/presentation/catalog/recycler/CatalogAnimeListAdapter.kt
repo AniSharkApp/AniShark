@@ -1,10 +1,8 @@
 package ru.anishark.app.presentation.catalog.recycler
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.anishark.app.R
@@ -25,7 +23,7 @@ class CatalogAnimeListAdapter(
                 onClick(model.malId)
             }
             binding.nameTv.text = model.title
-            binding.episodesTv.text = if (model.episodes == null) "0" else "${model.episodes + 1} ep"
+            binding.episodesTv.text = if (model.episodes == null) "ON" else "${model.episodes + 1} ep"
             binding.ratingTv.text = "${model.score}"
             binding.descriptionTv.text = model.synopsis
             binding.cardIv.load(model.imageUrl) {

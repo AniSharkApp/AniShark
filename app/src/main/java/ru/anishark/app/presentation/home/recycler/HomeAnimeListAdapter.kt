@@ -1,6 +1,5 @@
 package ru.anishark.app.presentation.home.recycler
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -16,13 +15,23 @@ import java.util.Locale
 
 class HomeAnimeListAdapter(
     private val onClick: (Int) -> Unit,
+    private val onClickMore: () -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val data: MutableList<AnimeModel> = mutableListOf()
     private var errorMessage: String? = null
 
     class MoreViewHolder(
         val binding: CardWatchMoreHomeBinding,
-    ) : RecyclerView.ViewHolder(binding.root)
+        private val onClickMore: () -> Unit,
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind() {
+            with(binding) {
+                root.setOnClickListener {
+                    onClickMore()
+                }
+            }
+        }
+    }
 
     class AnimeViewHolder(
         val binding: CardAnimeHomeBinding,
@@ -42,7 +51,11 @@ class HomeAnimeListAdapter(
             }
             binding.animeNameTv.text = model.title
             binding.episodesTv.text = episodesNumber
-            binding.ratingTv.text = String.format(Locale.ROOT, "%.2f", model.score)
+            if (model.score != null) {
+                binding.ratingTv.text = String.format(Locale.ROOT, "%.2f", model.score)
+            } else {
+                binding.ratingTv.text = "TBD"
+            }
             binding.cardIv.load(model.imageUrl)
         }
     }
@@ -99,7 +112,7 @@ class HomeAnimeListAdapter(
                         parent,
                         false,
                     )
-                MoreViewHolder(watchMoreBinding)
+                MoreViewHolder(watchMoreBinding, onClickMore)
             }
 
             else -> {
@@ -132,6 +145,9 @@ class HomeAnimeListAdapter(
     ) {
         if (holder is AnimeViewHolder) {
             holder.bind(data[position])
+        }
+        if (holder is MoreViewHolder) {
+            holder.bind()
         }
         if (holder is ErrorViewHolder) {
             holder.bind(errorMessage ?: "No error message provided.")

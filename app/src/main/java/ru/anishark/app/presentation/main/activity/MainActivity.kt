@@ -16,6 +16,7 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.rxjava3.rxPreferencesDataStore
 import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
@@ -24,6 +25,8 @@ import ru.anishark.app.R
 import ru.anishark.app.common.ui.disposeOnDestroy
 import ru.anishark.app.databinding.ActivityMainBinding
 import ru.anishark.app.presentation.main.adapter.BottomNavigationAdapter
+import ru.anishark.app.presentation.main.bus.NavigationEventBus
+import javax.inject.Inject
 import ru.anishark.app.presentation.search.fragment.SearchFragment
 
 val Context.rxDataStore by rxPreferencesDataStore(
@@ -40,8 +43,10 @@ val THEME = intPreferencesKey("theme")
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var isDarkTheme = true
-
     private var disposable = CompositeDisposable()
+
+    @Inject
+    lateinit var eventBus: NavigationEventBus
 
     companion object {
         const val SEARCH = "SEARCH"
@@ -50,7 +55,6 @@ class MainActivity : AppCompatActivity() {
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         disposable.disposeOnDestroy(this.lifecycle)
-
         val themeObservable =
             this.rxDataStore.data().map {
                 it[THEME] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
@@ -77,34 +81,52 @@ class MainActivity : AppCompatActivity() {
 
         val viewPager = binding.container
         viewPager.adapter = BottomNavigationAdapter(this)
-        viewPager.currentItem = 0
+        
+        disposable +=
+            eventBus.subject
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    viewPager.currentItem = it
+                })
+        viewPager.isUserInputEnabled = false
+        viewPager.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    when (position) {
+                        0 ->
+                            binding.bottomNavBar.menu
+                                .findItem(R.id.home)
+                                .setChecked(true)
 
-        viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                when(position) {
-                    0 -> binding.bottomNavBar.menu.findItem(R.id.home).setChecked(true)
-                    1 -> binding.bottomNavBar.menu.findItem(R.id.catalog).setChecked(true)
-                    2 -> binding.bottomNavBar.menu.findItem(R.id.bookmark).setChecked(true)
+                        1 ->
+                            binding.bottomNavBar.menu
+                                .findItem(R.id.catalog)
+                                .setChecked(true)
+
+                        2 ->
+                            binding.bottomNavBar.menu
+                                .findItem(R.id.bookmark)
+                                .setChecked(true)
+                    }
                 }
-            }
-        })
-
+            },
+        )
 
         binding.bottomNavBar.setOnItemSelectedListener { fragment ->
             when (fragment.itemId) {
                 R.id.home -> {
-                    viewPager.currentItem = 0
+                    eventBus.changeTo(0)
                     true
                 }
 
                 R.id.catalog -> {
-                    viewPager.currentItem = 1
+                    eventBus.changeTo(1)
                     true
                 }
 
                 else -> {
-                    viewPager.currentItem = 2
+                    eventBus.changeTo(2)
                     true
                 }
             }
