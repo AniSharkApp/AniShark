@@ -11,7 +11,7 @@
     <string name="home_actual_of_season">Actual of the season</string>
     <string name="home_tops">Tops</string>
     <string name="home_show_more">More</string>
-    <string name="episodes">%1$s EP</string>
+    <string name="episodes">%1$d EP</string>
     <string name="ongoing">ON</string>
     <string name="ongoing_full">Ongoing / No episodes</string>
     <string name="anime_screen_episodes_text">%1$d episodes</string>
