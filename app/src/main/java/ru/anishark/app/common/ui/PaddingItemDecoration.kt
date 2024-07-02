@@ -6,7 +6,7 @@ import android.util.TypedValue
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.roundToInt
 
-abstract class SpacingItemDecoration(
+abstract class PaddingItemDecoration(
     private val startPadding: Float,
     private val endPadding: Float,
     private val topPadding: Float,

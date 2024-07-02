@@ -4,13 +4,13 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class HorizontalSpacingItemDecoration(
+class HorizontalPaddingItemDecoration(
     private val startPadding: Float,
     private val endPadding: Float,
     private val topPadding: Float,
     private val bottomPadding: Float,
     private val spacing: Float,
-) : SpacingItemDecoration(startPadding, endPadding, topPadding, bottomPadding) {
+) : PaddingItemDecoration(startPadding, endPadding, topPadding, bottomPadding) {
     constructor(
         allSidesPadding: Float,
         spacing: Float,

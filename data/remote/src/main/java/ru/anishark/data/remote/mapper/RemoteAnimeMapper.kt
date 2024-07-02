@@ -3,11 +3,8 @@ package ru.anishark.data.remote.mapper
 import ru.anishark.data.remote.dto.response.AnimeDTO
 import ru.anishark.data.remote.dto.response.AnimeFullDTO
 import ru.anishark.domain.model.AnimeModel
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class RemoteAnimeMapper @Inject constructor() {
+class RemoteAnimeMapper {
     fun toDomainModel(dto: AnimeDTO): AnimeModel =
         with(dto) {
             AnimeModel(

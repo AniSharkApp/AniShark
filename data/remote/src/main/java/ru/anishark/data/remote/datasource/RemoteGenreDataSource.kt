@@ -4,9 +4,8 @@ import io.reactivex.rxjava3.core.Single
 import ru.anishark.data.remote.api.GenreService
 import ru.anishark.data.remote.mapper.RemoteGenreMapper
 import ru.anishark.domain.model.AnimeGenreModel
-import javax.inject.Inject
 
-class RemoteGenreDataSource @Inject constructor(
+class RemoteGenreDataSource(
     private val genreService: GenreService,
     private val remoteGenreMapper: RemoteGenreMapper,
 ) {

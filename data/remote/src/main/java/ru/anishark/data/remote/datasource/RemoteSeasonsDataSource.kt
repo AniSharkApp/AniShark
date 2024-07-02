@@ -4,9 +4,8 @@ import io.reactivex.rxjava3.core.Single
 import ru.anishark.data.remote.api.SeasonsService
 import ru.anishark.data.remote.mapper.RemoteAnimeMapper
 import ru.anishark.domain.model.AnimeModel
-import javax.inject.Inject
 
-class RemoteSeasonsDataSource @Inject constructor(
+class RemoteSeasonsDataSource(
     private val remoteSeasonsService: SeasonsService,
     private val remoteAnimeMapper: RemoteAnimeMapper,
 ) {
