@@ -8,12 +8,12 @@ import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import ru.anishark.domain.model.AnimeModel
-import ru.anishark.domain.usecase.GetAnimeByTitleSearchUseCase
+import ru.anishark.domain.usecase.GetAnimeSearchUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val getAnimeByTitleSearchUseCase: GetAnimeByTitleSearchUseCase,
+    private val getAnimeSearchUseCase: GetAnimeSearchUseCase,
 ) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
@@ -23,7 +23,7 @@ class SearchViewModel @Inject constructor(
 
     fun searchAnime(letter: String) {
         compositeDisposable +=
-            getAnimeByTitleSearchUseCase(letter)
+            getAnimeSearchUseCase(letter)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

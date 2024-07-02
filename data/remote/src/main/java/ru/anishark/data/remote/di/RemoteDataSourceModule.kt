@@ -16,9 +16,14 @@ import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import ru.anishark.data.remote.RemoteConstants.BASE_URL
 import ru.anishark.data.remote.api.AnimeService
 import ru.anishark.data.remote.api.GenreService
-import ru.anishark.data.remote.api.RecommendationsService
 import ru.anishark.data.remote.api.SeasonsService
 import ru.anishark.data.remote.api.TopService
+import ru.anishark.data.remote.datasource.RemoteAnimeDataSource
+import ru.anishark.data.remote.datasource.RemoteGenreDataSource
+import ru.anishark.data.remote.datasource.RemoteSeasonsDataSource
+import ru.anishark.data.remote.datasource.RemoteTopDataSource
+import ru.anishark.data.remote.mapper.RemoteAnimeMapper
+import ru.anishark.data.remote.mapper.RemoteGenreMapper
 import javax.inject.Singleton
 
 @Module
@@ -74,15 +79,47 @@ class RemoteDataSourceModule {
 
     @Provides
     @Singleton
+    fun provideRemoteAnimeMapper() = RemoteAnimeMapper()
+
+    @Provides
+    @Singleton
+    fun provideRemoteGenreMapper() = RemoteGenreMapper()
+
+    @Provides
+    @Singleton
+    fun provideRemoteAnimeDataSource(
+        animeService: AnimeService,
+        remoteAnimeMapper: RemoteAnimeMapper,
+    ): RemoteAnimeDataSource = RemoteAnimeDataSource(animeService, remoteAnimeMapper)
+
+    @Provides
+    @Singleton
+    fun provideRemoteGenreDataSource(
+        genreService: GenreService,
+        remoteGenreMapper: RemoteGenreMapper,
+    ): RemoteGenreDataSource = RemoteGenreDataSource(genreService, remoteGenreMapper)
+
+    @Provides
+    @Singleton
+    fun provideRemoteSeasonsDataSource(
+        seasonsService: SeasonsService,
+        remoteAnimeMapper: RemoteAnimeMapper,
+    ): RemoteSeasonsDataSource = RemoteSeasonsDataSource(seasonsService, remoteAnimeMapper)
+
+    @Provides
+    @Singleton
+    fun provideRemoteTopDataSource(
+        topService: TopService,
+        remoteAnimeMapper: RemoteAnimeMapper,
+    ): RemoteTopDataSource = RemoteTopDataSource(topService, remoteAnimeMapper)
+
+    @Provides
+    @Singleton
     fun provideAnimeService(retrofit: Retrofit): AnimeService = retrofit.create(AnimeService::class.java)
 
     @Provides
     @Singleton
     fun provideGenreService(retrofit: Retrofit): GenreService = retrofit.create(GenreService::class.java)
-
-    @Provides
-    @Singleton
-    fun provideRecommendationService(retrofit: Retrofit): RecommendationsService = retrofit.create(RecommendationsService::class.java)
 
     @Provides
     @Singleton

@@ -14,7 +14,8 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.schedulers.Schedulers
-import ru.anishark.app.common.ui.VerticalSpacingItemDecoration
+import ru.anishark.app.common.ui.VerticalGridItemDecoration
+import ru.anishark.app.common.ui.VerticalPaddingItemDecoration
 import ru.anishark.app.common.ui.disposeOnDestroy
 import ru.anishark.app.databinding.FragmentBookmarkBinding
 import ru.anishark.app.presentation.anime.activity.AnimeScreenActivity
@@ -59,9 +60,13 @@ class BookmarkFragment : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     if (it is BookmarksState.Content) {
+                        binding.bookmarkRv.removeItemDecorationAt(0)
                         binding.bookmarkRv.layoutManager = GridLayoutManager(binding.bookmarkRv.context, 2)
+                        binding.bookmarkRv.addItemDecoration(VerticalGridItemDecoration(2f, 20f, 10f, 2))
                     } else {
+                        binding.bookmarkRv.removeItemDecorationAt(0)
                         binding.bookmarkRv.layoutManager = LinearLayoutManager(binding.bookmarkRv.context)
+                        binding.bookmarkRv.addItemDecoration(VerticalGridItemDecoration(2f, 20f, 10f, 2))
                     }
                     bookmarkAdapter.updateState(it)
                 }
@@ -69,7 +74,7 @@ class BookmarkFragment : Fragment() {
         with(binding) {
             bookmarkRv.adapter = bookmarkAdapter
             bookmarkRv.layoutManager = LinearLayoutManager(binding.bookmarkRv.context)
-            bookmarkRv.addItemDecoration(VerticalSpacingItemDecoration(0f, 12f))
+            bookmarkRv.addItemDecoration(VerticalPaddingItemDecoration(0f, 12f))
         }
 
         return binding.root

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
-import ru.anishark.app.common.ui.HorizontalSpacingItemDecoration
+import ru.anishark.app.common.ui.HorizontalPaddingItemDecoration
 import ru.anishark.app.common.ui.disposeOnDestroy
 import ru.anishark.app.databinding.FragmentHomeBinding
 import ru.anishark.app.presentation.anime.activity.AnimeScreenActivity
@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
     lateinit var eventBus: NavigationEventBus
 
     // TODO использовать dimens ресурс
-    private val itemDecoration = HorizontalSpacingItemDecoration(0f, 12f)
+    private val itemDecoration = HorizontalPaddingItemDecoration(0f, 12f)
 
     private val disposable = CompositeDisposable()
 

@@ -8,9 +8,8 @@ import ru.anishark.domain.model.AnimeGenreModel
 import ru.anishark.domain.model.AnimeModel
 import ru.anishark.domain.model.AnimeRatingModel
 import ru.anishark.domain.model.AnimeTypeModel
-import javax.inject.Inject
 
-class RemoteAnimeDataSource @Inject constructor(
+class RemoteAnimeDataSource(
     private val animeService: AnimeService,
     private val remoteAnimeMapper: RemoteAnimeMapper,
 ) {

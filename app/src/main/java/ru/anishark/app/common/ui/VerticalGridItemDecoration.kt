@@ -4,34 +4,44 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class VerticalSpacingItemDecoration(
+class VerticalGridItemDecoration(
     private val startPadding: Float,
     private val endPadding: Float,
     private val topPadding: Float,
     private val bottomPadding: Float,
-    private val spacing: Float,
-) : SpacingItemDecoration(startPadding, endPadding, topPadding, bottomPadding) {
+    private val spacingBetweenRows: Float,
+    private val spacingBetweenCols: Float,
+    private val itemsInColumn: Int,
+) : PaddingItemDecoration(startPadding, endPadding, topPadding, bottomPadding) {
     constructor(
         allSidesPadding: Float,
-        spacing: Float,
+        spacingBetweenRows: Float,
+        spacingBetweenCols: Float,
+        itemsInColumn: Int,
     ) : this(
         startPadding = allSidesPadding,
         endPadding = allSidesPadding,
         topPadding = allSidesPadding,
         bottomPadding = allSidesPadding,
-        spacing = spacing,
+        spacingBetweenRows = spacingBetweenRows,
+        spacingBetweenCols = spacingBetweenCols,
+        itemsInColumn = itemsInColumn,
     )
 
     constructor(
         verticalPadding: Float,
         horizontalPadding: Float,
-        spacing: Float,
+        spacingBetweenRows: Float,
+        spacingBetweenCols: Float,
+        itemsInColumn: Int,
     ) : this(
         startPadding = horizontalPadding,
         endPadding = horizontalPadding,
         topPadding = verticalPadding,
         bottomPadding = verticalPadding,
-        spacing = spacing,
+        spacingBetweenRows = spacingBetweenRows,
+        spacingBetweenCols = spacingBetweenCols,
+        itemsInColumn = itemsInColumn,
     )
 
     override fun getItemOffsets(
@@ -45,20 +55,15 @@ class VerticalSpacingItemDecoration(
         outRect.right = getPixelsFromDimensityIndependentPixels(endPadding)
         val position = parent.getChildAdapterPosition(view)
         when (position) {
-            // Первый
-            0 -> {
+            // Первый ряд
+            in 0..<itemsInColumn -> {
                 outRect.top = getPixelsFromDimensityIndependentPixels(topPadding)
-                outRect.bottom = getPixelsFromDimensityIndependentPixels(spacing) / 2
+                outRect.bottom = getPixelsFromDimensityIndependentPixels(spacingBetweenRows) / 2
             }
-            // Последний
-            adapter.itemCount - 1 -> {
-                outRect.bottom = getPixelsFromDimensityIndependentPixels(bottomPadding)
-                outRect.top = getPixelsFromDimensityIndependentPixels(spacing) / 2
-            }
-            // Иной
+            // Иной ряд
             else -> {
-                outRect.top = getPixelsFromDimensityIndependentPixels(spacing) / 2
-                outRect.bottom = getPixelsFromDimensityIndependentPixels(spacing) / 2
+                outRect.top = getPixelsFromDimensityIndependentPixels(spacingBetweenRows) / 2
+                outRect.bottom = getPixelsFromDimensityIndependentPixels(spacingBetweenRows) / 2
             }
         }
     }
