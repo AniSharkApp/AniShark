@@ -9,15 +9,15 @@ import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import ru.anishark.domain.model.AnimeModel
-import ru.anishark.domain.usecase.LoadActualHomeUseCase
-import ru.anishark.domain.usecase.LoadTopsHomeUseCase
+import ru.anishark.domain.usecase.GetActualAnimeUseCase
+import ru.anishark.domain.usecase.GetTopAnimeUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val loadTopsHomeUseCase: LoadTopsHomeUseCase,
-    private val loadActualHomeUseCase: LoadActualHomeUseCase,
+    private val getTopAnimeUseCase: GetTopAnimeUseCase,
+    private val getActualAnimeUseCase: GetActualAnimeUseCase,
 ) : ViewModel() {
     val compositeDisposable = CompositeDisposable()
 
@@ -34,7 +34,7 @@ class HomeViewModel @Inject constructor(
         compositeDisposable.clear()
         if (!_topsState.hasValue() || _topsState.value!!.isEmpty()) {
             compositeDisposable +=
-                loadTopsHomeUseCase()
+                getTopAnimeUseCase()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -48,7 +48,7 @@ class HomeViewModel @Inject constructor(
         }
         if (!_actualState.hasValue() || _actualState.value!!.isEmpty()) {
             compositeDisposable +=
-                loadActualHomeUseCase()
+                getActualAnimeUseCase()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(

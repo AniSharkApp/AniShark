@@ -11,12 +11,12 @@ import ru.anishark.domain.model.AnimeGenreModel
 import ru.anishark.domain.model.AnimeModel
 import ru.anishark.domain.model.AnimeRatingModel
 import ru.anishark.domain.model.AnimeTypeModel
-import ru.anishark.domain.usecase.GetAnimeSearchUseCase
+import ru.anishark.domain.usecase.GetFilteredAnimeUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class CatalogViewModel @Inject constructor(
-    private val getAnimeSearchUseCase: GetAnimeSearchUseCase,
+    private val getFilteredAnimeUseCase: GetFilteredAnimeUseCase,
 ) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
@@ -30,7 +30,7 @@ class CatalogViewModel @Inject constructor(
         type: List<AnimeTypeModel>,
     ) {
         compositeDisposable +=
-            getAnimeSearchUseCase(ratings, genres, type)
+            getFilteredAnimeUseCase(ratings, genres, type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

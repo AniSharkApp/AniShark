@@ -10,19 +10,19 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import ru.anishark.app.presentation.bookmark.recycler.BookmarksState
 import ru.anishark.domain.model.AnimeModel
-import ru.anishark.domain.usecase.DeleteBookmarkCatalogUseCase
-import ru.anishark.domain.usecase.GetAllBookmarksCatalogUseCase
-import ru.anishark.domain.usecase.GetOneBookmarkCatalogUseCase
-import ru.anishark.domain.usecase.InsertBookmarkCatalogUseCase
+import ru.anishark.domain.usecase.AddBookmarkCatalogUseCase
+import ru.anishark.domain.usecase.GetAllBookmarksUseCase
+import ru.anishark.domain.usecase.GetOneBookmarkUseCase
+import ru.anishark.domain.usecase.RemoveBookmarkUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class BookmarkViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val allBookmarksUseCase: GetAllBookmarksCatalogUseCase,
-    private val oneBookmarkUseCase: GetOneBookmarkCatalogUseCase,
-    private val insertBookmarkUseCase: InsertBookmarkCatalogUseCase,
-    private val deleteBookmarkUseCase: DeleteBookmarkCatalogUseCase,
+    private val allBookmarksUseCase: GetAllBookmarksUseCase,
+    private val oneBookmarkUseCase: GetOneBookmarkUseCase,
+    private val insertBookmarkUseCase: AddBookmarkCatalogUseCase,
+    private val deleteBookmarkUseCase: RemoveBookmarkUseCase,
 ) : ViewModel() {
     private val _bookmarksState: BehaviorSubject<BookmarksState> = BehaviorSubject.createDefault(BookmarksState.Loading)
     val bookmarksState get() = _bookmarksState.hide()

@@ -1,11 +1,11 @@
 package ru.anishark.domain.usecase
 
-import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
 import ru.anishark.domain.model.BookmarkModel
 import ru.anishark.domain.repository.BookmarkRepository
 
-class InsertBookmarkAnimeUseCase(
+class GetOneBookmarkUseCase(
     private val bookmarkRepository: BookmarkRepository,
 ) {
-    operator fun invoke(model: BookmarkModel): Completable = bookmarkRepository.insertBookmark(model)
+    operator fun invoke(animeId: Int): Observable<BookmarkModel> = bookmarkRepository.getBookmark(animeId)
 }

@@ -11,19 +11,19 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import ru.anishark.domain.model.AnimeModel
 import ru.anishark.domain.model.BookmarkModel
-import ru.anishark.domain.usecase.DeleteBookmarkCatalogUseCase
-import ru.anishark.domain.usecase.GetOnClickAnimeUseCase
-import ru.anishark.domain.usecase.GetOneBookmarkCatalogUseCase
-import ru.anishark.domain.usecase.InsertBookmarkAnimeUseCase
+import ru.anishark.domain.usecase.AddBookmarkAnimeUseCase
+import ru.anishark.domain.usecase.GetAnimeDetailsUseCase
+import ru.anishark.domain.usecase.GetOneBookmarkUseCase
+import ru.anishark.domain.usecase.RemoveBookmarkUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class AnimeViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val oneBookmarkUseCase: GetOneBookmarkCatalogUseCase,
-    private val insertBookmarkUseCase: InsertBookmarkAnimeUseCase,
-    private val deleteBookmarkUseCase: DeleteBookmarkCatalogUseCase,
-    private val getOnClickAnimeUseCase: GetOnClickAnimeUseCase,
+    private val oneBookmarkUseCase: GetOneBookmarkUseCase,
+    private val insertBookmarkUseCase: AddBookmarkAnimeUseCase,
+    private val deleteBookmarkUseCase: RemoveBookmarkUseCase,
+    private val getAnimeDetailsUseCase: GetAnimeDetailsUseCase,
 ) : ViewModel() {
     val compositeDisposable = CompositeDisposable()
 
@@ -35,7 +35,7 @@ class AnimeViewModel @Inject constructor(
 
     fun loadData(malId: Int) {
         compositeDisposable +=
-            getOnClickAnimeUseCase(malId)
+            getAnimeDetailsUseCase(malId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

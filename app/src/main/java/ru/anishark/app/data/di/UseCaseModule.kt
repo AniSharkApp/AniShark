@@ -9,17 +9,17 @@ import ru.anishark.domain.repository.BookmarkRepository
 import ru.anishark.domain.repository.GenresRepository
 import ru.anishark.domain.repository.SeasonsRepository
 import ru.anishark.domain.repository.TopRepository
-import ru.anishark.domain.usecase.DeleteBookmarkCatalogUseCase
-import ru.anishark.domain.usecase.GetAllBookmarksCatalogUseCase
-import ru.anishark.domain.usecase.GetAnimeByTitleSearchUseCase
+import ru.anishark.domain.usecase.AddBookmarkAnimeUseCase
+import ru.anishark.domain.usecase.AddBookmarkCatalogUseCase
+import ru.anishark.domain.usecase.GetActualAnimeUseCase
+import ru.anishark.domain.usecase.GetAllBookmarksUseCase
+import ru.anishark.domain.usecase.GetAnimeDetailsUseCase
 import ru.anishark.domain.usecase.GetAnimeSearchUseCase
-import ru.anishark.domain.usecase.GetOnClickAnimeUseCase
-import ru.anishark.domain.usecase.GetOneBookmarkCatalogUseCase
-import ru.anishark.domain.usecase.InsertBookmarkAnimeUseCase
-import ru.anishark.domain.usecase.InsertBookmarkCatalogUseCase
-import ru.anishark.domain.usecase.LoadActualHomeUseCase
-import ru.anishark.domain.usecase.LoadGenresFilterUseCase
-import ru.anishark.domain.usecase.LoadTopsHomeUseCase
+import ru.anishark.domain.usecase.GetFilterGenresUseCase
+import ru.anishark.domain.usecase.GetFilteredAnimeUseCase
+import ru.anishark.domain.usecase.GetOneBookmarkUseCase
+import ru.anishark.domain.usecase.GetTopAnimeUseCase
+import ru.anishark.domain.usecase.RemoveBookmarkUseCase
 import javax.inject.Singleton
 
 @Module
@@ -27,52 +27,52 @@ import javax.inject.Singleton
 class UseCaseModule {
     @Provides
     @Singleton
-    fun provideLoadActualHomeUseCase(seasonsRepository: SeasonsRepository): LoadActualHomeUseCase = LoadActualHomeUseCase(seasonsRepository)
+    fun provideLoadActualHomeUseCase(seasonsRepository: SeasonsRepository): GetActualAnimeUseCase = GetActualAnimeUseCase(seasonsRepository)
 
     @Provides
     @Singleton
-    fun provideLoadTopsHomeUseCase(topRepository: TopRepository): LoadTopsHomeUseCase = LoadTopsHomeUseCase(topRepository)
+    fun provideLoadTopsHomeUseCase(topRepository: TopRepository): GetTopAnimeUseCase = GetTopAnimeUseCase(topRepository)
 
     @Provides
     @Singleton
-    fun provideGetAllBookmarksCatalogUseCase(bookmarksRepository: BookmarkRepository): GetAllBookmarksCatalogUseCase =
-        GetAllBookmarksCatalogUseCase(bookmarksRepository)
+    fun provideGetAllBookmarksCatalogUseCase(bookmarksRepository: BookmarkRepository): GetAllBookmarksUseCase =
+        GetAllBookmarksUseCase(bookmarksRepository)
 
     @Provides
     @Singleton
-    fun provideGetOneBookmarkCatalogUseCase(bookmarksRepository: BookmarkRepository): GetOneBookmarkCatalogUseCase =
-        GetOneBookmarkCatalogUseCase(bookmarksRepository)
+    fun provideGetOneBookmarkCatalogUseCase(bookmarksRepository: BookmarkRepository): GetOneBookmarkUseCase =
+        GetOneBookmarkUseCase(bookmarksRepository)
 
     @Provides
     @Singleton
-    fun provideInsertBookmarkCatalogUseCase(bookmarksRepository: BookmarkRepository): InsertBookmarkCatalogUseCase =
-        InsertBookmarkCatalogUseCase(bookmarksRepository)
+    fun provideInsertBookmarkCatalogUseCase(bookmarksRepository: BookmarkRepository): AddBookmarkCatalogUseCase =
+        AddBookmarkCatalogUseCase(bookmarksRepository)
 
     @Provides
     @Singleton
-    fun provideDeleteBookmarkCatalogUseCase(bookmarksRepository: BookmarkRepository): DeleteBookmarkCatalogUseCase =
-        DeleteBookmarkCatalogUseCase(bookmarksRepository)
+    fun provideDeleteBookmarkCatalogUseCase(bookmarksRepository: BookmarkRepository): RemoveBookmarkUseCase =
+        RemoveBookmarkUseCase(bookmarksRepository)
 
     @Provides
     @Singleton
-    fun provideGetAnimeSearchUseCase(animeRepository: AnimeRepository): GetAnimeSearchUseCase = GetAnimeSearchUseCase(animeRepository)
+    fun provideGetAnimeSearchUseCase(animeRepository: AnimeRepository): GetFilteredAnimeUseCase = GetFilteredAnimeUseCase(animeRepository)
 
     @Provides
     @Singleton
-    fun provideLoadGenresFilterUseCase(genresRepository: GenresRepository): LoadGenresFilterUseCase =
-        LoadGenresFilterUseCase(genresRepository)
+    fun provideLoadGenresFilterUseCase(genresRepository: GenresRepository): GetFilterGenresUseCase =
+        GetFilterGenresUseCase(genresRepository)
 
     @Provides
     @Singleton
-    fun provideInsertBookmarkAnimeUseCase(bookmarkRepository: BookmarkRepository): InsertBookmarkAnimeUseCase =
-        InsertBookmarkAnimeUseCase(bookmarkRepository)
+    fun provideInsertBookmarkAnimeUseCase(bookmarkRepository: BookmarkRepository): AddBookmarkAnimeUseCase =
+        AddBookmarkAnimeUseCase(bookmarkRepository)
 
     @Provides
     @Singleton
-    fun provideGetOnClickAnimeUseCase(animeRepository: AnimeRepository): GetOnClickAnimeUseCase = GetOnClickAnimeUseCase(animeRepository)
+    fun provideGetOnClickAnimeUseCase(animeRepository: AnimeRepository): GetAnimeDetailsUseCase = GetAnimeDetailsUseCase(animeRepository)
 
     @Provides
     @Singleton
-    fun provideGetAnimeByTitleSearchUseCase(animeRepository: AnimeRepository): GetAnimeByTitleSearchUseCase =
-        GetAnimeByTitleSearchUseCase(animeRepository)
+    fun provideGetAnimeByTitleSearchUseCase(animeRepository: AnimeRepository): GetAnimeSearchUseCase =
+        GetAnimeSearchUseCase(animeRepository)
 }
