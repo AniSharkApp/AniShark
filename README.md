@@ -41,7 +41,8 @@ AniShark - мобильное приложение-вики для поиска 
 - [Экран закладок (видео)](https://drive.google.com/file/d/1wZ6wuozfc7e50fxr64esTCdOFZSZ-nLY/view?usp=sharing)
 - [Экран поиска (видео)](https://drive.google.com/file/d/1u02fPLXhRVYhIHQDuynXg8dUt1QvUapo/view?usp=drive_link)
 - [Экран деталей аниме (фото)](https://drive.google.com/file/d/14QdZmgCLIluSZOLdY44ssKzR2ILgTGFb/view?usp=drive_link)
-- [Сплэш-экран(видео)](https://drive.google.com/file/d/1aISBJV4Sr1vgS3Cy_-8_zd22YqWQOc4F/view?usp=drive_link) - не совсем флоу, но да ладно
+- [Сплэш-экран(видео)](https://drive.google.com/file/d/1aISBJV4Sr1vgS3Cy_-8_zd22YqWQOc4F/view?usp=drive_link) -
+  не совсем флоу, но да ладно
 
 Приложение использует [Jikan API](https://docs.api.jikan.moe/) как основной источник данных
 
@@ -50,7 +51,7 @@ AniShark - мобильное приложение-вики для поиска 
  Фича             | Стадия                 
 ------------------|------------------------
  Домашний экран   | Готово (минорные баги) 
- Каталог          | Готово                 
+ Каталог          | Почти готово           
  Закладки         | Готово                 
  Фильтры каталога | Готово                 
  Поиск            | Готово                 
